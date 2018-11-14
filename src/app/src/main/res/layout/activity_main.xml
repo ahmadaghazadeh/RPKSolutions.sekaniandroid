@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".view.main.MainActivity">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.sekini.ui.dictionary.MainViewModel" />
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/main_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:fitsSystemWindows="true">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <LinearLayout
+                android:background="@color/colorPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/ThemeOverlay.AppCompat.Light">
+
+                <android.support.v7.widget.CardView
+                    android:background="@color/colorPrimary"
+                    android:id="@+id/search_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_margin="@dimen/spacing_xsmall"
+                    android:clipToPadding="false"
+                    app:cardBackgroundColor="@android:color/white"
+                    app:cardCornerRadius="2dp"
+                    app:cardElevation="3dp">
+
+                    <LinearLayout
+                        android:background="@color/colorPrimary"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <ImageButton
+                            android:layout_gravity="center"
+                            android:layout_width="?attr/actionBarSize"
+                            android:layout_height="?attr/actionBarSize"
+                            android:background="@android:color/transparent"
+                            android:tint="@color/white"
+                            app:srcCompat="@drawable/ic_dehaze_black_24dp" />
+
+                        <EditText
+                            android:paddingStart="8dp"
+                            android:paddingEnd="8dp"
+                            android:id="@+id/et_search"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@color/white"
+                            android:hint="Search Word"
+                            android:imeOptions="actionSearch"
+                            android:maxLines="1"
+                            android:onTextChanged="@{viewModel.onTextChanged}"
+                            android:singleLine="true">
+
+                            <requestFocus />
+
+                        </EditText>
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+            </LinearLayout>
+
+            <belka.us.androidtoggleswitch.widgets.ToggleSwitch
+                android:paddingTop="8dp"
+                android:id="@+id/toggleDic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:paddingBottom="8dp"
+                android:textSize="@dimen/text_size_medium"
+                app:activeBgColor="@color/red_500"
+                app:activeTextColor="@android:color/white"
+                app:inactiveBgColor="@android:color/white"
+                app:inactiveTextColor="@color/red_500"
+                app:separatorColor="@color/gray_very_light"
+                app:setToggleListener="@{viewModel.onToggleSwitchChangeListener}"
+                app:textToggleLeft="English"
+                app:textToggleRight="Sekani"
+                app:toggleWidth="120dp" />
+
+        </android.support.design.widget.AppBarLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardBackgroundColor="@android:color/white"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <android.support.v7.widget.RecyclerView
+
+                android:id="@+id/recyclerDic"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_dic" />
+
+        </RelativeLayout>
+
+    </android.support.design.widget.CoordinatorLayout>
+</layout>

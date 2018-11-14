@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_not_recognized">Error not recognized</string>
+    <string name="error_login">Login failed</string>
+    <string name="error_email_duplicate">This email is used</string>
+    <string name="error_message_connection">No Internet please check internet</string>
+    <string name="error_message_api_not_found">Api not found</string>
+    <string name="error_message_api_server">Server Error</string>
+    <string name="error_message_constraint">Constraint error</string>
+    <string name="error_message_sqlite">Sqlite error</string>
+    <string name="error_message_timeout">Server is busy (Timeout). Please try again.</string>
+    <string name="error_message_url">Url not found</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="error_file_not_found">File Not Found</string>
+    <string name="error_message_io">IO error</string>
+    <string name="error_main_thread_">Main thread </string>
+    <string name="error_title">Error</string>
+</resources>

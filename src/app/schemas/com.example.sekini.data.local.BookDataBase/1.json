@@ -1,0 +1,1018 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "9ec0ecc51b4e131d1cba6cddf0da35a4",
+    "entities": [
+      {
+        "tableName": "EnglishWords",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `standard` INTEGER NOT NULL, `word` TEXT, `updateTime` TEXT, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "standard",
+            "columnName": "standard",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "word",
+            "columnName": "word",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "updateTime",
+            "columnName": "updateTime",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "SekaniCategories",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `notes` TEXT, `title` TEXT, `updateTime` TEXT, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "notes",
+            "columnName": "notes",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "updateTime",
+            "columnName": "updateTime",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "SekaniDictionary",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`sekaniId` INTEGER NOT NULL, `phonetic` TEXT, `sekaniWord` TEXT, `englishWord` TEXT, `isNull` INTEGER NOT NULL, `rootWord` TEXT, `sekaniCategoryId` INTEGER NOT NULL, `category` TEXT, `sekaniLevelId` INTEGER NOT NULL, `level` TEXT, `sekaniFormId` INTEGER NOT NULL, `form` TEXT, `image` BLOB, `imageFormat` TEXT, `sound` BLOB, `soundFormat` TEXT, PRIMARY KEY(`sekaniId`))",
+        "fields": [
+          {
+            "fieldPath": "sekaniId",
+            "columnName": "sekaniId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "phonetic",
+            "columnName": "phonetic",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "sekaniWord",
+            "columnName": "sekaniWord",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "englishWord",
+            "columnName": "englishWord",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "isNull",
+            "columnName": "isNull",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rootWord",
+            "columnName": "rootWord",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "sekaniCategoryId",
+            "columnName": "sekaniCategoryId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "category",
+            "columnName": "category",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "sekaniLevelId",
+            "columnName": "sekaniLevelId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "level",
+            "columnName": "level",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "sekaniFormId",
+            "columnName": "sekaniFormId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "form",
+            "columnName": "form",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "image",
+            "columnName": "image",
+            "affinity": "BLOB",
+            "notNull": false
+          },
+          {
+            "fieldPath": "imageFormat",
+            "columnName": "imageFormat",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "sound",
+            "columnName": "sound",
+            "affinity": "BLOB",
+            "notNull": false
+          },
+          {
+            "fieldPath": "soundFormat",
+            "columnName": "soundFormat",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "sekaniId"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "SekaniForms",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `notes` TEXT, `title` TEXT, `updateTime` TEXT, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "notes",
+            "columnName": "notes",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "updateTime",
+            "columnName": "updateTime",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "SekaniLevels",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `notes` TEXT, `title` TEXT, `updateTime` TEXT, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "notes",
+            "columnName": "notes",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "updateTime",
+            "columnName": "updateTime",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "SekaniRootImages",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `content` BLOB, `format` TEXT, `notes` TEXT, `sekaniRootId` INTEGER NOT NULL, `updateTime` TEXT, PRIMARY KEY(`id`), FOREIGN KEY(`sekaniRootId`) REFERENCES `SekaniRoots`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "content",
+            "columnName": "content",
+            "affinity": "BLOB",
+            "notNull": false
+          },
+          {
+            "fieldPath": "format",
+            "columnName": "format",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "notes",
+            "columnName": "notes",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "sekaniRootId",
+            "columnName": "sekaniRootId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updateTime",
+            "columnName": "updateTime",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_SekaniRootImages_sekaniRootId",
+            "unique": false,
+            "columnNames": [
+              "sekaniRootId"
+            ],
+            "createSql": "CREATE  INDEX `index_SekaniRootImages_sekaniRootId` ON `${TABLE_NAME}` (`sekaniRootId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "SekaniRoots",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "sekaniRootId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "SekaniRoots_EnglishWords",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `englishWordId` INTEGER NOT NULL, `sekaniRootId` INTEGER NOT NULL, `updateTime` TEXT, PRIMARY KEY(`id`), FOREIGN KEY(`englishWordId`) REFERENCES `EnglishWords`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`sekaniRootId`) REFERENCES `SekaniRoots`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "englishWordId",
+            "columnName": "englishWordId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sekaniRootId",
+            "columnName": "sekaniRootId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updateTime",
+            "columnName": "updateTime",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_SekaniRoots_EnglishWords_sekaniRootId",
+            "unique": false,
+            "columnNames": [
+              "sekaniRootId"
+            ],
+            "createSql": "CREATE  INDEX `index_SekaniRoots_EnglishWords_sekaniRootId` ON `${TABLE_NAME}` (`sekaniRootId`)"
+          },
+          {
+            "name": "index_SekaniRoots_EnglishWords_englishWordId",
+            "unique": false,
+            "columnNames": [
+              "englishWordId"
+            ],
+            "createSql": "CREATE  INDEX `index_SekaniRoots_EnglishWords_englishWordId` ON `${TABLE_NAME}` (`englishWordId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "EnglishWords",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "englishWordId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "SekaniRoots",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "sekaniRootId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "SekaniRoots_Topics",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `topicId` INTEGER NOT NULL, `sekaniRootId` INTEGER NOT NULL, `updateTime` TEXT, PRIMARY KEY(`id`), FOREIGN KEY(`sekaniRootId`) REFERENCES `SekaniRoots`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`topicId`) REFERENCES `Topics`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "topicId",
+            "columnName": "topicId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sekaniRootId",
+            "columnName": "sekaniRootId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updateTime",
+            "columnName": "updateTime",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_SekaniRoots_Topics_sekaniRootId",
+            "unique": false,
+            "columnNames": [
+              "sekaniRootId"
+            ],
+            "createSql": "CREATE  INDEX `index_SekaniRoots_Topics_sekaniRootId` ON `${TABLE_NAME}` (`sekaniRootId`)"
+          },
+          {
+            "name": "index_SekaniRoots_Topics_topicId",
+            "unique": false,
+            "columnNames": [
+              "topicId"
+            ],
+            "createSql": "CREATE  INDEX `index_SekaniRoots_Topics_topicId` ON `${TABLE_NAME}` (`topicId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "SekaniRoots",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "sekaniRootId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "Topics",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "topicId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "SekaniRoots",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `isNull` INTEGER, `rootWord` TEXT, `sekaniCategoryId` INTEGER NOT NULL, `sekaniLevelId` INTEGER NOT NULL, `sekaniFormId` INTEGER NOT NULL, `updateTime` TEXT, PRIMARY KEY(`id`), FOREIGN KEY(`sekaniCategoryId`) REFERENCES `SekaniCategories`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`sekaniLevelId`) REFERENCES `SekaniLevels`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`sekaniFormId`) REFERENCES `SekaniForms`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isNull",
+            "columnName": "isNull",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "rootWord",
+            "columnName": "rootWord",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "sekaniCategoryId",
+            "columnName": "sekaniCategoryId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sekaniLevelId",
+            "columnName": "sekaniLevelId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sekaniFormId",
+            "columnName": "sekaniFormId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updateTime",
+            "columnName": "updateTime",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_SekaniRoots_sekaniLevelId",
+            "unique": false,
+            "columnNames": [
+              "sekaniLevelId"
+            ],
+            "createSql": "CREATE  INDEX `index_SekaniRoots_sekaniLevelId` ON `${TABLE_NAME}` (`sekaniLevelId`)"
+          },
+          {
+            "name": "index_SekaniRoots_sekaniCategoryId",
+            "unique": false,
+            "columnNames": [
+              "sekaniCategoryId"
+            ],
+            "createSql": "CREATE  INDEX `index_SekaniRoots_sekaniCategoryId` ON `${TABLE_NAME}` (`sekaniCategoryId`)"
+          },
+          {
+            "name": "index_SekaniRoots_sekaniFormId",
+            "unique": false,
+            "columnNames": [
+              "sekaniFormId"
+            ],
+            "createSql": "CREATE  INDEX `index_SekaniRoots_sekaniFormId` ON `${TABLE_NAME}` (`sekaniFormId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "SekaniCategories",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "sekaniCategoryId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "SekaniLevels",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "sekaniLevelId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "SekaniForms",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "sekaniFormId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "SekaniWordAttributes",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `key` TEXT, `value` TEXT, `sekaniWordId` INTEGER NOT NULL, `updateTime` TEXT, PRIMARY KEY(`id`), FOREIGN KEY(`sekaniWordId`) REFERENCES `SekaniWords`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "key",
+            "columnName": "key",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "value",
+            "columnName": "value",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "sekaniWordId",
+            "columnName": "sekaniWordId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updateTime",
+            "columnName": "updateTime",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_SekaniWordAttributes_sekaniWordId",
+            "unique": false,
+            "columnNames": [
+              "sekaniWordId"
+            ],
+            "createSql": "CREATE  INDEX `index_SekaniWordAttributes_sekaniWordId` ON `${TABLE_NAME}` (`sekaniWordId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "SekaniWords",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "sekaniWordId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "SekaniWordAudios",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `content` BLOB, `format` TEXT, `notes` TEXT, `sekaniWordId` INTEGER NOT NULL, `updateTime` TEXT, PRIMARY KEY(`id`), FOREIGN KEY(`sekaniWordId`) REFERENCES `SekaniWords`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "content",
+            "columnName": "content",
+            "affinity": "BLOB",
+            "notNull": false
+          },
+          {
+            "fieldPath": "format",
+            "columnName": "format",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "notes",
+            "columnName": "notes",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "sekaniWordId",
+            "columnName": "sekaniWordId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updateTime",
+            "columnName": "updateTime",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_SekaniWordAudios_sekaniWordId",
+            "unique": false,
+            "columnNames": [
+              "sekaniWordId"
+            ],
+            "createSql": "CREATE  INDEX `index_SekaniWordAudios_sekaniWordId` ON `${TABLE_NAME}` (`sekaniWordId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "SekaniWords",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "sekaniWordId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "SekaniWordExampleAudios",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `content` BLOB, `format` TEXT, `notes` TEXT, `sekaniWordExampleId` INTEGER NOT NULL, `updateTime` TEXT, PRIMARY KEY(`id`), FOREIGN KEY(`sekaniWordExampleId`) REFERENCES `SekaniWordExamples`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "content",
+            "columnName": "content",
+            "affinity": "BLOB",
+            "notNull": false
+          },
+          {
+            "fieldPath": "format",
+            "columnName": "format",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "notes",
+            "columnName": "notes",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "sekaniWordExampleId",
+            "columnName": "sekaniWordExampleId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updateTime",
+            "columnName": "updateTime",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_SekaniWordExampleAudios_sekaniWordExampleId",
+            "unique": false,
+            "columnNames": [
+              "sekaniWordExampleId"
+            ],
+            "createSql": "CREATE  INDEX `index_SekaniWordExampleAudios_sekaniWordExampleId` ON `${TABLE_NAME}` (`sekaniWordExampleId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "SekaniWordExamples",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "sekaniWordExampleId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "SekaniWordExamples",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `english` TEXT, `sekani` TEXT, `sekaniWordId` INTEGER NOT NULL, `updateTime` TEXT, PRIMARY KEY(`id`), FOREIGN KEY(`sekaniWordId`) REFERENCES `SekaniWords`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "english",
+            "columnName": "english",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "sekani",
+            "columnName": "sekani",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "sekaniWordId",
+            "columnName": "sekaniWordId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updateTime",
+            "columnName": "updateTime",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_SekaniWordExamples_sekaniWordId",
+            "unique": false,
+            "columnNames": [
+              "sekaniWordId"
+            ],
+            "createSql": "CREATE  INDEX `index_SekaniWordExamples_sekaniWordId` ON `${TABLE_NAME}` (`sekaniWordId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "SekaniWords",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "sekaniWordId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "SekaniWords",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `phonetic` TEXT, `sekaniRootId` INTEGER NOT NULL, `word` TEXT, `updateTime` TEXT, PRIMARY KEY(`id`), FOREIGN KEY(`sekaniRootId`) REFERENCES `SekaniRoots`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "phonetic",
+            "columnName": "phonetic",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "sekaniRootId",
+            "columnName": "sekaniRootId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "word",
+            "columnName": "word",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "updateTime",
+            "columnName": "updateTime",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_SekaniWords_sekaniRootId",
+            "unique": false,
+            "columnNames": [
+              "sekaniRootId"
+            ],
+            "createSql": "CREATE  INDEX `index_SekaniWords_sekaniRootId` ON `${TABLE_NAME}` (`sekaniRootId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "SekaniRoots",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "sekaniRootId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "Sync",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`tableName` TEXT NOT NULL, `timestamp` TEXT, PRIMARY KEY(`tableName`))",
+        "fields": [
+          {
+            "fieldPath": "tableName",
+            "columnName": "tableName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "timestamp",
+            "columnName": "timestamp",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "tableName"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Topics",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `note` TEXT, `title` TEXT, `updateTime` TEXT, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "note",
+            "columnName": "note",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "updateTime",
+            "columnName": "updateTime",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"9ec0ecc51b4e131d1cba6cddf0da35a4\")"
+    ]
+  }
+}

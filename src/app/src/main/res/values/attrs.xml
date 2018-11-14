@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="mode"  >
+        <flag name="None" value="0" />
+        <flag name="OneChoose" value="1" />
+        <flag name="DragDrop" value="2" />
+        <flag name="MultiChoose" value="3" />
+    </attr>
+
+    <declare-styleable name="EasyAdapter">
+        <attr name="mode"   />
+    </declare-styleable>
+
+</resources>

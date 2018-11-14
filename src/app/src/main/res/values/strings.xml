@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">Sekini</string>
+    <string name="please_wait">Please Wait</string>
+    <string name="ok">Ok</string>
+    <string name="retry">Retry</string>
+    <string name="sync_english_word">Synchronized English Words</string>
+    <string name="sync_delete_items">Synchronized Delete Items</string>
+    <string name="sync_categories">Synchronized Categories</string>
+    <string name="sync_sekani_dictionary">Synchronized Sekani Dictionary</string>
+    <string name="sync_sekani_forms">Synchronized Sekani Forms</string>
+    <string name="sync_sekani_levels">Synchronized Sekani Levels</string>
+    <string name="sync_sekani_root_images">Synchronized Sekani Images</string>
+    <string name="sync_sekani_roots_english_words">Synchronized Sekani Roots English Words</string>
+    <string name="sync_sekani_roots_topics">Synchronized Sekani Roots Topics</string>
+    <string name="sync_sekani_roots">Synchronized Sekani Roots</string>
+    <string name="sync_sekani_word_attributes">Synchronized Sekani Word Attributes</string>
+    <string name="sync_sekani_word_audios">Synchronized Sekani Word Audios</string>
+    <string name="sync_sekani_word_example_audios">Synchronized Sekani Word Example Audios</string>
+    <string name="sync_sekani_word_examples">Synchronized Sekani Word Examples</string>
+    <string name="sync_sekani_words">Synchronized Sekani Words</string>
+    <string name="sync_topics">Synchronized Topics </string>
+    <string name="sync_sekani_category">Synchronized Category</string>
+    <string name="cancel">Cancel</string>
+    <string name="attention">Attention</string>
+    <string name="prompt_sync_message">Do you want to synchronize data?</string>
+    <string name="sync_background">Sync Background</string>
+    <string name="sync">Sync</string>
+    <string name="sync_complete">Sync Completed</string>
+    <string name="sync_service_is_runnig">Sync service is running</string>
+    <string name="no_internet_connection">No Internet connection</string>
+    <string name="try_sync">Try sync</string>
+    <string name="try_a_more_general_keyword">Try a more general keyword</string>
+    <string name="no_result">No result</string>
+    <string name="dash">-</string>
+
+</resources>

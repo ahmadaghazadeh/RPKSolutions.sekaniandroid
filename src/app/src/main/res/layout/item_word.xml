@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.sekini.ui.word.item.word.WordItem" />
+    </data>
+
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textPhonetic"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:text="@{viewModel.phonetic}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textColor="@color/deep_orange_600"
+            app:layout_constraintStart_toEndOf="@+id/txtSekaniWord"
+            app:layout_constraintTop_toTopOf="@+id/txtSekaniWord"
+            app:visibility='@{!viewModel.phonetic.equals("")}' />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:tint="@color/red_500"
+            app:layout_constraintStart_toEndOf="@+id/textPhonetic"
+            app:layout_constraintTop_toTopOf="@+id/txtSekaniWord"
+            app:srcCompat="@drawable/ic_volume_up_black_24dp"
+            app:visibility="@{viewModel.audio!=null}" />
+
+        <TextView
+            android:id="@+id/textAttribute"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:text="@{viewModel.attribute}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textStyle="bold"
+            android:textColor="@color/green_600"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"  />
+
+        <TextView
+            android:id="@+id/txtSekaniWord"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.sekaniWord}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textColor="@color/grey_60"
+            app:layout_constraintStart_toStartOf="@+id/textAttribute"
+            app:layout_constraintTop_toBottomOf="@+id/textAttribute" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/txtSekaniWord"
+            app:layout_constraintTop_toBottomOf="@+id/txtSekaniWord"
+            app:visibility='@{viewModel.sekaniWordExamplesEntities.size()>0}'
+            app:wordExample='@{viewModel.sekaniWordExamplesEntities}'>
+
+        </LinearLayout>
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</layout>
