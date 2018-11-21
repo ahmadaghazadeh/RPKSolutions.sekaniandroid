@@ -29,14 +29,16 @@ public class Verb {
     private ISekaniWordDtoDao sekaniWordDtoDao;
     private TENSE tense;
     private PERSON person;
+    private  int sekaniRootId;
 
     public Verb(
             ISekaniWordExampleDtoDao sekaniWordExampleDtoDao,
-            ISekaniWordDtoDao sekaniWordDtoDao, TENSE tense, PERSON person) {
+            ISekaniWordDtoDao sekaniWordDtoDao,int sekaniRootId, TENSE tense, PERSON person) {
         this.sekaniWordExampleDtoDao = sekaniWordExampleDtoDao;
         this.sekaniWordDtoDao = sekaniWordDtoDao;
         this.tense = tense;
         this.person = person;
+        this.sekaniRootId = sekaniRootId;
     }
 
 
@@ -52,10 +54,10 @@ public class Verb {
         List<BaseRecyclerView> baseRecyclerViews = new LinkedList<>();
         for (String str : plurality()) {
             VerbWord word = new VerbWord(str,
-                    sekaniWordDtoDao.getWord(
-                            CommonUtils.getLikeString(tense.toString())
-                            , CommonUtils.getLikeString(str),
-                            CommonUtils.getLikeString(person.toString()))
+                    sekaniWordDtoDao.getWord(sekaniRootId,
+                            tense.toString()
+                            , str,
+                            person.toString())
                     , sekaniWordExampleDtoDao);
             baseRecyclerViews.addAll(word.render());
         }

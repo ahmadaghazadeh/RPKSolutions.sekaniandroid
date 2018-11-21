@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -21,12 +22,17 @@ import android.view.inputmethod.InputMethodManager;
 import com.example.sekini.R;
 import com.example.sekini.utils.base.SharedMainViewModel;
 import com.example.sekini.utils.base.activity.BaseActivity;
+import com.example.sekini.utils.base.dialog.YesNoDialog.YesNoDialog;
+import com.example.sekini.utils.base.dialog.YesNoNeutral.YesNoNeutralDialog;
 import com.example.sekini.utils.common.CommonUtils;
 import com.example.sekini.utils.exception.HandleException;
 
 import javax.inject.Inject;
 
 import dagger.android.support.DaggerFragment;
+
+import static com.example.sekini.utils.base.activity.BaseActivity.YES_NEUTRAL_NO_DIALOG;
+import static com.example.sekini.utils.base.activity.BaseActivity.YES_NO_DIALOG;
 
 public abstract class BaseFragment<T extends ViewDataBinding, V extends FragmentBaseViewModel> extends DaggerFragment {
 
@@ -179,4 +185,37 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends Fragment
         }
     }
 
+    public void showYesNoDialog(String title, String message, Runnable okRun, Runnable cancelRun) {
+        YesNoDialog yesNoDialog = YesNoDialog.newInstance(title, message);
+        yesNoDialog.setOkRunnable(okRun);
+        yesNoDialog.setCancelRunnable(cancelRun);
+        yesNoDialog.show(getBaseActivity().getSupportFragmentManager(), YES_NO_DIALOG);
+
+    }
+
+    public void showYesNoDialog(@StringRes int title, @StringRes int message, Runnable okRun, Runnable cancelRun) {
+        YesNoDialog yesNoDialog = YesNoDialog.newInstance(getString(title), getString(message));
+        yesNoDialog.setOkRunnable(okRun);
+        yesNoDialog.setCancelRunnable(cancelRun);
+        yesNoDialog.show(getBaseActivity().getSupportFragmentManager(), YES_NO_DIALOG);
+
+    }
+
+
+    public void showYesNoNeutralDialog(int title, int message, int yesCaption, int noCaption,
+                                       int neutralCaption, Runnable yesRun,
+                                       Runnable neutralRun, Runnable noRun) {
+        YesNoNeutralDialog yesNoNeutralDialog = YesNoNeutralDialog.newInstance(getString(title), getString(message),
+                getString(yesCaption), getString(noCaption), getString(neutralCaption));
+        yesNoNeutralDialog.setPositiveRunnable(yesRun);
+        yesNoNeutralDialog.setNegativeRunnable(noRun);
+        yesNoNeutralDialog.setNoRunnable(neutralRun);
+        yesNoNeutralDialog.show(getBaseActivity().getSupportFragmentManager(), YES_NEUTRAL_NO_DIALOG);
+    }
+
+    public void snackBar(String title, String btnCaption, Runnable runnable) {
+        Snackbar snackbar = Snackbar.make(mViewDataBinding.getRoot(), title, Snackbar.LENGTH_LONG)
+                .setAction(btnCaption, view -> runnable.run());
+        snackbar.show();
+    }
 }

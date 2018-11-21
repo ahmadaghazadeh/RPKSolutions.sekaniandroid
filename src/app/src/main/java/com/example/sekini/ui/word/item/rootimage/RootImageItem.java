@@ -3,7 +3,6 @@ package com.example.sekini.ui.word.item.rootimage;
 
 import com.example.sekini.BR;
 import com.example.sekini.R;
-import com.example.sekini.data.model.embedded.SekaniEnglishDicDto;
 import com.example.sekini.utils.recycler.BaseRecyclerView;
 
 public class RootImageItem extends BaseRecyclerView {

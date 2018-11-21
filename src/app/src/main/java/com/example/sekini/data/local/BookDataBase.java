@@ -19,7 +19,7 @@ import com.example.sekini.data.local.db.ISekaniWordExamplesDao;
 import com.example.sekini.data.local.db.ISekaniWordsDao;
 import com.example.sekini.data.local.db.ISyncDao;
 import com.example.sekini.data.local.db.ITopicsDao;
-import com.example.sekini.data.local.db.embedded.ISekaniEnglishDicDao;
+import com.example.sekini.data.local.db.embedded.IDicDao;
 import com.example.sekini.data.local.db.embedded.ISekaniRootDtoDao;
 import com.example.sekini.data.local.db.embedded.ISekaniWordDtoDao;
 import com.example.sekini.data.local.db.embedded.ISekaniWordExampleDtoDao;
@@ -79,7 +79,7 @@ public abstract class BookDataBase extends RoomDatabase {
     public abstract ISekaniWordsDao getSekaniWordsDao();
     public abstract ISyncDao getSyncDao();
     public abstract ITopicsDao getTopicsDao();
-    public abstract ISekaniEnglishDicDao getSekaniEnglishWordDtoDao();
+    public abstract IDicDao getSekaniEnglishWordDtoDao();
     public abstract ISekaniRootDtoDao getSekaniRootDtoDao();
     public abstract ISekaniWordDtoDao getSekaniWordDtoDao();
     public abstract ISekaniWordExampleDtoDao getSekaniWordExampleDtoDao();

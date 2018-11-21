@@ -18,28 +18,48 @@ public interface ISekaniWordDtoDao {
             "\tWHERE sw.id =:id ")
     SekaniWordDto getWord(int id);
 
-    @Query("  SELECT a.audio audio,a.id id,a.phonetic phonetic,a.sekaniRootId sekaniRootId,a.word word,a.updateTime updateTime \n" +
-            " FROM\n" +
-            "\t(\n" +
-            "\tSELECT\n" +
-            "\t\tGROUP_CONCAT( swa.'key', ', ' ) keys,\n" +
-            "\t\tGROUP_CONCAT( swa.'value', ', ' ) 'val',swau.Content audio ,sw.*\n" +
-            "\tFROM SekaniRoots sr\n" +
-            "\t\tINNER JOIN SekaniForms sf ON sf.Id = sr.SekaniFormId\n" +
-            "\t\tINNER JOIN SekaniWords sw ON sw.SekaniRootId = sr.Id\n" +
-            "\t\tINNER JOIN SekaniWordAttributes swa ON swa.SekaniWordId = sw.Id\n" +
-            "\t\tLEFT JOIN SekaniWordAudios swau ON swau.SekaniWordId = sw.Id \n" +
-            "\tGROUP BY\n" +
-            "\t\tswa.SekaniWordId \n" +
-            "\t) a \n" +
-            "WHERE\n" +
-            "\tkeys LIKE '%Tense%' \n" +
-            "\tAND keys LIKE '%Plurality%' \n" +
-            "\tAND keys LIKE '%Person%' \n" +
-            "\tAND val LIKE :Tense \n" +
-            "\tAND val LIKE :Plurality \n" +
-            "\tAND val LIKE :Person ")
-    SekaniWordDto getWord(String Tense,String Plurality,String Person);
+    @Query(" SELECT swau.Content audio,\n" +
+            "       sw.Id,\n" +
+            "       sw.Phonetic,\n" +
+            "       sw.SekaniRootId,\n" +
+            "       sw.Word,\n" +
+            "       sw.UpdateTime\n" +
+            "FROM SekaniWords sw\n" +
+            "    INNER JOIN\n" +
+            "    (\n" +
+            "        SELECT COUNT(*) counter,\n" +
+            "               sw.Id SekaniWordId\n" +
+            "        FROM SekaniRoots sr\n" +
+            "            INNER JOIN SekaniForms sf\n" +
+            "                ON sf.Id = sr.SekaniFormId\n" +
+            "            INNER JOIN SekaniWords sw\n" +
+            "                ON sw.SekaniRootId = sr.Id\n" +
+            "            INNER JOIN SekaniWordAttributes swa\n" +
+            "                ON swa.SekaniWordId = sw.Id\n" +
+            "        WHERE (\n" +
+            "                  (\n" +
+            "                      \"Key\" = 'Tense'\n" +
+            "                      AND Value = :Tense\n" +
+            "                  )\n" +
+            "                  OR\n" +
+            "                  (\n" +
+            "                      \"Key\" = 'Plurality'\n" +
+            "                      AND Value = :Plurality\n" +
+            "                  )\n" +
+            "                  OR\n" +
+            "                  (\n" +
+            "                      \"Key\" = 'Person'\n" +
+            "                      AND Value = :Person\n" +
+            "                  )\n" +
+            "              )\n" +
+            "              AND SekaniRootId = :SekaniRootId\n" +
+            "        GROUP BY sw.Id\n" +
+            "    ) a\n" +
+            "        ON a.SekaniWordId = sw.Id\n" +
+            "    LEFT JOIN SekaniWordAudios swau\n" +
+            "        ON swau.SekaniWordId = sw.Id\n" +
+            "WHERE counter = 3;")
+    SekaniWordDto getWord(int SekaniRootId,String Tense,String Plurality,String Person);
 }
 
 

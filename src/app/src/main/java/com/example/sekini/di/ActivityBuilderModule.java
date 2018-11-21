@@ -10,6 +10,8 @@ import com.example.sekini.ui.word.regularverb.RegularVerbActivity;
 import com.example.sekini.ui.word.regularverb.RegularVerbModule;
 import com.example.sekini.ui.word.possessednoun.PossessedNounActivity;
 import com.example.sekini.ui.word.possessednoun.PossessedNounModule;
+import com.example.sekini.ui.word.regularverb.fragment.TenseFragment;
+import com.example.sekini.ui.word.regularverb.fragment.TenseModule;
 import com.example.sekini.utils.base.dialog.YesNoDialog.YesNoDialog;
 import com.example.sekini.utils.base.dialog.YesNoNeutral.YesNoNeutralDialog;
 import com.example.sekini.utils.base.dialog.prompt.PromptDialog;
@@ -46,5 +48,7 @@ public abstract class ActivityBuilderModule {
     @ContributesAndroidInjector(modules = RegularVerbModule.class)
     abstract RegularVerbActivity bindImpersonalVerbActivity();
 
+    @ContributesAndroidInjector(modules = TenseModule.class)
+    abstract TenseFragment bindTenseFragment();
 
 }

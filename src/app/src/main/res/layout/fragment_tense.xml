@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".view.main.MainActivity">
+    xmlns:tools="http://schemas.android.com/tools" >
 
     <data>
 
@@ -17,5 +16,5 @@
         android:layout_height="match_parent"
         android:background="@android:color/white"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_dic" />
+        tools:listitem="@layout/item_dic_english" />
 </layout>

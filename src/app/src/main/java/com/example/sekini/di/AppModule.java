@@ -28,7 +28,7 @@ import com.example.sekini.data.local.db.ISekaniWordExamplesDao;
 import com.example.sekini.data.local.db.ISekaniWordsDao;
 import com.example.sekini.data.local.db.ISyncDao;
 import com.example.sekini.data.local.db.ITopicsDao;
-import com.example.sekini.data.local.db.embedded.ISekaniEnglishDicDao;
+import com.example.sekini.data.local.db.embedded.IDicDao;
 import com.example.sekini.data.local.db.embedded.ISekaniRootDtoDao;
 import com.example.sekini.data.local.db.embedded.ISekaniWordDtoDao;
 import com.example.sekini.data.local.db.embedded.ISekaniWordExampleDtoDao;
@@ -191,7 +191,7 @@ public abstract class AppModule {
 
     @Singleton
     @Provides
-    public static ISekaniEnglishDicDao provideSekaniEnglishWordDao(BookDataBase dataBase) {
+    public static IDicDao provideSekaniEnglishWordDao(BookDataBase dataBase) {
         return dataBase.getSekaniEnglishWordDtoDao();
     }
 

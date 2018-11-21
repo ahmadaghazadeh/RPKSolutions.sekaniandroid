@@ -11,17 +11,12 @@ import android.view.MenuItem;
 import com.example.sekini.BR;
 import com.example.sekini.R;
 import com.example.sekini.app.BundleNames;
-import com.example.sekini.databinding.ActivityImpersonalVerbBinding;
-import com.example.sekini.ui.dictionary.dic.EmptyDicViewModel;
+import com.example.sekini.databinding.ActivityRegularVerbBinding;
 import com.example.sekini.utils.base.activity.BaseActivity;
-import com.example.sekini.utils.recycler.BaseRecyclerView;
-import com.example.sekini.utils.recycler.EasyAdapter;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
-public class RegularVerbActivity extends BaseActivity<ActivityImpersonalVerbBinding, RegularVerbViewModel>
+public class RegularVerbActivity extends BaseActivity<ActivityRegularVerbBinding, RegularVerbViewModel>
         implements IRegularVerbNavigator {
 
     @Inject
@@ -58,7 +53,9 @@ public class RegularVerbActivity extends BaseActivity<ActivityImpersonalVerbBind
         if (bundle != null) {
             sekaniRootId = bundle.getInt(BundleNames.Id);
         }
-
+        mViewDataBinding.viewPager.setAdapter(new TensePageAdapter(getSupportFragmentManager(), sekaniRootId));
+        mViewDataBinding.tabLayout.setupWithViewPager(mViewDataBinding.viewPager);
+        initToolbar();
     }
 
     private void initToolbar() {
@@ -71,11 +68,6 @@ public class RegularVerbActivity extends BaseActivity<ActivityImpersonalVerbBind
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setTitle("Home");
         }
-    }
-
-    @Override
-    public void init(List<BaseRecyclerView> items) {
-        adapter.init(items);
     }
 
 

@@ -8,5 +8,4 @@ import java.util.List;
 
 public interface IRegularVerbNavigator extends IActivityNavigator {
 
-    void init(List<BaseRecyclerView> items);
 }

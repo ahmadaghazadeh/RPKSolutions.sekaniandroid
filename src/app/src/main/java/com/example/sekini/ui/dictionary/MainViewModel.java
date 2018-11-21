@@ -1,10 +1,11 @@
 package com.example.sekini.ui.dictionary;
 
 import com.example.sekini.R;
-import com.example.sekini.data.local.db.embedded.ISekaniEnglishDicDao;
+import com.example.sekini.data.local.db.embedded.IDicDao;
 import com.example.sekini.data.sync.ISyncData;
 import com.example.sekini.service.SyncService;
 import com.example.sekini.ui.dictionary.dic.EnglishDicItem;
+import com.example.sekini.ui.dictionary.dic.SekaniDicItem;
 import com.example.sekini.utils.base.BaseViewModel;
 import com.example.sekini.utils.common.CommonUtils;
 import com.example.sekini.utils.common.Converter;
@@ -20,7 +21,7 @@ import javax.inject.Inject;
 import belka.us.androidtoggleswitch.widgets.BaseToggleSwitch;
 
 
-public class MainViewModel extends BaseViewModel<IMainNavigator> implements EnglishDicItem.IDicListener {
+public class MainViewModel extends BaseViewModel<IMainNavigator> implements EnglishDicItem.IDicListener, SekaniDicItem.IDicListener {
 
     private boolean isEnglish = true;
 
@@ -31,7 +32,7 @@ public class MainViewModel extends BaseViewModel<IMainNavigator> implements Engl
     public CommonUtils commonUtils;
 
     @Inject
-    public ISekaniEnglishDicDao sekaniWordsDao;
+    public IDicDao sekaniWordsDao;
 
     private CharSequence lastWord = "";
 
@@ -106,9 +107,11 @@ public class MainViewModel extends BaseViewModel<IMainNavigator> implements Engl
         RunnableMethod<Object, RunnableModel<List<BaseRecyclerView>>> runnableMethod = (param, onProgressUpdate) -> {
             RunnableModel<List<BaseRecyclerView>> runnableModel = new RunnableModel<>();
             if (isEnglish) {
-                runnableModel.setModel(Converter.toDicEnglishWord(sekaniWordsDao.likeEnglish(commonUtils.getLikeString(s)), MainViewModel.this));
+                runnableModel.setModel(Converter.toDicEnglishWord(sekaniWordsDao.likeEnglish(CommonUtils.getLikeString(s)),
+                        MainViewModel.this));
             } else {
-                runnableModel.setModel(Converter.toDicEnglishWord(sekaniWordsDao.likeSekani(commonUtils.getLikeString(s)), MainViewModel.this));
+                runnableModel.setModel(Converter.toDicSekaniWord(sekaniWordsDao.likeSekani(CommonUtils.getLikeString(s)),
+                        MainViewModel.this));
             }
             return runnableModel;
         };
@@ -120,25 +123,32 @@ public class MainViewModel extends BaseViewModel<IMainNavigator> implements Engl
 
     @Override
     public void onClick(EnglishDicItem itemSample) {
-        switch (itemSample.sekaniEnglishDicDto.sekaniFormsEntity.id) {
-            case 13://Generic
-                getNavigator().startGenericWord(itemSample.sekaniEnglishDicDto);
-                break;
-            case 12://Impersonal Verb
-                getNavigator().startImpersonalVerb(itemSample.sekaniEnglishDicDto);
-                break;
-            case 9://Regular Verb
-                getNavigator().startRegularVerb(itemSample.sekaniEnglishDicDto);
-                break;
-            case 6://Possessed Noun
-                getNavigator().startPossessedNoun(itemSample.sekaniEnglishDicDto);
-                break;
-
-            default:
-                getNavigator().startGenericWord(itemSample.sekaniEnglishDicDto);
-        }
+        gotoWord(itemSample.englishDicDto.sekaniFormsEntity.id, itemSample.englishDicDto.sekaniRootId);
 
     }
 
 
+    @Override
+    public void onClick(SekaniDicItem itemSample) {
+        gotoWord(itemSample.sekaniDicDto.sekaniFormsEntity.id, itemSample.sekaniDicDto.sekaniWordsEntity.sekaniRootId);
+    }
+
+    private void gotoWord(int sekaniForm, int sekaniRootId) {
+        switch (sekaniForm) {
+            case 13://Generic
+                getNavigator().startGenericWord(sekaniRootId);
+                break;
+            case 12://Impersonal Verb
+                getNavigator().startImpersonalVerb(sekaniRootId);
+                break;
+            case 9://Regular Verb
+                getNavigator().startRegularVerb(sekaniRootId);
+                break;
+            case 6://Possessed Noun
+                getNavigator().startPossessedNoun(sekaniRootId);
+                break;
+            default:
+                getNavigator().startGenericWord(sekaniRootId);
+        }
+    }
 }

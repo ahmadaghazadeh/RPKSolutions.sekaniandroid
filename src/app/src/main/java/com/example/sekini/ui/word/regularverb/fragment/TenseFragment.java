@@ -12,6 +12,7 @@ import com.example.sekini.R;
 import com.example.sekini.app.BundleNames;
 import com.example.sekini.databinding.FragmentTenseBinding;
 import com.example.sekini.ui.dictionary.dic.EmptyDicViewModel;
+import com.example.sekini.ui.word.item.verb.Verb;
 import com.example.sekini.utils.base.fragment.BaseFragment;
 import com.example.sekini.utils.recycler.BaseRecyclerView;
 import com.example.sekini.utils.recycler.EasyAdapter;
@@ -28,11 +29,13 @@ public class TenseFragment extends BaseFragment<FragmentTenseBinding, TenseViewM
     EasyAdapter<BaseRecyclerView> adapter;
 
     int sekaniRootId = 0;
+    Verb.TENSE tense;
 
-    public static TenseFragment newInstance(int rootWordId) {
+    public static TenseFragment newInstance(Verb.TENSE tense, int rootWordId) {
         TenseFragment fragment = new TenseFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(BundleNames.Id, rootWordId);
+        bundle.putInt(BundleNames.Tense, tense.ordinal());
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -41,18 +44,23 @@ public class TenseFragment extends BaseFragment<FragmentTenseBinding, TenseViewM
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             sekaniRootId = getArguments().getInt(BundleNames.Id);
+            tense = Verb.TENSE.values()[getArguments().getInt(BundleNames.Tense)];
         }
-        mViewModel.setNavigator(this);
-        mViewModel.init(sekaniRootId);
-        adapter = new EasyAdapter<>();
-        adapter.setEmptyLayout(new EmptyDicViewModel());
-        mViewDataBinding.recyclerWord.setAdapter(adapter);
+
+
 
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
+
+        mViewModel.setNavigator(this);
+        mViewModel.init(tense, sekaniRootId);
+        adapter = new EasyAdapter<>();
+        adapter.setEmptyLayout(new EmptyDicViewModel());
+        mViewDataBinding.recyclerWord.setAdapter(adapter);
         return view;
     }
 
@@ -73,6 +81,6 @@ public class TenseFragment extends BaseFragment<FragmentTenseBinding, TenseViewM
 
     @Override
     public void init(List<BaseRecyclerView> items) {
-
+        adapter.init(items);
     }
 }

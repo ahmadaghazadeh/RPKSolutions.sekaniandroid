@@ -1,6 +1,6 @@
 package com.example.sekini.ui.word.possessednoun;
 
-import com.example.sekini.data.local.db.embedded.ISekaniEnglishDicDao;
+import com.example.sekini.data.local.db.embedded.IDicDao;
 import com.example.sekini.data.local.db.embedded.ISekaniRootDtoDao;
 import com.example.sekini.data.local.db.embedded.ISekaniWordDtoDao;
 import com.example.sekini.data.local.db.embedded.ISekaniWordExampleDtoDao;
@@ -33,7 +33,7 @@ public class PossessedNounViewModel extends BaseViewModel<IPossessedNounNavigato
     public CommonUtils commonUtils;
 
     @Inject
-    public ISekaniEnglishDicDao sekaniWordsDao;
+    public IDicDao sekaniWordsDao;
 
     @Inject
     public ISekaniRootDtoDao sekaniRootDtoDao;

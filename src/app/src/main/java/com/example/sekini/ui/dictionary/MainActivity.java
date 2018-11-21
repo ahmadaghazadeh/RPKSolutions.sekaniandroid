@@ -9,7 +9,7 @@ import android.os.Bundle;
 import com.example.sekini.BR;
 import com.example.sekini.R;
 import com.example.sekini.app.BundleNames;
-import com.example.sekini.data.model.embedded.SekaniEnglishDicDto;
+import com.example.sekini.data.model.embedded.EnglishDicDto;
 import com.example.sekini.databinding.ActivityMainBinding;
 import com.example.sekini.service.SyncService;
 import com.example.sekini.ui.dictionary.dic.EmptyDicViewModel;
@@ -64,7 +64,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         adapter.setEmptyLayout(new EmptyDicViewModel());
         mViewDataBinding.recyclerDic.setAdapter(adapter);
 
-        CommonUtils.exportDatabase(this, "Sekini.db");
+        //CommonUtils.exportDatabase(this, "Sekini.db");
     }
 
     @Override
@@ -78,23 +78,23 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     }
 
     @Override
-    public void startGenericWord(SekaniEnglishDicDto items) {
-        GenericActivity.start(this, items.sekaniRootId);
+    public void startGenericWord(int sekaniRootId) {
+        GenericActivity.start(this, sekaniRootId);
     }
 
     @Override
-    public void startImpersonalVerb(SekaniEnglishDicDto items) {
+    public void startImpersonalVerb(int sekaniRootId) {
 
     }
 
     @Override
-    public void startRegularVerb(SekaniEnglishDicDto items) {
-        RegularVerbActivity.start(this, items.sekaniRootId);
+    public void startRegularVerb(int sekaniRootId) {
+        RegularVerbActivity.start(this, sekaniRootId);
     }
 
     @Override
-    public void startPossessedNoun(SekaniEnglishDicDto items) {
-        PossessedNounActivity.start(this, items.sekaniRootId);
+    public void startPossessedNoun(int sekaniRootId) {
+        PossessedNounActivity.start(this, sekaniRootId);
     }
 
 }

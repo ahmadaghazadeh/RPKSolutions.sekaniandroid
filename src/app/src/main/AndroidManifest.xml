@@ -16,19 +16,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <service
-            android:name=".service.SyncService"
+            android:name="com.example.sekini.service.SyncService"
             android:exported="false"></service>
 
-        <activity android:name=".ui.dictionary.MainActivity">
+        <activity android:name="com.example.sekini.ui.dictionary.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.word.generic.GenericActivity" />
-        <activity android:name=".ui.word.possessednoun.PossessedNounActivity" />
-        <activity android:name=".ui.word.regularverb.RegularVerbActivity" />
+        <activity android:name="com.example.sekini.ui.word.generic.GenericActivity" />
+        <activity android:name="com.example.sekini.ui.word.possessednoun.PossessedNounActivity" />
+        <activity android:name="com.example.sekini.ui.word.regularverb.RegularVerbActivity" />
     </application>
 
 </manifest>

@@ -4,16 +4,17 @@ package com.example.sekini.ui.dictionary.dic;
 import com.example.sekini.BR;
 import com.example.sekini.R;
 import com.example.sekini.data.model.embedded.EnglishDicDto;
+import com.example.sekini.data.model.embedded.SekaniDicDto;
 import com.example.sekini.utils.recycler.BaseRecyclerView;
 
-public class EnglishDicItem extends BaseRecyclerView {
+public class SekaniDicItem extends BaseRecyclerView {
 
 
-    public EnglishDicDto englishDicDto;
+    public SekaniDicDto sekaniDicDto;
     public IDicListener itemSampleListener;
 
-    public EnglishDicItem(EnglishDicDto englishWordsEntity, IDicListener itemSampleListener) {
-        this.englishDicDto = englishWordsEntity;
+    public SekaniDicItem(SekaniDicDto sekaniDicDto, IDicListener itemSampleListener) {
+        this.sekaniDicDto = sekaniDicDto;
         this.itemSampleListener = itemSampleListener;
     }
 
@@ -25,7 +26,7 @@ public class EnglishDicItem extends BaseRecyclerView {
 
     @Override
     public int getLayoutId() {
-        return R.layout.item_dic_english;
+        return R.layout.item_dic_sekani;
     }
 
     @Override
@@ -34,6 +35,6 @@ public class EnglishDicItem extends BaseRecyclerView {
     }
 
     public interface IDicListener {
-        void onClick(EnglishDicItem itemSample);
+        void onClick(SekaniDicItem itemSample);
     }
 }

@@ -1,13 +1,12 @@
 package com.example.sekini.ui.word.regularverb.fragment;
 
-import com.example.sekini.data.local.db.embedded.ISekaniEnglishDicDao;
+import com.example.sekini.data.local.db.embedded.IDicDao;
 import com.example.sekini.data.local.db.embedded.ISekaniRootDtoDao;
 import com.example.sekini.data.local.db.embedded.ISekaniWordDtoDao;
 import com.example.sekini.data.local.db.embedded.ISekaniWordExampleDtoDao;
 import com.example.sekini.data.model.embedded.SekaniRootDto;
 import com.example.sekini.ui.word.item.rootimage.RootImage;
 import com.example.sekini.ui.word.item.verb.Verb;
-import com.example.sekini.utils.base.BaseViewModel;
 import com.example.sekini.utils.base.fragment.FragmentBaseViewModel;
 import com.example.sekini.utils.common.CommonUtils;
 import com.example.sekini.utils.common.RunnableIn;
@@ -28,7 +27,7 @@ public class TenseViewModel extends FragmentBaseViewModel<ITenseNavigator> {
     public CommonUtils commonUtils;
 
     @Inject
-    public ISekaniEnglishDicDao sekaniWordsDao;
+    public IDicDao sekaniWordsDao;
 
     @Inject
     public ISekaniRootDtoDao sekaniRootDtoDao;
@@ -45,9 +44,8 @@ public class TenseViewModel extends FragmentBaseViewModel<ITenseNavigator> {
     }
 
 
-    public void init(int rootId) {
+    public void init(Verb.TENSE tense, int rootId) {
 
-        getNavigator().showProgress(false);
         RunnableMethod<Object, RunnableModel<List<BaseRecyclerView>>> runnableMethod = (param, onProgressUpdate) -> {
             RunnableModel<List<BaseRecyclerView>> runnableModel = new RunnableModel<>();
             try {
@@ -56,22 +54,22 @@ public class TenseViewModel extends FragmentBaseViewModel<ITenseNavigator> {
                 List<BaseRecyclerView> baseRecyclerViews = new LinkedList<>(rootImage.render());
                 baseRecyclerViews.addAll(new
                         Verb(sekaniWordExampleDtoDao,
-                        sekaniWordDtoDao,
-                        Verb.TENSE.Imperfective,
+                        sekaniWordDtoDao, rootId,
+                        tense,
                         Verb.PERSON.First
                 ).render());
 
                 baseRecyclerViews.addAll(new
                         Verb(sekaniWordExampleDtoDao,
-                        sekaniWordDtoDao,
-                        Verb.TENSE.Imperfective,
+                        sekaniWordDtoDao, rootId,
+                        tense,
                         Verb.PERSON.Second
                 ).render());
 
                 baseRecyclerViews.addAll(new
                         Verb(sekaniWordExampleDtoDao,
-                        sekaniWordDtoDao,
-                        Verb.TENSE.Imperfective,
+                        sekaniWordDtoDao, rootId,
+                        tense,
                         Verb.PERSON.Third
                 ).render());
                 runnableModel.setModel(baseRecyclerViews);
@@ -86,8 +84,6 @@ public class TenseViewModel extends FragmentBaseViewModel<ITenseNavigator> {
             } else {
                 getNavigator().init(param.getModel());
             }
-            getNavigator().hideProgress();
-
         };
         runAsyncTask(runnableMethod, post);
 

@@ -5,18 +5,14 @@ import android.arch.persistence.room.Embedded;
 import com.example.sekini.data.model.EnglishWordsEntity;
 import com.example.sekini.data.model.SekaniFormsEntity;
 
-public class SekaniEnglishDicDto {
+public class EnglishDicDto {
 
     @Embedded(prefix = "e_")
-    public EnglishWordsEntity sekaniWordsEntity;
+    public EnglishWordsEntity englishWordsEntity;
 
     @Embedded
     public SekaniFormsEntity sekaniFormsEntity;
 
-    public String sekaniWords;
-
     public int sekaniRootId;
-
-    public byte[]  image;
 
 }
