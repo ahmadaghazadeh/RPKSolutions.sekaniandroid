@@ -36,4 +36,13 @@ public interface ISekaniWordsDao {
 
     @Query("SELECT *  FROM SekaniWords WHERE word like :word")
     List<SekaniWordsEntity> like(String word);
+
+
+
+    @Query( "SELECT sw.id  FROM SekaniWords sw\n" +
+            "INNER JOIN SekaniRootImages sri ON sw.sekaniRootId=sri.sekaniRootId\n" +
+            "LEFT JOIN UserLearnedWord ul on sw.id=ul.sekaniWordId\n" +
+            "WHERE ul.sekaniWordId IS NULL\n" +
+            "ORDER BY RANDOM() LIMIT :game1PageCount")
+    List<Integer> game1WordId(int game1PageCount);
 }

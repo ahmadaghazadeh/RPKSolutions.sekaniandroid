@@ -5,12 +5,13 @@ import com.example.sekini.data.local.db.embedded.ISekaniRootDtoDao;
 import com.example.sekini.data.local.db.embedded.ISekaniWordDtoDao;
 import com.example.sekini.data.local.db.embedded.ISekaniWordExampleDtoDao;
 import com.example.sekini.utils.base.BaseViewModel;
+import com.example.sekini.utils.base.fragment.FragmentBaseViewModel;
 import com.example.sekini.utils.common.CommonUtils;
 
 import javax.inject.Inject;
 
 
-public class RegularVerbViewModel extends BaseViewModel<IRegularVerbNavigator> {
+public class RegularVerbViewModel extends FragmentBaseViewModel<IRegularVerbNavigator> {
 
 
     @Inject

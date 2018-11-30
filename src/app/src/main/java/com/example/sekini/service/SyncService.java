@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.Context;
 
 import com.example.sekini.R;
+import com.example.sekini.data.local.pref.IAppPref;
 import com.example.sekini.data.sync.ISyncData;
 import com.example.sekini.data.sync.ISyncListener;
 import com.example.sekini.utils.common.CommonUtils;
@@ -25,6 +26,9 @@ import dagger.android.DaggerIntentService;
  * helper methods.
  */
 public class SyncService extends DaggerIntentService {
+
+    @Inject
+    public IAppPref appPref;
 
     @Inject
     public ISyncData syncData;
@@ -61,6 +65,7 @@ public class SyncService extends DaggerIntentService {
                     commonUtils.notification(commonUtils.getString(R.string.attention),
                             param.getException().getMessage(), 0, 0, 1);
                 } else {
+                    appPref.setInitApp();
                     commonUtils.notification(commonUtils.getString(R.string.attention),
                             commonUtils.getString(R.string.sync_complete), 0, 0, 1);
                 }

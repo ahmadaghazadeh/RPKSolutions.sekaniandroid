@@ -15,20 +15,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <service
-            android:name="com.example.sekini.service.SyncService"
-            android:exported="false"></service>
+        <activity
+            android:name=".ui.setting.SettingsActivity"
+            android:label="@string/title_activity_settings"></activity>
 
-        <activity android:name="com.example.sekini.ui.dictionary.MainActivity">
+        <service
+            android:name=".service.SyncService"
+            android:exported="false" />
+
+        <activity android:name=".ui.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.sekini.ui.word.generic.GenericActivity" />
-        <activity android:name="com.example.sekini.ui.word.possessednoun.PossessedNounActivity" />
-        <activity android:name="com.example.sekini.ui.word.regularverb.RegularVerbActivity" />
+        <activity android:name=".ui.word.generic.GenericFragment" />
+        <activity android:name=".ui.word.possessednoun.PossessedNounFragment" />
+        <activity android:name=".ui.word.regularverb.RegularVerbFragment" />
+        <activity android:name=".ui.dictionary.DictionaryFragment" />
     </application>
 
 </manifest>

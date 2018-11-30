@@ -9,9 +9,9 @@
         android:id="@+id/txtSekaniExample"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="@dimen/space.small"
+        android:layout_marginLeft="@dimen/space.small"
+        android:layout_marginTop="@dimen/space.small"
         android:text="Sekani Word"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         android:textColor="@color/blue_700"
@@ -22,12 +22,13 @@
         android:id="@+id/btnAudio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:tint="@color/grey_60"
+        android:layout_marginStart="@dimen/space.small"
+        android:layout_marginLeft="@dimen/space.small"
+        android:layout_marginTop="@dimen/space.small"
+
         app:layout_constraintStart_toEndOf="@+id/txtSekaniExample"
         app:layout_constraintTop_toTopOf="parent"
+        android:tint="@color/grey_60"
         app:srcCompat="@drawable/ic_volume_up_black_24dp" />
 
 

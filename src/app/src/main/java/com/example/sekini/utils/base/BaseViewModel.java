@@ -3,6 +3,7 @@ package com.example.sekini.utils.base;
 import android.arch.lifecycle.ViewModel;
 import android.support.annotation.StringRes;
 
+import com.example.sekini.utils.base.activity.IActivityNavigator;
 import com.example.sekini.utils.base.dialog.YesNoDialog.YesNoDialog;
 import com.example.sekini.utils.common.OnProgressUpdate;
 import com.example.sekini.utils.common.RunnableIn;
@@ -13,7 +14,7 @@ import com.example.sekini.utils.common.SimpleAsyncTask;
 import java.lang.ref.WeakReference;
 
 
-public abstract class BaseViewModel<N extends INavigator> extends ViewModel {
+public abstract class BaseViewModel<N extends IActivityNavigator> extends ViewModel {
 
     private WeakReference<N> mNavigator;
 

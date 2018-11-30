@@ -28,13 +28,19 @@ import com.example.sekini.data.local.db.ISekaniWordExamplesDao;
 import com.example.sekini.data.local.db.ISekaniWordsDao;
 import com.example.sekini.data.local.db.ISyncDao;
 import com.example.sekini.data.local.db.ITopicsDao;
+import com.example.sekini.data.local.db.IUserFailedWordDao;
+import com.example.sekini.data.local.db.IUserLearnedWordDao;
 import com.example.sekini.data.local.db.embedded.IDicDao;
 import com.example.sekini.data.local.db.embedded.ISekaniRootDtoDao;
+import com.example.sekini.data.local.db.embedded.ISekaniWordAudioDtoDao;
 import com.example.sekini.data.local.db.embedded.ISekaniWordDtoDao;
 import com.example.sekini.data.local.db.embedded.ISekaniWordExampleDtoDao;
-import com.example.sekini.data.remote.Api;
-import com.example.sekini.data.remote.IApi;
-import com.example.sekini.data.remote.RetrofitApi;
+import com.example.sekini.data.local.pref.AppPref;
+import com.example.sekini.data.local.pref.IAppPref;
+import com.example.sekini.data.remote.api.Api;
+import com.example.sekini.data.remote.api.IApi;
+import com.example.sekini.data.remote.auth.Auth;
+import com.example.sekini.data.remote.auth.IAuth;
 import com.example.sekini.data.sync.ISyncData;
 import com.example.sekini.data.sync.SyncData;
 import com.example.sekini.utils.common.CommonUtils;
@@ -50,11 +56,26 @@ import retrofit2.Retrofit;
 @Module
 public abstract class AppModule {
 
+
     @Singleton
     @Provides
     @Named("serverUrl")
     public static String getBaseUrl() {
         return C.UrlApi;
+    }
+
+    @Singleton
+    @Provides
+    @Named("game1PageCount")
+    public static int getGame1PageCount() {
+        return C.Game1PageCount;
+    }
+
+    @Singleton
+    @Provides
+    @Named("serverUrlAuth")
+    public static String getBaseUrlAuth() {
+        return C.UrlAuth;
     }
 
     @Singleton
@@ -66,6 +87,12 @@ public abstract class AppModule {
     @Binds
     @Singleton
     abstract Context getContext(Application application);
+
+    @Provides
+    @Singleton
+    public static IAppPref getAppPref(Context context) {
+        return new AppPref(context);
+    }
 
     @Singleton
     @Provides
@@ -102,6 +129,18 @@ public abstract class AppModule {
     @Provides
     public static ISekaniWordExampleDtoDao provideSekaniWordExampleDtoDao(BookDataBase dataBase) {
         return dataBase.getSekaniWordExampleDtoDao();
+    }
+
+    @Singleton
+    @Provides
+    public static IUserFailedWordDao provideUserFailedWordDao(BookDataBase dataBase) {
+        return dataBase.getUserFailedWordDao();
+    }
+
+    @Singleton
+    @Provides
+    public static IUserLearnedWordDao provideUserLearnedWordDao(BookDataBase dataBase) {
+        return dataBase.getUserLearnedWordDao();
     }
 
 
@@ -197,26 +236,33 @@ public abstract class AppModule {
 
     @Singleton
     @Provides
+    public static ISekaniWordAudioDtoDao provideSekaniWordAudioDtoDao(BookDataBase dataBase) {
+        return dataBase.getSekaniWordAudioDtoDao();
+    }
+
+    @Singleton
+    @Provides
     public static ITopicsDao provideTopicsDao(BookDataBase dataBase) {
         return dataBase.getTopicsDao();
     }
 
-    @Singleton
+
     @Provides
-    public static RetrofitApi provideRetrofitApi(Retrofit retrofit) {
-        return new RetrofitApi(retrofit);
+    @Singleton
+    public static IRepository provideRepository(IApi api, IAuth auth, Context context) {
+        return new Repository(api, auth, context);
     }
 
     @Provides
     @Singleton
-    public static IRepository provideRepository(IApi api, Context context) {
-        return new Repository(api, context);
-    }
-
-    @Provides
-    @Singleton
-    public static IApi provideApi(Retrofit retrofit) {
+    public static IApi provideApi(@Named("retrofitApi") Retrofit retrofit) {
         return new Api(retrofit);
+    }
+
+    @Provides
+    @Singleton
+    public static IAuth provideAuth(@Named("retrofitAuth") Retrofit retrofit) {
+        return new Auth(retrofit);
     }
 
 

@@ -2,13 +2,25 @@ package com.example.sekini.di;
 
 
 import com.example.sekini.service.SyncService;
-import com.example.sekini.ui.dictionary.MainActivity;
-import com.example.sekini.ui.dictionary.MainModule;
-import com.example.sekini.ui.word.generic.GenericActivity;
+import com.example.sekini.ui.dialog.correct.CorrectDialog;
+import com.example.sekini.ui.dialog.correct.CorrectDialogModule;
+import com.example.sekini.ui.dialog.incorrect.IncorrectDialog;
+import com.example.sekini.ui.dialog.incorrect.IncorrectDialogModule;
+import com.example.sekini.ui.dictionary.DictionaryFragment;
+import com.example.sekini.ui.dictionary.DictionaryModule;
+import com.example.sekini.ui.games.game1.Game1Fragment;
+import com.example.sekini.ui.games.game1.Game1Module;
+import com.example.sekini.ui.games.game1.fragment.Game1ItemFragment;
+import com.example.sekini.ui.games.game1.fragment.Game1ItemModule;
+import com.example.sekini.ui.login.LoginFragment;
+import com.example.sekini.ui.login.LoginModule;
+import com.example.sekini.ui.main.MainActivity;
+import com.example.sekini.ui.main.MainModule;
+import com.example.sekini.ui.word.generic.GenericFragment;
 import com.example.sekini.ui.word.generic.GenericModule;
-import com.example.sekini.ui.word.regularverb.RegularVerbActivity;
+import com.example.sekini.ui.word.possessednoun.PossessedNounFragment;
+import com.example.sekini.ui.word.regularverb.RegularVerbFragment;
 import com.example.sekini.ui.word.regularverb.RegularVerbModule;
-import com.example.sekini.ui.word.possessednoun.PossessedNounActivity;
 import com.example.sekini.ui.word.possessednoun.PossessedNounModule;
 import com.example.sekini.ui.word.regularverb.fragment.TenseFragment;
 import com.example.sekini.ui.word.regularverb.fragment.TenseModule;
@@ -22,8 +34,29 @@ import dagger.android.ContributesAndroidInjector;
 @Module
 public abstract class ActivityBuilderModule {
 
+
+    @ContributesAndroidInjector(modules = Game1ItemModule.class)
+    abstract Game1ItemFragment bindGame1ItemFragment();
+
+
+    @ContributesAndroidInjector(modules = CorrectDialogModule.class)
+    abstract CorrectDialog bindCorrectDialog();
+
+
+    @ContributesAndroidInjector(modules = IncorrectDialogModule.class)
+    abstract IncorrectDialog bindIncorrectDialog();
+
+    @ContributesAndroidInjector(modules = Game1Module.class)
+    abstract Game1Fragment bindGame1Fragment();
+
     @ContributesAndroidInjector(modules = MainModule.class)
     abstract MainActivity bindMainActivity();
+
+    @ContributesAndroidInjector(modules = LoginModule.class)
+    abstract LoginFragment bindLoginActivity();
+
+    @ContributesAndroidInjector(modules = DictionaryModule.class)
+    abstract DictionaryFragment bindDictionaryActivity();
 
     @ContributesAndroidInjector()
     abstract YesNoDialog bindYesNoDialog();
@@ -40,13 +73,13 @@ public abstract class ActivityBuilderModule {
 
 
     @ContributesAndroidInjector(modules = GenericModule.class)
-    abstract GenericActivity bindGenericActivity();
+    abstract GenericFragment bindGenericActivity();
 
     @ContributesAndroidInjector(modules = PossessedNounModule.class)
-    abstract PossessedNounActivity bindPossessedNounActivity();
+    abstract PossessedNounFragment bindPossessedNounActivity();
 
     @ContributesAndroidInjector(modules = RegularVerbModule.class)
-    abstract RegularVerbActivity bindImpersonalVerbActivity();
+    abstract RegularVerbFragment bindImpersonalVerbActivity();
 
     @ContributesAndroidInjector(modules = TenseModule.class)
     abstract TenseFragment bindTenseFragment();

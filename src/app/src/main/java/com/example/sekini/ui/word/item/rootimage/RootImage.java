@@ -23,12 +23,12 @@ public class RootImage implements IWordItem {
             for (SekaniRootImagesEntity entity : sekaniRootDto.getImages) {
                 lst.add(new RootImageItem(entity.content, sekaniRootDto.englishWords,
                         sekaniRootDto.sekaniRootsEntity.rootWord,
-                        sekaniRootDto.sekaniFormsEntity.title));
+                        sekaniRootDto.sekaniFormsEntity.title.toLowerCase()));
             }
         } else {
             lst.add(new RootImageItem(null, sekaniRootDto.englishWords,
                     sekaniRootDto.sekaniRootsEntity.rootWord,
-                    sekaniRootDto.sekaniFormsEntity.title));
+                    sekaniRootDto.sekaniFormsEntity.title.toLowerCase()));
         }
         return lst;
     }

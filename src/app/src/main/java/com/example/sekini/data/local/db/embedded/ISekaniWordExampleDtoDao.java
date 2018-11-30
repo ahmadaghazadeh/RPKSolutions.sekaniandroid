@@ -11,7 +11,7 @@ import java.util.List;
 @Dao
 public interface ISekaniWordExampleDtoDao {
 
-    @Query("  SELECT swe.Id sw_id,swe.English sw_english,swe.Sekani sw_sekani,swe.SekaniWordId sw_sekaniWordId,\n" +
+    @Query("  SELECT swe.Id sw_id,swe.English sw_english,LOWER(swe.Sekani) sw_sekani,swe.SekaniWordId sw_sekaniWordId,\n" +
             "swe.UpdateTime sw_updateTime,swea.*\n" +
             "FROM SekaniWordExamples swe\n" +
             "    LEFT JOIN SekaniWordExampleAudios swea\n" +

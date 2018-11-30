@@ -31,4 +31,6 @@ public interface ISekaniRootsDao {
 
     @Query("SELECT MAX(updateTime)  FROM SekaniRoots")
     String getMaxDate();
+
+
 }

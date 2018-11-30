@@ -10,6 +10,7 @@ import com.example.sekini.data.model.embedded.SekaniWordDto;
 import com.example.sekini.ui.word.item.rootimage.RootImage;
 import com.example.sekini.ui.word.item.word.Word;
 import com.example.sekini.utils.base.BaseViewModel;
+import com.example.sekini.utils.base.fragment.FragmentBaseViewModel;
 import com.example.sekini.utils.common.CommonUtils;
 import com.example.sekini.utils.common.RunnableIn;
 import com.example.sekini.utils.common.RunnableMethod;
@@ -22,7 +23,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 
-public class GenericViewModel extends BaseViewModel<IGenericNavigator> {
+public class GenericViewModel extends FragmentBaseViewModel<IGenericNavigator> {
 
 
     @Inject

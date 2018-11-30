@@ -5,14 +5,13 @@ import android.content.SharedPreferences;
 
 public class PreferenceManager {
 
-    private final String DEFAULT_PREFERENCE_POSTFIX = "_preferences";
-
     private final String name;
     private final int mode;
 
     private Context context;
 
     public PreferenceManager(Context context) {
+        String DEFAULT_PREFERENCE_POSTFIX = "_preferences";
         this.name = context.getPackageName() + DEFAULT_PREFERENCE_POSTFIX;
         this.mode = Context.MODE_PRIVATE;
         this.context=context;

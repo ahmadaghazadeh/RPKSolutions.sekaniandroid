@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "9ec0ecc51b4e131d1cba6cddf0da35a4",
+    "identityHash": "057bbaab28884d3543dbe622a517492f",
     "entities": [
       {
         "tableName": "EnglishWords",
@@ -1008,11 +1008,129 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "UserFailedWord",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `userId` INTEGER NOT NULL, `sekaniWordId` INTEGER NOT NULL, `updateTime` TEXT, PRIMARY KEY(`id`), FOREIGN KEY(`sekaniWordId`) REFERENCES `SekaniWords`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "userId",
+            "columnName": "userId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sekaniWordId",
+            "columnName": "sekaniWordId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updateTime",
+            "columnName": "updateTime",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_UserFailedWord_sekaniWordId",
+            "unique": false,
+            "columnNames": [
+              "sekaniWordId"
+            ],
+            "createSql": "CREATE  INDEX `index_UserFailedWord_sekaniWordId` ON `${TABLE_NAME}` (`sekaniWordId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "SekaniWords",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "sekaniWordId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "UserLearnedWord",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `userId` INTEGER NOT NULL, `sekaniWordId` INTEGER NOT NULL, `updateTime` TEXT, PRIMARY KEY(`id`), FOREIGN KEY(`sekaniWordId`) REFERENCES `SekaniWords`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "userId",
+            "columnName": "userId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sekaniWordId",
+            "columnName": "sekaniWordId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updateTime",
+            "columnName": "updateTime",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_UserLearnedWord_sekaniWordId",
+            "unique": false,
+            "columnNames": [
+              "sekaniWordId"
+            ],
+            "createSql": "CREATE  INDEX `index_UserLearnedWord_sekaniWordId` ON `${TABLE_NAME}` (`sekaniWordId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "SekaniWords",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "sekaniWordId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
       }
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"9ec0ecc51b4e131d1cba6cddf0da35a4\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"057bbaab28884d3543dbe622a517492f\")"
     ]
   }
 }

@@ -4,6 +4,5 @@ package com.example.sekini.utils.base.fragment;
 import com.example.sekini.utils.base.INavigator;
 
 public interface IFragmentNavigator extends INavigator {
-
-    void setToolbarProgressBar(boolean isIndeterminate, int progress);
+    void snackBar(String title,String btnCaption,Runnable runnable);
 }

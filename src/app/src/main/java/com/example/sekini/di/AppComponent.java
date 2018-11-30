@@ -4,8 +4,7 @@ import android.app.Application;
 
 import com.example.sekini.app.BaseApp;
 import com.example.sekini.data.local.DataBaseModule;
-import com.example.sekini.data.local.pref.PrefModule;
-import com.example.sekini.data.remote.ApiModule;
+import com.example.sekini.data.remote.RemoteModule;
 
 import javax.inject.Singleton;
 
@@ -21,7 +20,7 @@ import dagger.android.support.AndroidSupportInjectionModule;
         AppModule.class,
         DataBaseModule.class,
         ActivityBuilderModule.class,
-        ApiModule.class, PrefModule.class
+        RemoteModule.class
 })
 public interface AppComponent extends AndroidInjector<DaggerApplication> {
 

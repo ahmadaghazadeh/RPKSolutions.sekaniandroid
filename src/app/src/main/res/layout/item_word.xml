@@ -12,19 +12,19 @@
 
 
     <android.support.constraint.ConstraintLayout
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/space.small"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/textPhonetic"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:text="@{viewModel.phonetic}"
+            android:layout_marginStart="@dimen/space.small"
+            android:layout_marginLeft="@dimen/space.small"
+            android:text="@{'/'+viewModel.phonetic+'/'}"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-            android:textColor="@color/deep_orange_600"
+            android:textColor="@color/grey_600"
             app:layout_constraintStart_toEndOf="@+id/txtSekaniWord"
             app:layout_constraintTop_toTopOf="@+id/txtSekaniWord"
             app:visibility='@{!viewModel.phonetic.equals("")}' />
@@ -33,22 +33,23 @@
             android:id="@+id/imageView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:tint="@color/red_500"
+            android:layout_marginStart="@dimen/space.small"
+            android:layout_marginLeft="@dimen/space.small"
+            android:tint="@color/grey_600"
             app:layout_constraintStart_toEndOf="@+id/textPhonetic"
             app:layout_constraintTop_toTopOf="@+id/txtSekaniWord"
             app:srcCompat="@drawable/ic_volume_up_black_24dp"
             app:visibility="@{viewModel.audio!=null}" />
 
         <TextView
+            app:visibility='@{!viewModel.attribute.equals("")}'
             android:id="@+id/textAttribute"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginStart="@dimen/space.medium"
+            android:layout_marginLeft="@dimen/space.small"
+            android:layout_marginEnd="@dimen/space.small"
+            android:layout_marginRight="@dimen/space.small"
             android:text="@{viewModel.attribute}"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
             android:textStyle="bold"
@@ -57,23 +58,26 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"  />
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/txtSekaniWord"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space.medium"
+            android:layout_marginLeft="@dimen/space.medium"
             android:text="@{viewModel.sekaniWord}"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-            android:textColor="@color/grey_60"
-            app:layout_constraintStart_toStartOf="@+id/textAttribute"
+            android:textColor="@color/default_text_color"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textAttribute" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginLeft="32dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginStart="@dimen/spacing_xlarge"
+            android:layout_marginLeft="@dimen/spacing_xlarge"
+            android:layout_marginEnd="@dimen/space.medium"
+            android:layout_marginRight="@dimen/space.medium"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="com.example.sekini.ui.games.game1.fragment.Game1ItemViewModel" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="@dimen/spacing_xlarge"
+            android:background="@drawable/border_game_buttom"
+            app:layout_constraintBottom_toTopOf="@+id/button"
+            app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/linearLayout"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+            <ImageView
+                android:scaleType="centerCrop"
+                android:id="@+id/imageView7"
+                android:layout_width="@dimen/game1_image"
+                android:layout_height="@dimen/game1_image"
+                android:layout_margin="@dimen/spacing_middle"
+                android:background="@drawable/border_game_image"
+                android:contentDescription="@string/game_1_image"
+                android:onClick="@{ ()->viewModel.selectImage(0)}"
+                android:padding="@dimen/space.very_small"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/guideline2"
+                app:layout_constraintTop_toBottomOf="@+id/guideline"
+                app:sekaniRootImage="@{viewModel.images[0]}"
+                app:setBackground="@{viewModel.drawableRes[0]}" />
+
+            <ImageView
+                android:scaleType="centerCrop"
+                android:id="@+id/imageView6"
+                android:layout_width="@dimen/game1_image"
+                android:layout_height="@dimen/game1_image"
+                android:layout_margin="@dimen/spacing_middle"
+                android:background="@drawable/border_game_image"
+                android:contentDescription="@string/game_1_image"
+                android:onClick="@{ ()->viewModel.selectImage(1)}"
+                android:padding="@dimen/space.very_small"
+                app:layout_constraintBottom_toTopOf="@+id/guideline"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/guideline2"
+                app:layout_constraintTop_toTopOf="parent"
+                app:sekaniRootImage="@{viewModel.images[1]}"
+                app:setBackground="@{viewModel.drawableRes[1]}" />
+
+            <ImageView
+                android:scaleType="centerCrop"
+                android:id="@+id/imageView5"
+                android:layout_width="@dimen/game1_image"
+                android:layout_height="@dimen/game1_image"
+                android:layout_margin="@dimen/spacing_middle"
+                android:background="@drawable/border_game_image"
+                android:contentDescription="@string/game_1_image"
+                android:onClick="@{ ()->viewModel.selectImage(2)}"
+                android:padding="@dimen/space.very_small"
+                app:layout_constraintBottom_toTopOf="@+id/guideline"
+                app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:sekaniRootImage="@{viewModel.images[2]}"
+                app:setBackground="@{viewModel.drawableRes[2]}" />
+
+            <ImageView
+                android:scaleType="centerCrop"
+                android:id="@+id/imageView4"
+                android:layout_width="@dimen/game1_image"
+                android:layout_height="@dimen/game1_image"
+                android:layout_margin="@dimen/spacing_middle"
+                android:background="@drawable/border_game_image"
+                android:contentDescription="@string/game_1_image"
+                android:onClick="@{ ()->viewModel.selectImage(3)}"
+                android:padding="@dimen/space.very_small"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/guideline"
+                app:sekaniRootImage="@{viewModel.images[3]}"
+                app:setBackground="@{viewModel.drawableRes[3]}" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintGuide_percent=".5"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent=".5" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/game1_header"
+            android:layout_centerInParent="true"
+            android:layout_margin="@dimen/spacing_xmlarge"
+            android:background="@drawable/border_game_header"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:setBackground="@{viewModel.backgroundTop}">
+
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="@dimen/space.small"
+                android:src="@{viewModel.life}"
+                android:visibility="@{!viewModel.isSelected ? View.VISIBLE : View.INVISIBLE}" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:background="@color/red_500"
+                android:gravity="center"
+                android:padding="@dimen/space.small"
+                android:text="@{viewModel.word}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:padding="@dimen/spacing_mxlarge"
+                    android:onClick="@{()->viewModel.playWordSound()}"
+                    app:visibility='@{viewModel.isSelected &amp;&amp; viewModel.wordDto.audio!=null}'
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:tint="@color/white"
+                    app:srcCompat="@drawable/ic_volume_up_black_24dp"
+                    android:contentDescription="@string/speaker_image" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center|bottom"
+                    android:text="@{viewModel.score}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                    android:textColor="@color/colorPrimaryLight"
+                    android:textStyle="bold"
+                    app:visibility="@{!viewModel.isSelected}" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center|top"
+                    android:text="@string/point"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                    android:textColor="@color/colorPrimaryLight"
+                    android:textStyle="normal"
+                    app:visibility="@{!viewModel.isSelected}" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <Button
+            android:onClick="@{()->viewModel.check()}"
+            android:id="@+id/button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/ic_btn_game"
+            android:paddingLeft="@dimen/spacing_xlarge"
+            android:paddingRight="@dimen/spacing_xlarge"
+            android:text="@string/check"
+            android:textAllCaps="false"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent="0.6" />
+    </android.support.constraint.ConstraintLayout>
+</layout>

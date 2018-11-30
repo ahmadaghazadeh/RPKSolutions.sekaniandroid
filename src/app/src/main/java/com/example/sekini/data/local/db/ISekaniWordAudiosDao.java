@@ -4,8 +4,10 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
+import com.example.sekini.data.model.SekaniRootImagesEntity;
 import com.example.sekini.data.model.SekaniWordAttributesEntity;
 import com.example.sekini.data.model.SekaniWordAudiosEntity;
+import com.example.sekini.ui.games.game1.fragment.Game1ItemFragment;
 
 import java.util.List;
 
@@ -31,4 +33,7 @@ public interface ISekaniWordAudiosDao {
 
     @Query("SELECT MAX(updateTime)  FROM SekaniWordAudios")
     String getMaxDate();
+
+    @Query("SELECT *  FROM SekaniWordAudios WHERE sekaniWordId=:sekaniWordId")
+    SekaniWordAudiosEntity get(int sekaniWordId);
 }

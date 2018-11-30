@@ -31,4 +31,30 @@ public interface ISekaniRootImagesDao {
 
     @Query("SELECT MAX(updateTime)  FROM SekaniRootImages")
     String getMaxDate();
+
+    @Query("SELECT *  FROM SekaniRootImages WHERE sekaniRootId in(:sekaniRootIds)")
+    List<SekaniRootImagesEntity> get(List<Integer>  sekaniRootIds);
+
+    @Query("SELECT *  FROM SekaniRootImages WHERE sekaniRootId in(:sekaniRootIds)")
+    List<SekaniRootImagesEntity> get(Integer...  sekaniRootIds);
+
+    @Query("SELECT\n" +
+            "\t* \n" +
+            "FROM\n" +
+            "\t(\n" +
+            "\tSELECT\n" +
+            "\t\t* \n" +
+            "\tFROM\n" +
+            "\t\tSekaniRootImages \n" +
+            "\tWHERE\n" +
+            "\t\tsekaniRootId = :sekaniRootIds UNION ALL\n" +
+            "\tSELECT\n" +
+            "\t\t* \n" +
+            "\tFROM\n" +
+            "\t\t( SELECT * FROM SekaniRootImages WHERE sekaniRootId != :sekaniRootIds ORDER BY RANDOM() LIMIT 3 ) a \n" +
+            "\t) B \n" +
+            "ORDER BY\n" +
+            "\tRANDOM()")
+    List<SekaniRootImagesEntity> getRandom(Integer  sekaniRootIds);
+
 }

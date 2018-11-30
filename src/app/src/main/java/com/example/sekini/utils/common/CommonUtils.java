@@ -30,8 +30,14 @@ import com.google.gson.reflect.TypeToken;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URI;
 import java.nio.channels.FileChannel;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 
@@ -46,18 +52,32 @@ public class CommonUtils {
         }
     }
 
-    public static void PlayAudio(byte[] bytes){
-        try
-        {
+    public static void writeFile(String mValue) {
+
+        try {
+            String filename = Environment.getExternalStorageDirectory()
+                    .getAbsolutePath() + "/TKD_ERROR.log";
+            FileWriter fw = new FileWriter(filename, true);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.US);
+            String dateTimeFormat = sdf.format(new Date());
+            fw.write(dateTimeFormat + "\t:" + mValue + "\n\n");
+            fw.close();
+        } catch (IOException ioe) {
+            ioe.getMessage();
+        }
+
+    }
+
+    public static void PlayAudio(byte[] bytes) {
+        try {
             String audio = Base64.encodeToString(bytes,
                     Base64.NO_WRAP);
-            String url = "data:audio/*;base64,"+audio;
+            String url = "data:audio/*;base64," + audio;
             MediaPlayer mediaPlayer = new MediaPlayer();
             mediaPlayer.setDataSource(url);
             mediaPlayer.prepare();
             mediaPlayer.start();
-        }
-        catch(Exception ex){
+        } catch (Exception ex) {
             System.out.print(ex.getMessage());
         }
     }
@@ -84,6 +104,12 @@ public class CommonUtils {
 
     public CommonUtils(Context context) {
         this.context = context;
+    }
+
+    public static String getDateTime() {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS",Locale.US);
+        Date date = new Date();
+        return dateFormat.format(date);
     }
 
     public int getDrawable(String resName) {
@@ -297,5 +323,9 @@ public class CommonUtils {
 
     public static String getLikeString(CharSequence word) {
         return "%" + word + "%";
+    }
+
+    public static String getFirstLikeString(CharSequence word) {
+        return word + "%";
     }
 }

@@ -192,10 +192,10 @@
         <item name="colorAccent">@color/grey_60</item>
     </style>
 
-    <style name="EditText.Green" parent="@style/AppTheme">
-        <item name="colorControlActivated">@color/green_500</item>
-        <item name="colorControlHighlight">@color/green_500</item>
-        <item name="colorControlNormal">@color/green_400</item>
+    <style name="EditText.Red" parent="@style/AppTheme">
+        <item name="colorControlActivated">@color/red_500</item>
+        <item name="colorControlHighlight">@color/red_500</item>
+        <item name="colorControlNormal">@color/red_400</item>
     </style>
 
     <style name="EditText.Flat.Grey" parent="@style/AppTheme">

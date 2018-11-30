@@ -1,11 +1,9 @@
 package com.example.sekini.ui.word.regularverb;
 
 
-import com.example.sekini.utils.base.activity.IActivityNavigator;
-import com.example.sekini.utils.recycler.BaseRecyclerView;
+import com.example.sekini.utils.base.INavigator;
+import com.example.sekini.utils.base.fragment.IFragmentNavigator;
 
-import java.util.List;
-
-public interface IRegularVerbNavigator extends IActivityNavigator {
+public interface IRegularVerbNavigator extends IFragmentNavigator {
 
 }

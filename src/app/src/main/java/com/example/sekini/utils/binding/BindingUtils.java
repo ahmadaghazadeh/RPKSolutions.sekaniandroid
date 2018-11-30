@@ -6,7 +6,9 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
 import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.content.res.AppCompatResources;
 import android.view.LayoutInflater;
@@ -20,7 +22,7 @@ import android.widget.TextView;
 
 import com.example.sekini.R;
 import com.example.sekini.app.GlideApp;
-import com.example.sekini.data.model.SekaniWordExamplesEntity;
+import com.example.sekini.data.model.SekaniRootImagesEntity;
 import com.example.sekini.data.model.embedded.SekaniWordExampleDto;
 import com.example.sekini.utils.common.CommonUtils;
 
@@ -32,8 +34,19 @@ import belka.us.androidtoggleswitch.widgets.ToggleSwitch;
 
 public class BindingUtils {
 
+    public enum TextCaps{
+        Lower,Upper,None
+    }
+
     @BindingAdapter("error")
     public static void setError(EditText text, String error) {
+        if (error != null) {
+            text.setError(error);
+        }
+    }
+
+    @BindingAdapter("error")
+    public static void setError(TextInputEditText text, String error) {
         if (error != null) {
             text.setError(error);
         }
@@ -65,7 +78,7 @@ public class BindingUtils {
             ConstraintLayout exampleLayout = (ConstraintLayout) inflater.inflate(R.layout.view_word_example, null);
             ((TextView) exampleLayout.findViewById(R.id.txtSekaniExample)).setText(
                     String.format("%s%s", context.getString(R.string.dash),
-                            sekaniWordExampleDto.sekaniWordExamplesEntity.sekani));
+                            sekaniWordExampleDto.sekaniWordExamplesEntity.sekani.toLowerCase()));
             ((TextView) exampleLayout.findViewById(R.id.txtEnglishExample)).setText(sekaniWordExampleDto.sekaniWordExamplesEntity.english);
             ImageView imageView = exampleLayout.findViewById(R.id.btnAudio);
             imageView.setOnClickListener(v -> CommonUtils.PlayAudio(sekaniWordExampleDto.sekaniWordExampleAudiosEntity.content));
@@ -81,13 +94,37 @@ public class BindingUtils {
 
     }
 
+    @BindingAdapter("setBackground")
+    public static void setBackground(View view, @DrawableRes int resId){
+        if(resId!=0)
+            view.setBackgroundResource(resId);
+
+    }
+
+    @BindingAdapter("sekaniRootImage")
+    public static void loadImageBase64Sekani(ImageView imageView, SekaniRootImagesEntity entity) {
+        if (entity != null) {
+            Context context = imageView.getContext();
+
+            CommonUtils commonUtils = new CommonUtils(context);
+            GlideApp.with(imageView)
+                    .asBitmap()
+                    .load(entity.content)
+                    .placeholder(commonUtils.getCircularProgressDrawable())
+                    .into(imageView);
+
+
+        } else {
+            imageView.setImageBitmap(null);
+        }
+    }
+
     @BindingAdapter("image")
     public static void loadImageBase64(ImageView imageView, byte[] bytes) {
         if (bytes != null) {
             Context context = imageView.getContext();
 
             CommonUtils commonUtils = new CommonUtils(context);
-
             GlideApp.with(imageView)
                     .asBitmap()
                     .load(bytes)

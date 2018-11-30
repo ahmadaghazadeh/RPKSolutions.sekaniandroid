@@ -1,13 +1,13 @@
 package com.example.sekini.utils.base;
 
 import android.support.annotation.StringRes;
+import android.support.v7.widget.Toolbar;
 
 public interface INavigator {
 
     void handleError(Throwable throwable);
 
-    void showProgress(Boolean flag);
-
+    void showProgress(Boolean isIndeterminate);
     void setProgress(String title);
     void setProgress(String title,String message);
     void setProgress(String title,String message, int progress,int max);
@@ -21,10 +21,8 @@ public interface INavigator {
 
     void toast(String string);
 
-    void hideKeyboard();
-
     void showYesNoNeutralDialog(int title, int message, int yesCaption, int noCaption,
                                 int neutralCaption, Runnable okRun, Runnable noRun,Runnable neutralRun);
-    void snackBar(String title,String btnCaption,Runnable runnable);
+
 
 }

@@ -18,16 +18,13 @@
         android:onClick="@{() -> viewModel.onClick()}"
         android:orientation="vertical">
 
-
-
         <TextView
             android:id="@+id/textSekaniWord"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="16dp"
-            android:paddingTop="8dp"
-            android:paddingRight="16dp"
-            android:paddingBottom="8dp"
+            android:paddingLeft="@dimen/space.medium"
+            android:paddingTop="@dimen/space.small"
+            android:paddingRight="@dimen/space.medium"
             android:text="@{viewModel.sekaniDicDto.sekaniWordsEntity.word}"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
             android:textColor="@color/default_text_color"
@@ -38,9 +35,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="32dp"
-            android:paddingTop="8dp"
-            android:paddingRight="16dp"
-            android:paddingBottom="8dp"
+            android:paddingRight="@dimen/space.medium"
+            android:paddingBottom="@dimen/space.small"
             android:text="@{viewModel.sekaniDicDto.englishWord}"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
             android:textColor="@color/subtitle_text_color"
@@ -49,8 +45,8 @@
             android:id="@+id/divider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginLeft="@dimen/space.medium"
+            android:layout_marginRight="@dimen/space.medium"
             android:layout_weight="1"
             android:background="?android:attr/listDivider"
             android:paddingBottom="2dp" />

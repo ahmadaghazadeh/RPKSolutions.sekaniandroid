@@ -12,4 +12,14 @@
         <attr name="mode"   />
     </declare-styleable>
 
+    <attr name="textCaps"  >
+        <flag name="Lower" value="0" />
+        <flag name="upper" value="1" />
+        <flag name="none" value="2" />
+    </attr>
+
+    <declare-styleable name="TextView">
+        <attr name="textCaps" />
+    </declare-styleable>
+
 </resources>

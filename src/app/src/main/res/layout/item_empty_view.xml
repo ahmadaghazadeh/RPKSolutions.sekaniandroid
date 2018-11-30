@@ -18,8 +18,8 @@
 
         <ImageView
             android:id="@+id/imageViewEmpty"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="@dimen/image_root_dimen"
+            android:layout_height="@dimen/image_root_dimen"
             android:layout_gravity="center"
             app:srcCompat="@drawable/ic_refresh" />
 
@@ -28,10 +28,10 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/space.medium"
             android:onClick="@{()->viewModel.onRetryClick()}"
             android:text="@string/retry"
-            android:textSize="20sp" />
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"/>
     </LinearLayout>
 
 </layout>

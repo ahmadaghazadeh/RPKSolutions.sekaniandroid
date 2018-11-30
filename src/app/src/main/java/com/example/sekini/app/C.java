@@ -1,7 +1,9 @@
 package com.example.sekini.app;
 
 public class C {
-    public static String UrlApi = "https://tkdictionary.azurewebsites.net/api/api/sync/";
+    public static String UrlApi = "https://tkdictionary.azurewebsites.net/api/api/";
+    public static String UrlAuth = "https://tkdictionary.azurewebsites.net/auth/connect/";
+    public static int Game1PageCount = 7;
 
     public enum TableName {
         EnglishWords,
@@ -39,5 +41,8 @@ public class C {
         Topics,
     }
 
-
+    public enum GameType {
+        Game1,
+        Game2
+    }
 }

@@ -10,7 +10,7 @@
     <string name="error_message_sqlite">Sqlite error</string>
     <string name="error_message_timeout">Server is busy (Timeout). Please try again.</string>
     <string name="error_message_url">Url not found</string>
-    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_user_name">This UserName is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>

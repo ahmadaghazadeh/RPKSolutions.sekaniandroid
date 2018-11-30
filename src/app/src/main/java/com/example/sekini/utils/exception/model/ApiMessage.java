@@ -5,5 +5,6 @@ package com.example.sekini.utils.exception.model;
  */
 
 public class ApiMessage {
-    public String Message;
+    public String error;
+    public String error_description;
 }

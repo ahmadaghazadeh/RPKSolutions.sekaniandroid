@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout">
 
     <data>
+
+
 
         <variable
             name="viewModel"
@@ -16,10 +19,10 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_width="@dimen/image_root_dimen"
+            android:layout_height="@dimen/image_root_dimen"
+            android:layout_marginEnd="@dimen/space.small"
+            android:layout_marginRight="@dimen/space.small"
             android:scaleType="centerCrop"
             app:image="@{viewModel.image}"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -30,50 +33,46 @@
             android:id="@+id/textEnglishWord"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginStart="@dimen/space.small"
+            android:layout_marginLeft="@dimen/space.small"
+            android:layout_marginTop="@dimen/space.small"
+            android:layout_marginBottom="@dimen/space.small"
             android:background="@android:color/white"
             android:text="@{viewModel.englishWord}"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
             android:textColor="@color/default_text_color"
-            app:layout_constraintEnd_toStartOf="@+id/imageView"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/textAttribute" />
 
         <TextView
             android:id="@+id/textAttribute"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginStart="@dimen/space.small"
+            android:layout_marginLeft="@dimen/space.small"
+            android:layout_marginTop="@dimen/space.small"
             android:text="@{viewModel.sekaniForm}"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-            android:textColor="@color/green_600"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/textEnglishWord"
-            app:layout_constraintStart_toEndOf="@+id/txtSekaniWord"
-            app:layout_constraintTop_toBottomOf="@+id/textEnglishWord" />
+            android:textColor="@color/grey_600"
+            android:textStyle="italic"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtSekaniWord" />
 
         <TextView
+            android:background="@android:color/white"
             android:id="@+id/txtSekaniWord"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginStart="@dimen/space.small"
+            android:layout_marginLeft="@dimen/space.small"
+            android:layout_marginTop="@dimen/space.small"
             android:text="@{viewModel.sekaniWord}"
-            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-            android:textColor="@color/grey_60"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/textEnglishWord"
-            app:layout_constraintTop_toBottomOf="@+id/textEnglishWord" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:textColor="@color/default_text_color"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
 
 </layout>

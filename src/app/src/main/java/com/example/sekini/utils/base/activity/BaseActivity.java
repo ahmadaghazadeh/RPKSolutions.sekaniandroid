@@ -17,12 +17,16 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatDelegate;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
 import com.example.sekini.R;
+import com.example.sekini.ui.dictionary.DictionaryFragment;
+import com.example.sekini.ui.games.game1.Game1Fragment;
+import com.example.sekini.ui.games.game1.fragment.Game1ItemModule;
 import com.example.sekini.utils.base.BaseViewModel;
 import com.example.sekini.utils.base.dialog.YesNoNeutral.YesNoNeutralDialog;
 import com.example.sekini.utils.base.dialog.YesNoDialog.YesNoDialog;
@@ -64,12 +68,11 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        progress = new ProgressDialog(this);
-        progress.setCancelable(false);
-        progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+
         performDataBinding();
         setSystemBarColor(R.color.colorPrimary);
     }
+
 
     public void setSystemBarColor(@ColorRes int color) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -123,12 +126,18 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
     }
 
 
-    public void showProgress(Boolean flag) {
-        if (progress != null) {
-            progress.setIndeterminate(flag);
-            progress.setMessage(getString(R.string.please_wait));
-            progress.show();
+    public void showProgress(Boolean isIndeterminate) {
+        progress = new ProgressDialog(this);
+        progress.setCancelable(false);
+
+        if (isIndeterminate) {
+            progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        } else {
+            progress.setIndeterminate(isIndeterminate);
+            progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         }
+        progress.setMessage(getString(R.string.please_wait));
+        progress.show();
     }
 
     public void setProgress(String message) {
@@ -174,7 +183,6 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
                 progress.dismiss();
             } else if (progress.isShowing()) {
                 progress.dismiss();
-
             }
         }
 
@@ -184,26 +192,72 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
         this.finish();
     }
 
+
     public void replaceFragment(FragmentManager fragmentManager, int container, Fragment fragment) {
+        if (fragment instanceof DictionaryFragment ) {
+            getToolbar().setVisibility(View.GONE);
+
+        }else{
+            getToolbar().setVisibility(View.VISIBLE);
+        }
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.add(container, fragment);
-        transaction.addToBackStack(fragment.getClass().getName());
+        transaction.replace(container, fragment, fragment.getClass().toString());
+        transaction.addToBackStack(null);
         transaction.commit();
     }
 
-    public void changeFragment(@IdRes int resId, Fragment fragment) {
+    public void replaceFragment(@IdRes int resId, Fragment fragment) {
         replaceFragment(getSupportFragmentManager(),
                 resId, fragment);
     }
 
+
+    public void addFragment(FragmentManager fragmentManager, int container, Fragment fragment) {
+
+        if (fragment instanceof DictionaryFragment ) {
+            getToolbar().setVisibility(View.GONE);
+
+        }else{
+            getToolbar().setVisibility(View.VISIBLE);
+        }
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.add(container, fragment, fragment.getClass().toString());
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    public void addFragment(@IdRes int resId, Fragment fragment) {
+        addFragment(getSupportFragmentManager(),
+                resId, fragment);
+    }
+
+    public void addFragment(Fragment fragment) {
+        addFragment(getSupportFragmentManager(),
+                R.id.fragment_container, fragment);
+    }
+
     @Override
     public void onBackPressed() {
-        if (getFragmentManager().getBackStackEntryCount() > 0) {
-            getFragmentManager().popBackStack();
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStackImmediate();
+            Fragment f = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+            if (f instanceof DictionaryFragment ) {
+                getToolbar().setVisibility(View.GONE);
+
+            }else{
+                getToolbar().setVisibility(View.VISIBLE);
+            }
         } else {
             super.onBackPressed();
         }
     }
+
+    public void popBackStack() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStack();
+        }
+    }
+
 
     public void hideKeyboard() {
         View view = getCurrentFocus();
@@ -247,5 +301,15 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
         Snackbar snackbar = Snackbar.make(mViewDataBinding.getRoot(), title, Snackbar.LENGTH_LONG)
                 .setAction(btnCaption, view -> runnable.run());
         snackbar.show();
+    }
+
+    public Toolbar getToolbar() {
+
+        return findViewById(R.id.toolbar);
+    }
+
+
+    public void setToolbarTitle(String title) {
+        getToolbar().setTitle(title);
     }
 }

@@ -16,6 +16,8 @@ import com.example.sekini.data.model.SekaniWordExampleAudiosEntity;
 import com.example.sekini.data.model.SekaniWordExamplesEntity;
 import com.example.sekini.data.model.SekaniWordsEntity;
 import com.example.sekini.data.model.TopicsEntity;
+import com.example.sekini.data.remote.Token;
+import com.example.sekini.data.remote.UserInfo;
 import com.example.sekini.data.sync.DeletedList;
 import com.example.sekini.data.sync.ExistList;
 import com.example.sekini.utils.exception.ApiException;
@@ -26,7 +28,11 @@ import java.util.List;
 public interface IRepository {
 
     List<EnglishWordsEntity> getEnglishWords (String timeStamp)throws IOException, ApiException;
+    Token connect(String userName,String password) throws Exception;
     List<SekaniCategoriesEntity> getSekaniCategories(String timeStamp)throws IOException, ApiException;
+    UserInfo getLife(String token)throws IOException, ApiException;
+    UserInfo getScore(String token)throws IOException, ApiException;
+    UserInfo getLevel(String token)throws IOException, ApiException;
     List<SekaniFormsEntity> getSekaniForms(String timeStamp)throws IOException, ApiException;
     List<SekaniLevelsEntity> getSekaniLevels(String timeStamp)throws IOException, ApiException;
     List<SekaniRootImagesEntity> getSekaniRootImages(String timeStamp)throws IOException, ApiException;

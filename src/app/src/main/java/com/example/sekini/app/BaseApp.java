@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.example.sekini.di.AppComponent;
 import com.example.sekini.di.DaggerAppComponent;
+import com.example.sekini.utils.common.CommonUtils;
 
 import dagger.android.AndroidInjector;
 import dagger.android.DaggerApplication;
@@ -38,6 +39,7 @@ public class BaseApp extends DaggerApplication{
             report.append(lineSeperator);
         }
         int x=0;
+        CommonUtils.writeFile(report.toString());
         defaultHandler.uncaughtException(thread, e);
     }
 

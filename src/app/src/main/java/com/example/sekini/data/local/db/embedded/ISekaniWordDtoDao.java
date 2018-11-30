@@ -60,6 +60,10 @@ public interface ISekaniWordDtoDao {
             "        ON swau.SekaniWordId = sw.Id\n" +
             "WHERE counter = 3;")
     SekaniWordDto getWord(int SekaniRootId,String Tense,String Plurality,String Person);
+
+
+
+
 }
 
 

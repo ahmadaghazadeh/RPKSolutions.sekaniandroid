@@ -265,7 +265,7 @@ public class SyncData implements ISyncData {
         counter++;
         syncListener.onUpdate(context.getString(R.string.sync_sekani_word_audios), counter, count);
         timeStamp = syncDao.getTimestamp(C.TableName.SekaniWordAudios.name());
-        sekaniWordsDao.insert(repository.getSekaniWords(timeStamp));
+        sekaniWordAudiosDao.insert(repository.getSekaniWordAudios(timeStamp));
         syncDao.update(new SyncEntity(C.TableName.SekaniWordAudios.name(), sekaniWordsDao.getMaxDate()));
 
         //12

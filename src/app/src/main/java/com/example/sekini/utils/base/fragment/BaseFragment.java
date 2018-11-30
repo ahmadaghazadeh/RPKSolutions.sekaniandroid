@@ -13,6 +13,7 @@ import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatDelegate;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +21,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 
 import com.example.sekini.R;
-import com.example.sekini.utils.base.SharedMainViewModel;
+import com.example.sekini.ui.main.SharedMainViewModel;
 import com.example.sekini.utils.base.activity.BaseActivity;
 import com.example.sekini.utils.base.dialog.YesNoDialog.YesNoDialog;
 import com.example.sekini.utils.base.dialog.YesNoNeutral.YesNoNeutralDialog;
@@ -49,10 +50,10 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends Fragment
 
     BaseActivity mActivity;
 
-    //@Inject
+    @Inject
     CommonUtils commonUtils;
 
-    //@Inject
+    @Inject
     HandleException handleException;
 
 
@@ -70,13 +71,18 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends Fragment
         super.onCreate(savedInstanceState);
         progress = new ProgressDialog(getActivity());
         progress.setCancelable(false);
-        sharedMainViewModel= ViewModelProviders.of(getBaseActivity()).get(SharedMainViewModel.class);
+        sharedMainViewModel = ViewModelProviders.of(getBaseActivity()).get(SharedMainViewModel.class);
     }
 
     public BaseActivity getBaseActivity() {
         return mActivity;
     }
 
+
+
+    public ActionBar getActionBar(){
+        return getBaseActivity().getSupportActionBar();
+    }
 
     public void handleError(Throwable throwable) {
         handleException.newException(throwable);
@@ -85,7 +91,7 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends Fragment
         if (frag != null) {
             manager.beginTransaction().remove(frag).commit();
         }
-       //TO DO show error message
+        //TO DO show error message
     }
 
 
@@ -119,6 +125,7 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends Fragment
             progress.setTitle(title);
         }
     }
+
     public void setProgress(String message, int pos, int max) {
         if (progress != null) {
             progress.setMessage(message);
@@ -150,7 +157,7 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends Fragment
             this.mViewModel = mViewModel == null ? getViewModel() : mViewModel;
             mViewDataBinding.setVariable(getBindingVariable(), mViewModel);
             mViewDataBinding.setLifecycleOwner(this);
-        }catch (Exception ex){
+        } catch (Exception ex) {
             ex.getMessage();
         }
         return mViewDataBinding.getRoot();
@@ -171,14 +178,11 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends Fragment
     }
 
 
-    public void setToolbarProgressBar(boolean isIndeterminate, int progress) {
-        sharedMainViewModel.setModel(isIndeterminate,progress);
-    }
 
-    public void hideKeyboard(){
+    public void hideKeyboard() {
         View view = getBaseActivity().getCurrentFocus();
         if (view != null) {
-            InputMethodManager imm = (InputMethodManager)getBaseActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            InputMethodManager imm = (InputMethodManager) getBaseActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             if (imm != null) {
                 imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
             }

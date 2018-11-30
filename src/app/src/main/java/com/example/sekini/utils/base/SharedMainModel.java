@@ -2,28 +2,15 @@ package com.example.sekini.utils.base;
 
 public class SharedMainModel {
 
-    private boolean isIndeterminate;
-    private int progress;
-
-    public boolean isIndeterminate() {
-        return isIndeterminate;
+    public boolean isOpenDrawer() {
+        return openDrawer;
     }
 
-    public void setIndeterminate(boolean indeterminate) {
-        isIndeterminate = indeterminate;
+    private boolean openDrawer;
+
+    public void setOpenDrawer(boolean openDrawer) {
+        this.openDrawer = openDrawer;
     }
 
-    public int getProgress() {
-        return progress;
-    }
 
-    public void setProgress(int progress) {
-        this.progress = progress;
-    }
-
-    public SharedMainModel(boolean isIndeterminate, int progress) {
-
-        this.isIndeterminate = isIndeterminate;
-        this.progress = progress;
-    }
 }

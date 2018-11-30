@@ -2,10 +2,8 @@ package com.example.sekini.data;
 
 import android.content.Context;
 
-import com.example.sekini.data.local.db.IEnglishWordsDao;
 import com.example.sekini.data.model.EnglishWordsEntity;
 import com.example.sekini.data.model.SekaniCategoriesEntity;
-import com.example.sekini.data.model.SekaniDictionaryEntity;
 import com.example.sekini.data.model.SekaniFormsEntity;
 import com.example.sekini.data.model.SekaniLevelsEntity;
 import com.example.sekini.data.model.SekaniRootImagesEntity;
@@ -18,8 +16,10 @@ import com.example.sekini.data.model.SekaniWordExampleAudiosEntity;
 import com.example.sekini.data.model.SekaniWordExamplesEntity;
 import com.example.sekini.data.model.SekaniWordsEntity;
 import com.example.sekini.data.model.TopicsEntity;
-import com.example.sekini.data.remote.IApi;
-import com.example.sekini.data.remote.RetrofitApi;
+import com.example.sekini.data.remote.Token;
+import com.example.sekini.data.remote.UserInfo;
+import com.example.sekini.data.remote.api.IApi;
+import com.example.sekini.data.remote.auth.IAuth;
 import com.example.sekini.data.sync.DeletedList;
 import com.example.sekini.data.sync.ExistList;
 import com.example.sekini.utils.exception.ApiException;
@@ -32,18 +32,34 @@ import retrofit2.Response;
 
 public class Repository implements IRepository {
 
+
     private IApi api;
     private Context context;
+    private IAuth auth;
 
-    public Repository(IApi api, Context context) {
+    public Repository(IApi api, IAuth auth, Context context) {
         this.api = api;
+        this.auth = auth;
         this.context = context;
     }
+
 
     @Override
     public List<EnglishWordsEntity> getEnglishWords(String timeStamp) throws IOException, ApiException {
         Response<List<EnglishWordsEntity>> response = api.getEnglishWords(timeStamp).execute();
         if (response.isSuccessful()) return response.body();
+        throw new ApiException(context, response);
+    }
+
+    @Override
+    public Token connect(String userName, String password) throws Exception {
+        Response<Token> response;
+        try {
+            response = auth.connect(userName, password).execute();
+        }catch (Exception ex){
+            throw new Exception("Can't log in to Sekani");
+        }
+        if (response!=null && response.isSuccessful()) return response.body();
         throw new ApiException(context, response);
     }
 
@@ -54,6 +70,26 @@ public class Repository implements IRepository {
         throw new ApiException(context, response);
     }
 
+    @Override
+    public UserInfo getLife(String token) throws IOException, ApiException {
+        Response<List<UserInfo>> response = api.getLife(token).execute();
+        if (response.isSuccessful() && response.body()!=null) return response.body().get(0);
+        throw new ApiException(context, response);
+    }
+
+    @Override
+    public UserInfo getScore(String token) throws IOException, ApiException {
+        Response<List<UserInfo>> response = api.getScore(token).execute();
+        if (response.isSuccessful() && response.body()!=null) return response.body().get(0);
+        throw new ApiException(context, response);
+    }
+
+    @Override
+    public UserInfo getLevel(String token) throws IOException, ApiException {
+        Response<List<UserInfo>> response = api.getLevel(token).execute();
+        if (response.isSuccessful() && response.body()!=null) return response.body().get(0);
+        throw new ApiException(context, response);
+    }
 
 
     @Override
@@ -153,7 +189,6 @@ public class Repository implements IRepository {
         if (response.isSuccessful()) return response.body();
         throw new ApiException(context, response);
     }
-
 
 
     @Override
