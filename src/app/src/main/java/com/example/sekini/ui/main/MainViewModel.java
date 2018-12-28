@@ -119,7 +119,7 @@ public class MainViewModel extends BaseViewModel<IMainNavigator> {
                 getNavigator().handleError(param.getException());
             }
             getNavigator().dismissLoadingDialog();
-
+            getNavigator().toast("5 Life Added");
         };
         runDialogAsyncTask((param, onProgressUpdate) -> {
             RunnableModel<Object> runnableModel = new RunnableModel<>();
@@ -127,7 +127,7 @@ public class MainViewModel extends BaseViewModel<IMainNavigator> {
                 int tempScore = 5;
                 appPref.setLife(tempScore);
                 UserInfo ss = repository.putLife(appPref.getToken(), tempScore);
-                getNavigator().toast("5 Life Added");
+
             } catch (Exception e) {
                 runnableModel.setException(e);
             }

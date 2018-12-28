@@ -61,7 +61,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
         mViewModel.setNavigator(this);
         setToolbarTitle();
-        mViewModel.init();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, mViewDataBinding.drawerLayout, getToolbar(), R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mViewDataBinding.drawerLayout.addDrawerListener(toggle);
@@ -90,14 +89,12 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                 setUpDrawer();
             }
         });
-        setUpDrawer();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         setUpDrawer();
-        mViewModel.init();
     }
 
     private void setUpDrawer() {
