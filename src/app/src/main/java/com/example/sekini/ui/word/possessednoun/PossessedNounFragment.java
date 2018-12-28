@@ -13,6 +13,7 @@ import com.example.sekini.BR;
 import com.example.sekini.R;
 import com.example.sekini.app.BundleNames;
 import com.example.sekini.databinding.FragmentPossessedNounBinding;
+import com.example.sekini.ui.dialog.image.ImageDialog;
 import com.example.sekini.ui.dictionary.dic.EmptyDicViewModel;
 import com.example.sekini.utils.base.fragment.BaseFragment;
 import com.example.sekini.utils.recycler.BaseRecyclerView;
@@ -86,7 +87,10 @@ public class PossessedNounFragment extends BaseFragment<FragmentPossessedNounBin
         adapter.init(items);
     }
 
-
+    @Override
+    public void showImageDialog(byte[] param) {
+        ImageDialog.show(getChildFragmentManager(),param,"",null);
+    }
 
 
 }

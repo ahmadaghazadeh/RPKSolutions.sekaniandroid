@@ -1,0 +1,104 @@
+package com.example.sekini.ui.games.game2;
+
+import android.text.TextUtils;
+
+import com.example.sekini.R;
+import com.example.sekini.data.IRepository;
+import com.example.sekini.data.local.db.ISekaniWordsDao;
+import com.example.sekini.data.local.db.embedded.IGame2DtoDao;
+import com.example.sekini.data.local.db.embedded.ISekaniWordDtoDao;
+import com.example.sekini.data.local.pref.IAppPref;
+import com.example.sekini.data.remote.Token;
+import com.example.sekini.utils.base.fragment.FragmentBaseViewModel;
+import com.example.sekini.utils.common.CommonUtils;
+import com.example.sekini.utils.common.RunnableIn;
+import com.example.sekini.utils.common.RunnableMethod;
+import com.example.sekini.utils.common.RunnableModel;
+
+import java.util.List;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+
+
+public class Game2ViewModel extends FragmentBaseViewModel<IGame2Navigator> {
+
+    @Inject
+    public IAppPref appPref;
+    @Inject
+    public CommonUtils commonUtils;
+
+    @Inject
+    public ISekaniWordDtoDao sekaniWordDtoDao;
+
+    @Inject
+    public IRepository repository;
+
+    @Inject
+    public IGame2DtoDao game2DtoDao;
+
+    @Inject
+    @Named("game2PageCount")
+    public int game2PageCount;
+
+    @Inject
+    public Game2ViewModel() {
+    }
+
+    public void init() {
+        RunnableMethod<Object, RunnableModel<Integer>> runnableMethod = (param, onProgressUpdate) -> {
+            RunnableModel<Integer> runnableModel = new RunnableModel<>();
+            try {
+
+                int count = game2DtoDao.getCount(game2PageCount);
+                runnableModel.setModel(count);
+
+                appPref.setScore(Integer.parseInt(repository.getScore(appPref.getToken()).value));
+                appPref.setLife(Integer.parseInt(repository.getLife(appPref.getToken()).value));
+            } catch (Exception e) {
+                runnableModel.setException(e);
+            }
+            return runnableModel;
+        };
+        RunnableIn<RunnableModel<Integer>> post = (param) -> {
+            getNavigator().dismissLoadingDialog();
+            if (param.hasError()) {
+                getNavigator().snackBar(R.string.no_internet_connection);
+                getNavigator().gotoMain();
+                return;
+            }
+            if (param.getModel() >= 1) {
+                getNavigator().initPager(param.getModel());
+            } else {
+                getNavigator().showYesNoDialog("End Game", "You completed all levels", () -> getNavigator().gotoMain(), null);
+            }
+        };
+        if (appPref.getLife() == 0) {
+            getNavigator().showPromptDialog(R.string.no_life,
+                    R.string.please_come_back_tomorrow, () -> {
+                        getNavigator().dismissLoadingDialog();
+                        getNavigator().gotoMain();
+                    }
+            );
+        } else if (commonUtils.isInternetOn()) {
+            runAsyncTaskWithOutException(runnableMethod, post);
+        } else {
+            getNavigator().showYesNoDialog(R.string.internet_disconnects,
+                    R.string.check_internet_try_again,
+                    R.string.cancel,
+                    R.string.try_again,
+                    () -> {
+                        getNavigator().dismissLoadingDialog();
+                        init();
+                    }, () -> {
+                        getNavigator().dismissLoadingDialog();
+                        getNavigator().gotoMain();
+                    });
+
+        }
+
+
+    }
+
+
+}

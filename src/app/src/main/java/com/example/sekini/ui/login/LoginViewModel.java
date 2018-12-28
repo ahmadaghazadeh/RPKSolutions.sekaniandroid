@@ -51,7 +51,7 @@ public class LoginViewModel extends FragmentBaseViewModel<ILoginNavigator> {
             passwordError.postValue(commonUtils.getString(R.string.error_invalid_password));
             return;
         }
-        getNavigator().showProgress(true);
+
         RunnableMethod<Object, RunnableModel<Token>> runnableMethod = (param, onProgressUpdate) -> {
             RunnableModel<Token> runnableModel = new RunnableModel<>();
             try {
@@ -59,6 +59,8 @@ public class LoginViewModel extends FragmentBaseViewModel<ILoginNavigator> {
                 appPref.setToken(token.access_token);
                 long time = System.currentTimeMillis();
                 appPref.setTokenExpireTime(time + token.expires_in * 1000);
+                appPref.setUserName(userName.getValue());
+                appPref.setPassword(password.getValue());
                 runnableModel.setModel(token);
             } catch (Exception e) {
                 runnableModel.setException(e);
@@ -68,10 +70,11 @@ public class LoginViewModel extends FragmentBaseViewModel<ILoginNavigator> {
 
         RunnableIn<RunnableModel<Token>> post = (param) -> {
             if (param.hasError()) {
-                getNavigator().handleError(param.getException());
+                getNavigator().showYesNoDialog(R.string.attention, R.string.error_login, null, null);
             } else {
                 if (!TextUtils.isEmpty(param.getModel().access_token)) {
                     getNavigator().loginSuccessful();
+                    getNavigator().refreshMenu();
                 } else {
                     getNavigator().showYesNoDialog(R.string.attention, R.string.error_login, null, null);
                 }
@@ -79,7 +82,27 @@ public class LoginViewModel extends FragmentBaseViewModel<ILoginNavigator> {
             getNavigator().hideProgress();
 
         };
-        runAsyncTask(runnableMethod, post);
+
+        if (commonUtils.isInternetOn()) {
+            getNavigator().showProgress(true);
+            runAsyncTaskWithOutException(runnableMethod, post);
+        } else {
+            Runnable runnable = this::init;
+            getNavigator().snackBar(commonUtils.getString(R.string.no_internet_connection),
+                    commonUtils.getString(R.string.try_sync), runnable);
+        }
+    }
+
+    public void logout() {
+        appPref.setToken("");
+        appPref.setLife(0);
+        appPref.setTokenExpireTime(0);
+        appPref.setScore(0);
+        appPref.setUserId(0);
+        appPref.setUserName("");
+        userName.setValue("");
+        password.setValue("");
+        getNavigator().refreshMenu();
     }
 
     private boolean isUserValid(String email) {
@@ -92,7 +115,9 @@ public class LoginViewModel extends FragmentBaseViewModel<ILoginNavigator> {
 
     public void init() {
         long time = System.currentTimeMillis();
-        if (time < appPref.getTokenExpireTime())
+        if (time < appPref.getTokenExpireTime()){
             getNavigator().loginSuccessful();
+            getNavigator().refreshMenu();
+        }
     }
 }

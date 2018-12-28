@@ -31,6 +31,7 @@ import com.example.sekini.data.local.db.ITopicsDao;
 import com.example.sekini.data.local.db.IUserFailedWordDao;
 import com.example.sekini.data.local.db.IUserLearnedWordDao;
 import com.example.sekini.data.local.db.embedded.IDicDao;
+import com.example.sekini.data.local.db.embedded.IGame2DtoDao;
 import com.example.sekini.data.local.db.embedded.ISekaniRootDtoDao;
 import com.example.sekini.data.local.db.embedded.ISekaniWordAudioDtoDao;
 import com.example.sekini.data.local.db.embedded.ISekaniWordDtoDao;
@@ -59,9 +60,52 @@ public abstract class AppModule {
 
     @Singleton
     @Provides
+    @Named("scoreCorrectGame2")
+    public static int scoreCorrectGame2() {
+        return C.ScoreCorrectGame2;
+    }
+
+    @Singleton
+    @Provides
+    @Named("scoreCorrectPerfectGame2")
+    public static int ScoreCorrectPerfectGame2() {
+        return C.ScoreCorrectPerfectGame2;
+    }
+
+    @Singleton
+    @Provides
+    @Named("scoreIncorrectGame2")
+    public static int scoreIncorrectGame2() {
+        return C.ScoreIncorrectGame2;
+    }
+
+
+    @Singleton
+    @Provides
+    @Named("scoreCorrectGame1")
+    public static int scoreCorrectGame1() {
+        return C.ScoreCorrectGame1;
+    }
+
+    @Singleton
+    @Provides
+    @Named("scoreIncorrectGame1")
+    public static int ccoreIncorrectGame1() {
+        return C.ScoreIncorrectGame1;
+    }
+
+    @Singleton
+    @Provides
     @Named("serverUrl")
     public static String getBaseUrl() {
         return C.UrlApi;
+    }
+
+    @Singleton
+    @Provides
+    @Named("game2PageCount")
+    public static int getGame2PageCount() {
+        return C.Game2PageCount;
     }
 
     @Singleton
@@ -111,6 +155,12 @@ public abstract class AppModule {
     @Provides
     public static IEnglishWordsDao provideEnglishWordsDao(BookDataBase dataBase) {
         return dataBase.getEnglishWordsDao();
+    }
+
+    @Singleton
+    @Provides
+    public static IGame2DtoDao provideGame2DtoDao(BookDataBase dataBase) {
+        return dataBase.getGame2DtoDao();
     }
 
     @Singleton
@@ -249,8 +299,8 @@ public abstract class AppModule {
 
     @Provides
     @Singleton
-    public static IRepository provideRepository(IApi api, IAuth auth, Context context) {
-        return new Repository(api, auth, context);
+    public static IRepository provideRepository(IApi api, IAuth auth,IAppPref appPref, Context context) {
+        return new Repository(api, auth,appPref, context);
     }
 
     @Provides

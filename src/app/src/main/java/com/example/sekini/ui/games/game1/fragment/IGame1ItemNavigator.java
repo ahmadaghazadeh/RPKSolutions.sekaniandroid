@@ -13,4 +13,6 @@ public interface IGame1ItemNavigator extends IFragmentNavigator {
     void incorrectDialog(String sekaniWord, String englishWord, byte[] audio);
 
     void correctDialog(String sekaniWord, String englishWord, byte[] audio);
+
+    void gotoMain();
 }

@@ -11,4 +11,6 @@ import java.util.List;
 public interface IPossessedNounNavigator extends IFragmentNavigator{
 
     void init(List<BaseRecyclerView> items);
+
+    void showImageDialog(byte[] param);
 }

@@ -80,5 +80,16 @@ public abstract class FragmentBaseViewModel<N extends IFragmentNavigator> extend
         simpleAsyncTask.execute();
     }
 
+    public void runAsyncTaskWithOutException(RunnableMethod method, RunnableIn post) {
+        RunnableIn<RunnableModel> postInternal = (param) -> {
+            if(post!=null){
+                post.run(param);
+            }
+        };
+
+        SimpleAsyncTask simpleAsyncTask = new SimpleAsyncTask(null, method, postInternal,onProgressUpdate);
+        simpleAsyncTask.execute();
+    }
+
 
 }

@@ -19,9 +19,15 @@ import android.text.TextUtils;
 import android.view.MenuItem;
 
 import com.example.sekini.R;
+import com.example.sekini.data.local.pref.AppPref;
+import com.example.sekini.data.local.pref.IAppPref;
+import com.example.sekini.data.remote.api.Api;
+import com.example.sekini.data.remote.api.IApi;
 import com.example.sekini.service.SyncService;
 
 import java.util.List;
+
+import retrofit2.Retrofit;
 
 public class SettingsActivity extends AppCompatPreferenceActivity {
 
@@ -126,7 +132,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     protected boolean isValidFragment(String fragmentName) {
         return PreferenceFragment.class.getName().equals(fragmentName)
                 || GeneralPreferenceFragment.class.getName().equals(fragmentName)
-                || DataSyncPreferenceFragment.class.getName().equals(fragmentName);
+                || DataSyncPreferenceFragment.class.getName().equals(fragmentName)
+                 ;
     }
 
 
@@ -188,4 +195,5 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             SyncService.start(getActivity());
         }
     }
+
 }

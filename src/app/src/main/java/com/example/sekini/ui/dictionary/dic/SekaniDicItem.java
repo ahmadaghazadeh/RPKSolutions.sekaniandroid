@@ -3,7 +3,6 @@ package com.example.sekini.ui.dictionary.dic;
 
 import com.example.sekini.BR;
 import com.example.sekini.R;
-import com.example.sekini.data.model.embedded.EnglishDicDto;
 import com.example.sekini.data.model.embedded.SekaniDicDto;
 import com.example.sekini.utils.recycler.BaseRecyclerView;
 

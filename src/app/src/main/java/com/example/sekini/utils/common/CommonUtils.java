@@ -44,6 +44,11 @@ import static android.content.Context.NOTIFICATION_SERVICE;
 
 public class CommonUtils {
 
+    private Integer[] pentagon = new Integer[]{R.drawable.pentagon1,
+            R.drawable.pentagon2,
+            R.drawable.pentagon3,
+            R.drawable.pentagon4,
+            R.drawable.pentagon5};
     public static Spanned fromHtml(String string) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             return Html.fromHtml(string, Html.FROM_HTML_MODE_LEGACY);
@@ -270,7 +275,7 @@ public class CommonUtils {
         }
 
         if (drawable.getIntrinsicWidth() <= 0 || drawable.getIntrinsicHeight() <= 0) {
-            bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888); // Single color bitmap will be created of 1x1 pixel
+            bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888); // Single questionColor bitmap will be created of 1x1 pixel
         } else {
             bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
         }
@@ -327,5 +332,13 @@ public class CommonUtils {
 
     public static String getFirstLikeString(CharSequence word) {
         return word + "%";
+    }
+
+    public Integer getLifeResId(int life) {
+        if(life <=0)
+            return 0;
+        if(life >5)
+            return pentagon[0];
+        return pentagon[5 - life];
     }
 }

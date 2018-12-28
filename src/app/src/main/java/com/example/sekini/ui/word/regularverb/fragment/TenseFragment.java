@@ -11,6 +11,7 @@ import com.example.sekini.BR;
 import com.example.sekini.R;
 import com.example.sekini.app.BundleNames;
 import com.example.sekini.databinding.FragmentTenseBinding;
+import com.example.sekini.ui.dialog.image.ImageDialog;
 import com.example.sekini.ui.dictionary.dic.EmptyDicViewModel;
 import com.example.sekini.ui.word.item.verb.Verb;
 import com.example.sekini.utils.base.fragment.BaseFragment;
@@ -83,4 +84,9 @@ public class TenseFragment extends BaseFragment<FragmentTenseBinding, TenseViewM
     public void init(List<BaseRecyclerView> items) {
         adapter.init(items);
     }
+    @Override
+    public void showImageDialog(byte[] param) {
+        ImageDialog.show(getChildFragmentManager(),param,"",null);
+    }
+
 }

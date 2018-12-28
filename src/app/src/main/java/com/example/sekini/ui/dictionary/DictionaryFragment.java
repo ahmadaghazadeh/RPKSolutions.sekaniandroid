@@ -70,7 +70,6 @@ public class DictionaryFragment extends BaseFragment<FragmentDictionaryBinding, 
     }
 
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -78,7 +77,7 @@ public class DictionaryFragment extends BaseFragment<FragmentDictionaryBinding, 
         getBaseActivity().getToolbar().setVisibility(View.GONE);
         mViewModel.init(isEnglish);
         mViewModel.setNavigator(this);
-        mViewDataBinding.toggleDic.setCheckedTogglePosition(isEnglish ? 0 : 1);
+        mViewDataBinding.radioGroup.check(isEnglish ? R.id.english : R.id.sekani);
         adapter = new EasyAdapter<>();
         adapter.setEmptyLayout(new EmptyDicViewModel());
         mViewDataBinding.recyclerDic.setAdapter(adapter);
@@ -93,7 +92,7 @@ public class DictionaryFragment extends BaseFragment<FragmentDictionaryBinding, 
 
     @Override
     public void startGenericWord(int sekaniRootId) {
-        getBaseActivity().addFragment(GenericFragment.newInstance( sekaniRootId));
+        getBaseActivity().addFragment(GenericFragment.newInstance(sekaniRootId));
     }
 
     @Override
@@ -103,17 +102,23 @@ public class DictionaryFragment extends BaseFragment<FragmentDictionaryBinding, 
 
     @Override
     public void startRegularVerb(int sekaniRootId) {
-        getBaseActivity().addFragment(RegularVerbFragment.newInstance( sekaniRootId));
+        getBaseActivity().addFragment(RegularVerbFragment.newInstance(sekaniRootId));
     }
 
     @Override
     public void startPossessedNoun(int sekaniRootId) {
-        getBaseActivity().addFragment(PossessedNounFragment.newInstance( sekaniRootId));
+        getBaseActivity().addFragment(PossessedNounFragment.newInstance(sekaniRootId));
     }
 
     @Override
     public void openDrawer() {
         sharedMainViewModel.openDrawer();
+    }
+
+    @Override
+    public void setDrawerMenuDictionary(boolean isEnglish) {
+        sharedMainViewModel.getMenu().setValue(isEnglish ?
+                R.id.nav_english_to_sekani : R.id.nav_sekani_to_english);
     }
 
 }

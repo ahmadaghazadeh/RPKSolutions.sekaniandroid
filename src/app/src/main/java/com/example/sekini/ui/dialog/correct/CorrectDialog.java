@@ -30,7 +30,7 @@ public class CorrectDialog extends BaseDialog<DialogCorrectBinding, CorrectDialo
     String englishWord;
     String sekaniWord;
     byte[] audio;
-    static String tag="CorrectDialog";
+    static String tag="ImageDialog";
 
     @Inject
     ViewModelProvider.Factory factory;

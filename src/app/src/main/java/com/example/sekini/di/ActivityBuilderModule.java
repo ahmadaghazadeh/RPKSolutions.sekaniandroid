@@ -4,18 +4,29 @@ package com.example.sekini.di;
 import com.example.sekini.service.SyncService;
 import com.example.sekini.ui.dialog.correct.CorrectDialog;
 import com.example.sekini.ui.dialog.correct.CorrectDialogModule;
+import com.example.sekini.ui.dialog.image.ImageDialog;
+import com.example.sekini.ui.dialog.image.ImageDialogModule;
 import com.example.sekini.ui.dialog.incorrect.IncorrectDialog;
 import com.example.sekini.ui.dialog.incorrect.IncorrectDialogModule;
+import com.example.sekini.ui.dialog.loading.LoadingDialog;
+import com.example.sekini.ui.dialog.loading.LoadingDialogModule;
 import com.example.sekini.ui.dictionary.DictionaryFragment;
 import com.example.sekini.ui.dictionary.DictionaryModule;
 import com.example.sekini.ui.games.game1.Game1Fragment;
 import com.example.sekini.ui.games.game1.Game1Module;
 import com.example.sekini.ui.games.game1.fragment.Game1ItemFragment;
 import com.example.sekini.ui.games.game1.fragment.Game1ItemModule;
+import com.example.sekini.ui.games.game2.Game2Fragment;
+import com.example.sekini.ui.games.game2.Game2Module;
+import com.example.sekini.ui.games.game2.fragment.Game2ItemFragment;
+import com.example.sekini.ui.games.game2.fragment.Game2ItemModule;
 import com.example.sekini.ui.login.LoginFragment;
 import com.example.sekini.ui.login.LoginModule;
 import com.example.sekini.ui.main.MainActivity;
 import com.example.sekini.ui.main.MainModule;
+import com.example.sekini.ui.main.fragment.MainFragment;
+import com.example.sekini.ui.main.fragment.MainFragmentModule;
+import com.example.sekini.ui.main.fragment.MainViewModel;
 import com.example.sekini.ui.word.generic.GenericFragment;
 import com.example.sekini.ui.word.generic.GenericModule;
 import com.example.sekini.ui.word.possessednoun.PossessedNounFragment;
@@ -34,6 +45,22 @@ import dagger.android.ContributesAndroidInjector;
 @Module
 public abstract class ActivityBuilderModule {
 
+
+    @ContributesAndroidInjector(modules = MainFragmentModule.class)
+    abstract MainFragment bindMainFragment();
+
+    @ContributesAndroidInjector(modules = ImageDialogModule.class)
+    abstract ImageDialog bindImageDialog();
+
+    @ContributesAndroidInjector(modules = LoadingDialogModule.class)
+    abstract LoadingDialog bindLoadingDialog();
+
+
+    @ContributesAndroidInjector(modules = Game2Module.class)
+    abstract Game2Fragment bindGame2Fragment();
+
+    @ContributesAndroidInjector(modules = Game2ItemModule.class)
+    abstract Game2ItemFragment bindGame2ItemFragment();
 
     @ContributesAndroidInjector(modules = Game1ItemModule.class)
     abstract Game1ItemFragment bindGame1ItemFragment();

@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
@@ -24,10 +25,15 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
 import com.example.sekini.R;
+import com.example.sekini.ui.dialog.loading.LoadingDialog;
 import com.example.sekini.ui.dictionary.DictionaryFragment;
 import com.example.sekini.ui.games.game1.Game1Fragment;
-import com.example.sekini.ui.games.game1.fragment.Game1ItemModule;
+import com.example.sekini.ui.games.game2.Game2Fragment;
+import com.example.sekini.ui.word.generic.GenericFragment;
+import com.example.sekini.ui.word.possessednoun.PossessedNounFragment;
+import com.example.sekini.ui.word.regularverb.RegularVerbFragment;
 import com.example.sekini.utils.base.BaseViewModel;
+import com.example.sekini.utils.base.dialog.IDialogDismiss;
 import com.example.sekini.utils.base.dialog.YesNoNeutral.YesNoNeutralDialog;
 import com.example.sekini.utils.base.dialog.YesNoDialog.YesNoDialog;
 import com.example.sekini.utils.base.dialog.prompt.PromptDialog;
@@ -45,6 +51,7 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
     public static final String YES_NO_DIALOG = "YES_NO_DIALOG";
     public static final String YES_NEUTRAL_NO_DIALOG = "YES_NEUTRAL_NO_DIALOG";
     public static final String ERROR_DIALOG = "ERROR_DIALOG";
+    public static final String PROMPT_DIALOG = "PROMPT_DIALOG";
 
     static {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
@@ -57,6 +64,7 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
     @Inject
     HandleException handleException;
     private ProgressDialog progress;
+    private LoadingDialog loadingDialog;
 
     public abstract V getViewModel();
 
@@ -83,6 +91,13 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
         }
     }
 
+    public void setToolbarColor(@ColorRes int color) {
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources()
+                    .getColor(color)));
+        }
+    }
+
 
     public void handleError(Throwable throwable) {
         hideProgress();
@@ -104,6 +119,8 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
 
     @Override
     protected void onResume() {
+        Fragment f = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        configToolbar(f);
         super.onResume();
 
     }
@@ -194,12 +211,12 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
 
 
     public void replaceFragment(FragmentManager fragmentManager, int container, Fragment fragment) {
-        if (fragment instanceof DictionaryFragment ) {
-            getToolbar().setVisibility(View.GONE);
+        configToolbar(fragment);
 
-        }else{
-            getToolbar().setVisibility(View.VISIBLE);
+        for (int entry = 0; entry < fragmentManager.getBackStackEntryCount(); entry++) {
+            fragmentManager.popBackStack();
         }
+
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(container, fragment, fragment.getClass().toString());
         transaction.addToBackStack(null);
@@ -214,12 +231,16 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
 
     public void addFragment(FragmentManager fragmentManager, int container, Fragment fragment) {
 
-        if (fragment instanceof DictionaryFragment ) {
-            getToolbar().setVisibility(View.GONE);
-
-        }else{
-            getToolbar().setVisibility(View.VISIBLE);
+        configToolbar(fragment);
+        if (!(fragment instanceof GenericFragment ||
+                fragment instanceof PossessedNounFragment ||
+                fragment instanceof RegularVerbFragment)) {
+            for (int entry = 0; entry < fragmentManager.getBackStackEntryCount(); entry++) {
+                fragmentManager.popBackStack();
+            }
         }
+
+
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.add(container, fragment, fragment.getClass().toString());
         transaction.addToBackStack(null);
@@ -238,17 +259,36 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
 
     @Override
     public void onBackPressed() {
+        Fragment f = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
-            getSupportFragmentManager().popBackStackImmediate();
-            Fragment f = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-            if (f instanceof DictionaryFragment ) {
-                getToolbar().setVisibility(View.GONE);
 
-            }else{
-                getToolbar().setVisibility(View.VISIBLE);
+            if ((f instanceof Game2Fragment | f instanceof Game1Fragment)) {
+                showYesNoDialog(getString(R.string.attention)
+                        , getString(R.string.exit_prompt),
+                        () -> getSupportFragmentManager().popBackStackImmediate(), null);
+            } else {
+                getSupportFragmentManager().popBackStackImmediate();
             }
+            f = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+            configToolbar(f);
         } else {
             super.onBackPressed();
+        }
+    }
+
+
+    private void configToolbar(Fragment f) {
+        if (f instanceof DictionaryFragment) {
+            getToolbar().setVisibility(View.GONE);
+        } else {
+            getToolbar().setVisibility(View.VISIBLE);
+        }
+        if (f instanceof Game2Fragment) {
+            setSystemBarColor(R.color.toolbar_game2);
+            setToolbarColor(R.color.toolbar_game2);
+        } else {
+            setSystemBarColor(R.color.colorPrimary);
+            setToolbarColor(R.color.colorPrimary);
         }
     }
 
@@ -277,6 +317,17 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
 
     }
 
+    public void showLoadingDialog(int resId, String title) {
+        loadingDialog = LoadingDialog.newInstance(resId, title);
+        loadingDialog.setCancelable(false);
+        loadingDialog.show(getSupportFragmentManager(), LoadingDialog.tag);
+    }
+
+    public void dismissLoadingDialog() {
+        if (loadingDialog != null)
+            loadingDialog.dismiss();
+    }
+
     public void showYesNoDialog(@StringRes int title, @StringRes int message, Runnable okRun, Runnable cancelRun) {
         YesNoDialog yesNoDialog = YesNoDialog.newInstance(getString(title), getString(message));
         yesNoDialog.setOkRunnable(okRun);
@@ -303,11 +354,38 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
         snackbar.show();
     }
 
+    public void snackBar(String title) {
+        Snackbar snackbar = Snackbar.make(mViewDataBinding.getRoot(), title, Snackbar.LENGTH_LONG);
+        snackbar.show();
+    }
+
+    public void snackBar(@StringRes int title) {
+        Snackbar snackbar = Snackbar.make(mViewDataBinding.getRoot(), title, Snackbar.LENGTH_LONG);
+        snackbar.show();
+    }
+
     public Toolbar getToolbar() {
 
         return findViewById(R.id.toolbar);
     }
 
+    public void showYesNoDialog(@StringRes int title, @StringRes int message,
+                                @StringRes int okCaption, @StringRes int cancelCaption
+            , Runnable okRun, Runnable cancelRun) {
+        YesNoDialog yesNoDialog = YesNoDialog.newInstance(getString(title), getString(message),
+                getString(okCaption), getString(cancelCaption));
+        yesNoDialog.setOkRunnable(okRun);
+
+        yesNoDialog.setCancelRunnable(cancelRun);
+        yesNoDialog.show(getSupportFragmentManager(), YES_NO_DIALOG);
+    }
+
+    public void showPromptDialog(@StringRes int title, @StringRes int message
+            , IDialogDismiss dialogDismiss) {
+        PromptDialog promptDialog = PromptDialog.newInstance(getString(title), getString(message) );
+        promptDialog.setDialogDismiss(dialogDismiss);
+        promptDialog.show(getSupportFragmentManager(), PROMPT_DIALOG);
+    }
 
     public void setToolbarTitle(String title) {
         getToolbar().setTitle(title);

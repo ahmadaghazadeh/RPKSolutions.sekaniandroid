@@ -125,5 +125,36 @@
     <string name="game1_completed_title">End of this level</string>
     <string name="game1_completed_desc">Do you want play again?</string>
     <string name="correct">Correct</string>
+    <string name="lamp">lamp</string>
+    <string name="life">life</string>
+    <string name="loading_dialog">Loading Dialog</string>
+    <string name="word_matcher">Word Matcher</string>
+    <string name="quick_minds">Quick Minds</string>
+    <string name="dictionary">Dictionary</string>
+    <string name="exit_prompt">Are you sure you want to exit the game?</string>
+    <string name="sekani">Sekani</string>
+    <string name="english">English</string>
+    <string name="login_logout">login_logout</string>
+    <string name="login_success">Login Successful</string>
+    <string name="logout">L O G O U T</string>
+    <string name="sekani_to_english">Sekani To English</string>
+    <string name="english_to_sekani">English To Sekani</string>
+    <string name="settings">Settings</string>
+    <string name="about">About</string>
+    <string name="games">Games</string>
+    <string name="loginGame">Games (Login Required)</string>
+    <string name="normalGame">Games</string>
+    <string name="match_the_words">Match the words</string>
+    <string name="try_again">Try Again</string>
+    <string name="attempt_one">Attempt 1/2</string>
+    <string name="attempt_two">Attempt 2/2</string>
+    <string name="next">Next</string>
+    <string name="attempt_one_point">100 point + 20 bonus</string>
+    <string name="attempt_two_point">100 point</string>
+    <string name="internet_disconnects">Internet disconnects</string>
+    <string name="check_internet_try_again">Please check internet and try again.</string>
+    <string name="no_life">No Life</string>
+    <string name="please_come_back_tomorrow">Please come back tomorrow</string>
+    <string name="reset_life"> Set Life 5</string>
 
 </resources>

@@ -22,6 +22,7 @@ import com.example.sekini.data.local.db.ITopicsDao;
 import com.example.sekini.data.local.db.IUserFailedWordDao;
 import com.example.sekini.data.local.db.IUserLearnedWordDao;
 import com.example.sekini.data.local.db.embedded.IDicDao;
+import com.example.sekini.data.local.db.embedded.IGame2DtoDao;
 import com.example.sekini.data.local.db.embedded.ISekaniRootDtoDao;
 import com.example.sekini.data.local.db.embedded.ISekaniWordAudioDtoDao;
 import com.example.sekini.data.local.db.embedded.ISekaniWordDtoDao;
@@ -92,5 +93,6 @@ public abstract class BookDataBase extends RoomDatabase {
     public abstract IUserFailedWordDao getUserFailedWordDao();
     public abstract IUserLearnedWordDao getUserLearnedWordDao();
     public abstract ISekaniWordAudioDtoDao getSekaniWordAudioDtoDao();
+    public abstract IGame2DtoDao getGame2DtoDao();
 
 }

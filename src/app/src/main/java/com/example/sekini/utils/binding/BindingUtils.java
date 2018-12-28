@@ -9,22 +9,27 @@ import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TextInputEditText;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.content.res.AppCompatResources;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 
 import com.example.sekini.R;
 import com.example.sekini.app.GlideApp;
 import com.example.sekini.data.model.SekaniRootImagesEntity;
+import com.example.sekini.data.model.embedded.Game2Dto;
 import com.example.sekini.data.model.embedded.SekaniWordExampleDto;
 import com.example.sekini.utils.common.CommonUtils;
+import com.race604.drawable.wave.WaveDrawable;
 
 import java.util.List;
 
@@ -34,8 +39,8 @@ import belka.us.androidtoggleswitch.widgets.ToggleSwitch;
 
 public class BindingUtils {
 
-    public enum TextCaps{
-        Lower,Upper,None
+    public enum TextCaps {
+        Lower, Upper, None
     }
 
     @BindingAdapter("error")
@@ -95,10 +100,36 @@ public class BindingUtils {
     }
 
     @BindingAdapter("setBackground")
-    public static void setBackground(View view, @DrawableRes int resId){
-        if(resId!=0)
+    public static void setBackground(View view, @DrawableRes int resId) {
+        if (resId != 0)
             view.setBackgroundResource(resId);
 
+    }
+
+    private static Integer[] buttonsColor = new Integer[]{
+            R.drawable.btn_game2_blue,
+            R.drawable.btn_game2_red,
+            R.drawable.btn_game2_green,
+            R.drawable.btn_game2_no_select};
+
+    @BindingAdapter("sekaniQuestion")
+    public static void setSekaniQuestion(Button btn, Game2Dto entity) {
+        if (entity != null) {
+            btn.setText(entity.sekaniWordsEntity.word);
+            btn.setBackgroundResource(buttonsColor[entity.questionColor]);
+        } else {
+            btn.setText("");
+        }
+    }
+
+    @BindingAdapter("sekaniAnswer")
+    public static void setSekaniAnswer(Button btn, Game2Dto entity) {
+        if (entity != null) {
+            btn.setText(entity.englishWordsEntity.word);
+            btn.setBackgroundResource(buttonsColor[entity.answeredColor]);
+        } else {
+            btn.setText("");
+        }
     }
 
     @BindingAdapter("sekaniRootImage")
@@ -113,6 +144,19 @@ public class BindingUtils {
                     .placeholder(commonUtils.getCircularProgressDrawable())
                     .into(imageView);
 
+
+        } else {
+            imageView.setImageBitmap(null);
+        }
+    }
+
+    @BindingAdapter("waveDrawable")
+    public static void setWaveDrawable(ImageView imageView, int resId) {
+        if (resId != 0) {
+            Drawable drawable = ContextCompat.getDrawable(imageView.getContext(), resId);
+            WaveDrawable mWaveDrawable = new WaveDrawable(drawable);
+            mWaveDrawable.setIndeterminate(true);
+            imageView.setImageDrawable(mWaveDrawable);
 
         } else {
             imageView.setImageBitmap(null);
@@ -150,9 +194,9 @@ public class BindingUtils {
     }
 
     @BindingAdapter("setToggleListener")
-    public static void onToggleSwitchChangeListener(ToggleSwitch view, BaseToggleSwitch.OnToggleSwitchChangeListener onToggleSwitchChangeListener) {
-        if (onToggleSwitchChangeListener != null) {
-            view.setOnToggleSwitchChangeListener(onToggleSwitchChangeListener);
+    public static void onToggleSwitchChangeListener(RadioGroup view, RadioGroup.OnCheckedChangeListener onCheckedChangeListener) {
+        if (onCheckedChangeListener != null) {
+            view.setOnCheckedChangeListener(onCheckedChangeListener);
         }
     }
 //

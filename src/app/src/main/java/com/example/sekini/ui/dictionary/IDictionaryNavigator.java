@@ -17,4 +17,6 @@ public interface IDictionaryNavigator extends IFragmentNavigator {
     void startPossessedNoun(int sekaniRootId);
 
     void openDrawer();
+
+    void setDrawerMenuDictionary(boolean isEnglish);
 }

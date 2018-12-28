@@ -47,11 +47,12 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:fitsSystemWindows="false"
-
+            app:headerLayout="@layout/include_drawer_header"
             app:itemIconTint="@color/grey_40"
             app:itemTextColor="@color/grey_90"
             app:menu="@menu/menu_navigation_drawer_news">
-
+            <include layout="@layout/include_drawer_header"
+                app:viewModel="@{viewModel}" />
         </android.support.design.widget.NavigationView>
 
     </android.support.v4.widget.DrawerLayout>

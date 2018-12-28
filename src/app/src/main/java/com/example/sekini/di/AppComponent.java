@@ -3,7 +3,6 @@ package com.example.sekini.di;
 import android.app.Application;
 
 import com.example.sekini.app.BaseApp;
-import com.example.sekini.data.local.DataBaseModule;
 import com.example.sekini.data.remote.RemoteModule;
 
 import javax.inject.Singleton;
@@ -18,7 +17,6 @@ import dagger.android.support.AndroidSupportInjectionModule;
 @Component(modules = {
         AndroidSupportInjectionModule.class,
         AppModule.class,
-        DataBaseModule.class,
         ActivityBuilderModule.class,
         RemoteModule.class
 })

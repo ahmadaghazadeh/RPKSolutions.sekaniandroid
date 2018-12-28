@@ -50,7 +50,8 @@ public class TenseViewModel extends FragmentBaseViewModel<ITenseNavigator> {
             RunnableModel<List<BaseRecyclerView>> runnableModel = new RunnableModel<>();
             try {
                 SekaniRootDto sekaniRootDto = sekaniRootDtoDao.getWord(rootId);
-                RootImage rootImage = new RootImage(sekaniRootDto);
+                RunnableIn<byte[]> runnableIn= param1 -> getNavigator().showImageDialog(param1);
+                RootImage rootImage = new RootImage(sekaniRootDto,runnableIn);
                 List<BaseRecyclerView> baseRecyclerViews = new LinkedList<>(rootImage.render());
                 baseRecyclerViews.addAll(new
                         Verb(sekaniWordExampleDtoDao,
@@ -84,6 +85,7 @@ public class TenseViewModel extends FragmentBaseViewModel<ITenseNavigator> {
             } else {
                 getNavigator().init(param.getModel());
             }
+            getNavigator().dismissLoadingDialog();
         };
         runAsyncTask(runnableMethod, post);
 

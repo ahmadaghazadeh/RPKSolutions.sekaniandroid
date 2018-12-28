@@ -10,4 +10,6 @@ import java.util.List;
 public interface ITenseNavigator extends IFragmentNavigator {
 
     void init(List<BaseRecyclerView> items);
+
+    void showImageDialog(byte[] param1);
 }

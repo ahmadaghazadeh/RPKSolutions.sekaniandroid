@@ -1,6 +1,9 @@
 package com.example.sekini.ui.main;
 
+import android.arch.lifecycle.MutableLiveData;
+
 import com.example.sekini.R;
+import com.example.sekini.data.IRepository;
 import com.example.sekini.data.local.db.embedded.IDicDao;
 import com.example.sekini.data.local.db.embedded.ISekaniRootDtoDao;
 import com.example.sekini.data.local.db.embedded.ISekaniWordDtoDao;
@@ -9,6 +12,8 @@ import com.example.sekini.data.local.pref.IAppPref;
 import com.example.sekini.data.model.SekaniWordsEntity;
 import com.example.sekini.data.model.embedded.SekaniRootDto;
 import com.example.sekini.data.model.embedded.SekaniWordDto;
+import com.example.sekini.data.remote.UserInfo;
+import com.example.sekini.data.remote.api.IApi;
 import com.example.sekini.data.sync.ISyncData;
 import com.example.sekini.service.SyncService;
 import com.example.sekini.ui.word.item.rootimage.RootImage;
@@ -30,6 +35,9 @@ public class MainViewModel extends BaseViewModel<IMainNavigator> {
 
 
     @Inject
+    public IRepository repository;
+
+    @Inject
     public IAppPref appPref;
 
     @Inject
@@ -38,18 +46,9 @@ public class MainViewModel extends BaseViewModel<IMainNavigator> {
     @Inject
     public CommonUtils commonUtils;
 
-    @Inject
-    public IDicDao sekaniWordsDao;
-
-    @Inject
-    public ISekaniRootDtoDao sekaniRootDtoDao;
-
-    @Inject
-    public ISekaniWordDtoDao sekaniWordDtoDao;
-
-    @Inject
-    public ISekaniWordExampleDtoDao sekaniWordExampleDtoDao;
-
+    public MutableLiveData<String> userName = new MutableLiveData<>();
+    public MutableLiveData<Integer> loginRes = new MutableLiveData<>();
+    public MutableLiveData<Boolean> isLogin = new MutableLiveData<>();
 
     @Inject
     public MainViewModel() {
@@ -63,6 +62,7 @@ public class MainViewModel extends BaseViewModel<IMainNavigator> {
             RunnableMethod<Object, RunnableModel> runnableMethod = (param, onProgressUpdate) -> {
                 RunnableModel runnableModel = new RunnableModel();
                 try {
+
                     syncData.syncTables(onProgressUpdate::onProgressUpdate);
                 } catch (Exception e) {
                     runnableModel.setException(e);
@@ -93,7 +93,7 @@ public class MainViewModel extends BaseViewModel<IMainNavigator> {
         };
 
         if (commonUtils.isInternetOn()) {
-            if(!appPref.isInitApp()){
+            if (!appPref.isInitApp()) {
                 showYesNoNeutralDialog(R.string.attention, R.string.prompt_sync_message,
                         R.string.sync, R.string.sync_background, R.string.cancel, syncRun, syncBackgroundRun, null);
             }
@@ -104,7 +104,35 @@ public class MainViewModel extends BaseViewModel<IMainNavigator> {
                     commonUtils.getString(R.string.try_sync), runnable);
         }
 
+        userName.setValue(appPref.getUserName());
+        isLogin.setValue(appPref.isLogin());
+        loginRes.setValue(!appPref.isLogin() ? R.drawable.ic_login : R.drawable.ic_logout);
     }
 
+    public void onClickLogin() {
+        getNavigator().login();
+    }
 
+    public void resetLife() {
+        RunnableIn<RunnableModel<Object>> post = (param) -> {
+            if (param.hasError()) {
+                getNavigator().handleError(param.getException());
+            }
+            getNavigator().dismissLoadingDialog();
+
+        };
+        runDialogAsyncTask((param, onProgressUpdate) -> {
+            RunnableModel<Object> runnableModel = new RunnableModel<>();
+            try {
+                int tempScore = 5;
+                appPref.setLife(tempScore);
+                UserInfo ss = repository.putLife(appPref.getToken(), tempScore);
+                getNavigator().toast("5 Life Added");
+            } catch (Exception e) {
+                runnableModel.setException(e);
+            }
+            return runnableModel;
+
+        }, post);
+    }
 }

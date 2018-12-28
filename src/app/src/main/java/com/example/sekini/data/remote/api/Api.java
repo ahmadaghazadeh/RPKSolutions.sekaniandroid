@@ -16,9 +16,13 @@ import com.example.sekini.data.model.SekaniWordExamplesEntity;
 import com.example.sekini.data.model.SekaniWordsEntity;
 import com.example.sekini.data.model.TopicsEntity;
 import com.example.sekini.data.remote.UserInfo;
+import com.example.sekini.data.remote.auth.IAuthRetrofitService;
 import com.example.sekini.data.sync.DeletedList;
 import com.example.sekini.data.sync.ExistList;
 
+import org.json.JSONObject;
+
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -184,17 +188,43 @@ public class Api implements IApi {
 
     @Override
     public Call<List<UserInfo>> getLife(String token) {
-        return refrofit.create(IApiRetrofitService.class).getLife("Bearer "+token);
+        return refrofit.create(IAuthRetrofitService.class).getLife("Bearer "+token);
     }
 
     @Override
     public Call<List<UserInfo>> getScore(String token) {
-        return refrofit.create(IApiRetrofitService.class).getScore("Bearer "+token);
+        return refrofit.create(IAuthRetrofitService.class).getScore("Bearer "+token);
     }
 
     @Override
     public Call<List<UserInfo>> getLevel(String token) {
-        return refrofit.create(IApiRetrofitService.class).getLevel("Bearer "+token);
+        return refrofit.create(IAuthRetrofitService.class).getLevel("Bearer "+token);
+    }
+
+    @Override
+    public Call<String> setLearntWords(String token, String sekaniId) {
+        return refrofit.create(IAuthRetrofitService.class).setLearntWords("Bearer "+token,sekaniId);
+    }
+
+    @Override
+    public Call<String> setFailedWords(String token, String sekaniId) {
+        return refrofit.create(IAuthRetrofitService.class).setFailedWords("Bearer "+token,sekaniId);
+    }
+
+    @Override
+    public Call<UserInfo> putScore(String token, String value) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("Value", value);
+        map.put("Variable", "score");
+        return refrofit.create(IAuthRetrofitService.class).putValue("Bearer "+token,map);
+    }
+
+    @Override
+    public Call<UserInfo> putLife(String token, String value) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("Value", value);
+        map.put("Variable", "life");
+        return refrofit.create(IAuthRetrofitService.class).putValue("Bearer "+token,map);
     }
 
 }

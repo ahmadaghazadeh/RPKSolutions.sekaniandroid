@@ -1,15 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#730005</color>
-    <color name="colorPrimaryDark">#450000</color>
-    <color name="colorPrimaryLight">#a83a2e</color>
-    <color name="colorAccent">#304ffe</color>
-    <color name="colorAccentDark">#0026ca</color>
-    <color name="colorAccentLight">#7a7cff</color>
+    <color name="colorPrimary">#730004</color>
+    <color name="colorPrimaryDark">#4E0002</color>
+    <color name="colorPrimaryLight">#e8070b</color>
+    <color name="colorAccent">#009688</color>
+    <color name="colorAccentDark">#52c7b8</color>
+    <color name="colorAccentLight">#00675b</color>
     <color name="divider">#d3d6db</color>
 
 
+
+
     <color name="white">#FFFFFFFF</color>
+    <color name="background_game2">#582782</color>
+    <color name="toolbar_game2">#2a054b</color>
+    <color name="header_game2_green">#e8f7f2</color>
+    <color name="header_game2_red">#ffbcbd</color>
+    <color name="header_game2_grey">#f0f0f0</color>
+
+    <color name="text_game2_grey">#b2b1b7</color>
+    <color name="text_game2_red">#671219</color>
+    <color name="text_game2_green">#46b08a</color>
+    <color name="text_game2_no_select">#f0f0f0</color>
+
+
+    <color name="btn_game2_green">#7bc623</color>
+    <color name="btn_game2_red">#e00024</color>
+    <color name="btn_game2_blue">#00a9ec</color>
 
 
     <color name="default_text_color">@color/grey_900</color>
@@ -45,7 +62,7 @@
     <color name="grey_90">#263238</color>
 
 
-    <!--Material color list from https://material.io/guidelines/style/color.html-->
+    <!--Material questionColor list from https://material.io/guidelines/style/color.html-->
 
     <color name="red_50">#FFEBEE</color>
     <color name="red_100">#FFCDD2</color>
@@ -323,7 +340,7 @@
     <color name="grey_1000">#1a1a1a</color>
 
 
-    <!--for random color generator -->
+    <!--for random questionColor generator -->
     <array name="mdcolor_random">
         <item type="color">#e91e63</item>
         <item type="color">#9c27b0</item>

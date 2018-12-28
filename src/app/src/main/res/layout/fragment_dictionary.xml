@@ -79,23 +79,75 @@
 
             </LinearLayout>
 
-            <belka.us.androidtoggleswitch.widgets.ToggleSwitch
-                android:paddingTop="@dimen/space.small"
-                android:id="@+id/toggleDic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:paddingBottom="@dimen/space.small"
-                android:textSize="@dimen/text_size_medium"
-                app:activeBgColor="@color/red_500"
-                app:activeTextColor="@android:color/white"
-                app:inactiveBgColor="@android:color/white"
-                app:inactiveTextColor="@color/red_500"
-                app:separatorColor="@color/gray_very_light"
-                app:setToggleListener="@{viewModel.onToggleSwitchChangeListener}"
-                app:textToggleLeft="English"
-                app:textToggleRight="Sekani"
-                app:toggleWidth="120dp" />
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/text_view_height"
+                android:layout_marginBottom="@dimen/space.small"
+                android:layout_marginLeft="@dimen/high_margin"
+                android:layout_marginRight="@dimen/high_margin"
+                android:layout_marginTop="@dimen/space.small"
+                android:background="@drawable/toggle_widget_select"
+                app:setToggleListener="@{viewModel.onCheckedChangeListener}"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/english"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/narrow_margin"
+                    android:layout_marginLeft="@dimen/narrow_margin"
+                    android:layout_marginStart="@dimen/narrow_margin"
+                    android:layout_marginTop="@dimen/narrow_margin"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/toggle_widget_background"
+                    android:button="@null"
+                    android:fontFamily="@font/icon"
+                    android:gravity="center"
+                    android:tag="english"
+                    android:text="@string/english"
+                    android:textColor="@drawable/toggle_widget_text_color"
+                    android:textSize="@dimen/font_size_large"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/sekani"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/narrow_margin"
+                    android:layout_marginLeft="@dimen/narrow_margin"
+                    android:layout_marginStart="@dimen/narrow_margin"
+                    android:layout_marginTop="@dimen/narrow_margin"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/toggle_widget_background"
+                    android:button="@null"
+                    android:fontFamily="@font/icon"
+                    android:gravity="center"
+                    android:tag="sekani"
+                    android:text="@string/sekani"
+                    android:textColor="@drawable/toggle_widget_text_color"
+                    android:textSize="@dimen/font_size_large"
+
+                    android:textStyle="bold" />
+            </RadioGroup>
+
+            <!--<belka.us.androidtoggleswitch.widgets.ToggleSwitch-->
+                <!--android:paddingTop="@dimen/space.small"-->
+                <!--android:id="@+id/toggleDic"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:paddingBottom="@dimen/space.small"-->
+                <!--android:textSize="@dimen/text_size_medium"-->
+                <!--app:activeBgColor="@color/red_500"-->
+                <!--app:activeTextColor="@android:color/white"-->
+                <!--app:inactiveBgColor="@android:color/white"-->
+                <!--app:inactiveTextColor="@color/red_500"-->
+                <!--app:separatorColor="@color/gray_very_light"-->
+                <!---->
+                <!--app:textToggleLeft="English"-->
+                <!--app:textToggleRight="Sekani"-->
+                <!--app:toggleWidth="120dp" />-->
 
         </android.support.design.widget.AppBarLayout>
 

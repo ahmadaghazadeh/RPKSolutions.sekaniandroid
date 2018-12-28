@@ -29,7 +29,7 @@ public class IncorrectDialog extends BaseDialog<DialogIncorrectBinding, Incorrec
     String englishWord;
     String sekaniWord;
     byte[] audio;
-    static String tag="CorrectDialog";
+    static String tag="ImageDialog";
 
 
 

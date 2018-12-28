@@ -3,6 +3,8 @@ package com.example.sekini.utils.base;
 import android.support.annotation.StringRes;
 import android.support.v7.widget.Toolbar;
 
+import com.example.sekini.ui.dialog.loading.LoadingDialog;
+
 public interface INavigator {
 
     void handleError(Throwable throwable);
@@ -13,6 +15,8 @@ public interface INavigator {
     void setProgress(String title,String message, int progress,int max);
     void setProgress(String message, int progress,int max);
     void showYesNoDialog(String title,String message,  Runnable okRun, Runnable cancelRun);
+    void showYesNoDialog(@StringRes int title, @StringRes int  message,
+                         @StringRes int okCaption,@StringRes int cancelCaption,  Runnable okRun, Runnable cancelRun);
     void showYesNoDialog(@StringRes int title, @StringRes int  message, Runnable okRun, Runnable cancelRun);
 
     void hideProgress();
@@ -23,6 +27,7 @@ public interface INavigator {
 
     void showYesNoNeutralDialog(int title, int message, int yesCaption, int noCaption,
                                 int neutralCaption, Runnable okRun, Runnable noRun,Runnable neutralRun);
+
 
 
 }

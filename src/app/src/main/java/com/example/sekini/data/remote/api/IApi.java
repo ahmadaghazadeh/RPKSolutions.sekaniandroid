@@ -63,4 +63,11 @@ public interface IApi {
      Call<List<UserInfo>> getScore(String token);
 
      Call<List<UserInfo>>  getLevel(String token);
+
+     Call<String>  setLearntWords(String token,String sekaniId);
+     Call<String>  setFailedWords(String token,String sekaniId);
+     Call<UserInfo>  putScore(String token,String value);
+     Call<UserInfo>  putLife(String token,String value);
+
+
 }

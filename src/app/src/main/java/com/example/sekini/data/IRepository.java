@@ -25,14 +25,23 @@ import com.example.sekini.utils.exception.ApiException;
 import java.io.IOException;
 import java.util.List;
 
+import retrofit2.Call;
+
 public interface IRepository {
 
     List<EnglishWordsEntity> getEnglishWords (String timeStamp)throws IOException, ApiException;
     Token connect(String userName,String password) throws Exception;
     List<SekaniCategoriesEntity> getSekaniCategories(String timeStamp)throws IOException, ApiException;
-    UserInfo getLife(String token)throws IOException, ApiException;
-    UserInfo getScore(String token)throws IOException, ApiException;
-    UserInfo getLevel(String token)throws IOException, ApiException;
+
+    UserInfo getLife(String token) throws Exception;
+    UserInfo getScore(String token) throws Exception;
+    UserInfo getLevel(String token) throws Exception;
+    UserInfo putLife(String token,int life) throws Exception;
+    UserInfo putScore(String token,int score) throws Exception;
+
+    String setLearntWords(String token, String sekaniId) throws Exception;
+    String  setFailedWords(String token,String sekaniId) throws Exception;
+
     List<SekaniFormsEntity> getSekaniForms(String timeStamp)throws IOException, ApiException;
     List<SekaniLevelsEntity> getSekaniLevels(String timeStamp)throws IOException, ApiException;
     List<SekaniRootImagesEntity> getSekaniRootImages(String timeStamp)throws IOException, ApiException;

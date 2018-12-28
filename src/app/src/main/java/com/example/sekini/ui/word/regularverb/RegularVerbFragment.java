@@ -68,6 +68,7 @@ public class RegularVerbFragment extends BaseFragment<FragmentRegularVerbBinding
         View view = super.onCreateView(inflater, container, savedInstanceState);
         mViewDataBinding.viewPager.setAdapter(new TensePageAdapter(getBaseActivity().getSupportFragmentManager(), sekaniRootId));
         mViewDataBinding.tabLayout.setupWithViewPager(mViewDataBinding.viewPager);
+        showLoadingDialog(R.drawable.ic_dict,getString(R.string.dictionary));
         return view;
     }
 

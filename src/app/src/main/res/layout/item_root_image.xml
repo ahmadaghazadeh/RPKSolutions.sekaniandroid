@@ -18,6 +18,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
+            android:onClick="@{()-> viewModel.onClickImage()}"
             android:id="@+id/imageView"
             android:layout_width="@dimen/image_root_dimen"
             android:layout_height="@dimen/image_root_dimen"

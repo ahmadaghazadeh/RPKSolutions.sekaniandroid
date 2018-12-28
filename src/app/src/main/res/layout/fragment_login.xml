@@ -118,16 +118,23 @@
                 android:onClick="@{() -> viewModel.connect()}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-                android:background="@drawable/ic_btn_game"
+                android:background="@drawable/ic_btn_game1"
                 android:text="@string/sign_in"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"
                 android:textStyle="bold" />
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="@dimen/spacing_medium" />
+            <Button
+                android:onClick="@{() -> viewModel.logout()}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_btn_game1"
+                android:text="@string/logout"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textStyle="bold" />
+
+
 
             <!--<LinearLayout-->
             <!--android:id="@+id/sign_up_for_account"-->
@@ -142,14 +149,12 @@
             <!--android:layout_height="wrap_content"-->
             <!--android:text="SIGN UP FOR AN ACCOUNT?"-->
             <!--android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"-->
-            <!--android:textColor="@color/blue_grey_400" />-->
+            <!--android:textColor="@questionColor/blue_grey_400" />-->
 
 
             <!--</LinearLayout>-->
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="@dimen/spacing_xlarge" />
+
 
         </LinearLayout>
 

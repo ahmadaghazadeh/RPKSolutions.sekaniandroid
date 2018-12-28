@@ -1,5 +1,6 @@
 package com.example.sekini.ui.word.possessednoun;
 
+import com.example.sekini.R;
 import com.example.sekini.data.local.db.embedded.IDicDao;
 import com.example.sekini.data.local.db.embedded.ISekaniRootDtoDao;
 import com.example.sekini.data.local.db.embedded.ISekaniWordDtoDao;
@@ -52,13 +53,14 @@ public class PossessedNounViewModel extends FragmentBaseViewModel<IPossessedNoun
 
 
     public void init(int rootId) {
+        getNavigator().showLoadingDialog(R.drawable.ic_dict,commonUtils.getString(R.string.dictionary));
 
-        getNavigator().showProgress(false);
         RunnableMethod<Object, RunnableModel<List<BaseRecyclerView>>> runnableMethod = (param, onProgressUpdate) -> {
             RunnableModel<List<BaseRecyclerView>> runnableModel = new RunnableModel<>();
             try {
                 SekaniRootDto sekaniRootDto = sekaniRootDtoDao.getWord(rootId);
-                RootImage rootImage = new RootImage(sekaniRootDto);
+                RunnableIn<byte[]> runnableIn= param1 -> getNavigator().showImageDialog(param1);
+                RootImage rootImage = new RootImage(sekaniRootDto,runnableIn);
                 List<BaseRecyclerView> baseRecyclerViews = new LinkedList<>(rootImage.render());
                 baseRecyclerViews.addAll(new FirstPerson(sekaniRootDto, sekaniWordExampleDtoDao, sekaniWordDtoDao).render());
                 baseRecyclerViews.addAll(new SecondPerson(sekaniRootDto, sekaniWordExampleDtoDao, sekaniWordDtoDao).render());
@@ -79,7 +81,7 @@ public class PossessedNounViewModel extends FragmentBaseViewModel<IPossessedNoun
             } else {
                 getNavigator().init(param.getModel());
             }
-            getNavigator().hideProgress();
+            getNavigator().dismissLoadingDialog();
 
         };
         runAsyncTask(runnableMethod, post);

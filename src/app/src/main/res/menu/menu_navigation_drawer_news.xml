@@ -4,38 +4,55 @@
     <group
         android:id="@+id/grp_1"
         android:checkableBehavior="single">
+        <!--<item-->
+        <!--android:id="@+id/nav_home"-->
+        <!--android:icon="@drawable/ic_home_black_24dp"-->
+        <!--android:title="Home" />-->
         <item
-            android:id="@+id/nav_home"
-            android:icon="@drawable/ic_home_black_24dp"
-            android:title="Home" />
-        <item
-            android:icon="@drawable/ic_translate_black_24dp"
             android:id="@+id/nav_sekani_to_english"
-            android:title="Sekani To English" />
+            android:icon="@drawable/ic_dict_colored"
+            android:title="@string/sekani_to_english" />
         <item
-            android:icon="@drawable/ic_translate_black_24dp"
             android:id="@+id/nav_english_to_sekani"
-            android:title="English To Sekani" />
-        <item
-            android:icon="@drawable/ic_games_black_24dp"
-            android:id="@+id/nav_game1"
-            android:title="Game 1" />
-        <item
-            android:icon="@drawable/ic_games_black_24dp"
-            android:id="@+id/nav_game2"
-            android:title="Game 2" />
+            android:icon="@drawable/ic_dict_colored"
+            android:title="@string/english_to_sekani" />
+
+
+
     </group>
+
+    <item  android:id="@+id/nav_games"
+        android:title="@string/games">
+        <menu>
+            <item
+                android:id="@+id/nav_game1"
+                android:icon="@drawable/ic_menu_game1"
+                android:title="@string/word_matcher" />
+            <item
+                android:id="@+id/nav_game2"
+                android:icon="@drawable/ic_menu_game2"
+                android:title="@string/quick_minds" />
+            <item
+                android:id="@+id/nav_reset_life"
+                android:icon="@drawable/ic_games_black_24dp"
+                android:title="@string/reset_life" />
+        </menu>
+    </item>
+
+
     <group
+
         android:id="@+id/grp_2"
         android:checkableBehavior="none">
         <item
-            android:icon="@drawable/ic_settings_black_24dp"
             android:id="@+id/nav_settings"
-            android:title="Settings" />
+            android:icon="@drawable/ic_settings"
+            android:title="@string/settings" />
         <item
-            android:icon="@drawable/ic_info_black_24dp"
             android:id="@+id/nav_about"
-            android:title="About" />
+            android:icon="@drawable/ic_about"
+            android:title="@string/about" />
     </group>
+
 
 </menu>

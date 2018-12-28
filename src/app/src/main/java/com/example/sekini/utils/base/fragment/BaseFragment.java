@@ -21,10 +21,13 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 
 import com.example.sekini.R;
+import com.example.sekini.ui.dialog.loading.LoadingDialog;
 import com.example.sekini.ui.main.SharedMainViewModel;
 import com.example.sekini.utils.base.activity.BaseActivity;
+import com.example.sekini.utils.base.dialog.IDialogDismiss;
 import com.example.sekini.utils.base.dialog.YesNoDialog.YesNoDialog;
 import com.example.sekini.utils.base.dialog.YesNoNeutral.YesNoNeutralDialog;
+import com.example.sekini.utils.base.dialog.prompt.PromptDialog;
 import com.example.sekini.utils.common.CommonUtils;
 import com.example.sekini.utils.exception.HandleException;
 
@@ -38,7 +41,7 @@ import static com.example.sekini.utils.base.activity.BaseActivity.YES_NO_DIALOG;
 public abstract class BaseFragment<T extends ViewDataBinding, V extends FragmentBaseViewModel> extends DaggerFragment {
 
     public static final String ERROR_DIALOG = "ERROR_DIALOG";
-
+    public static final String PROMPT_DIALOG = "PROMPT_DIALOG";
     static {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     }
@@ -55,7 +58,6 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends Fragment
 
     @Inject
     HandleException handleException;
-
 
     private ProgressDialog progress;
 
@@ -101,6 +103,20 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends Fragment
 
     public void toast(String string) {
         commonUtils.toast(string);
+    }
+    public void showLoadingDialog(int resId,String title) {
+       getBaseActivity().showLoadingDialog(resId,title);
+    }
+
+    public void dismissLoadingDialog() {
+       getBaseActivity().dismissLoadingDialog();
+    }
+
+    public void snackBar(String title) {
+        getBaseActivity().snackBar(title);
+    }
+    public void snackBar(@StringRes int title) {
+        getBaseActivity().snackBar(title);
     }
 
 
@@ -216,7 +232,22 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends Fragment
         yesNoNeutralDialog.setNoRunnable(neutralRun);
         yesNoNeutralDialog.show(getBaseActivity().getSupportFragmentManager(), YES_NEUTRAL_NO_DIALOG);
     }
+    public void showYesNoDialog(@StringRes int title, @StringRes int  message,
+                                @StringRes int okCaption,@StringRes int cancelCaption
+            , Runnable okRun, Runnable cancelRun) {
+        YesNoDialog yesNoDialog = YesNoDialog.newInstance(getString(title), getString(message),
+                getString(okCaption),getString(cancelCaption));
+        yesNoDialog.setOkRunnable(okRun);
 
+        yesNoDialog.setCancelRunnable(cancelRun);
+        yesNoDialog.show(getBaseActivity().getSupportFragmentManager(), YES_NO_DIALOG);
+    }
+    public void showPromptDialog(@StringRes int title, @StringRes int message
+            , IDialogDismiss dialogDismiss) {
+        PromptDialog promptDialog = PromptDialog.newInstance(getString(title), getString(message) );
+        promptDialog.setDialogDismiss(dialogDismiss);
+        promptDialog.show(getBaseActivity().getSupportFragmentManager(), PROMPT_DIALOG);
+    }
     public void snackBar(String title, String btnCaption, Runnable runnable) {
         Snackbar snackbar = Snackbar.make(mViewDataBinding.getRoot(), title, Snackbar.LENGTH_LONG)
                 .setAction(btnCaption, view -> runnable.run());

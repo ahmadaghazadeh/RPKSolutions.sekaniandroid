@@ -17,8 +17,11 @@ import com.example.sekini.data.model.UserLearnedWord;
 import com.example.sekini.data.model.embedded.SekaniWordAudioDto;
 import com.example.sekini.data.model.embedded.SekaniWordDto;
 import com.example.sekini.data.remote.Token;
+import com.example.sekini.data.remote.UserInfo;
+import com.example.sekini.data.remote.api.IApi;
 import com.example.sekini.utils.base.fragment.FragmentBaseViewModel;
 import com.example.sekini.utils.common.CommonUtils;
+import com.example.sekini.utils.common.OnProgressUpdate;
 import com.example.sekini.utils.common.RunnableIn;
 import com.example.sekini.utils.common.RunnableMethod;
 import com.example.sekini.utils.common.RunnableModel;
@@ -27,6 +30,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 
 public class Game1ItemViewModel extends FragmentBaseViewModel<IGame1ItemNavigator> {
@@ -38,16 +42,16 @@ public class Game1ItemViewModel extends FragmentBaseViewModel<IGame1ItemNavigato
     public MutableLiveData<Integer> life = new MutableLiveData<>();
     public MutableLiveData<Integer> backgroundTop = new MutableLiveData<>();
     public MutableLiveData<Boolean> isSelected = new MutableLiveData<>();
-    private Integer[] pentagon = new Integer[]{R.drawable.pentagon1,
-            R.drawable.pentagon2,
-            R.drawable.pentagon3,
-            R.drawable.pentagon4,
-            R.drawable.pentagon5};
 
     private int answerIndex = -1;
+    private int index;
 
     @Inject
     public CommonUtils commonUtils;
+
+    @Inject
+    @Named("scoreCorrectGame1")
+    public int scoreCorrect;
 
     @Inject
     public IAppPref appPref;
@@ -70,23 +74,29 @@ public class Game1ItemViewModel extends FragmentBaseViewModel<IGame1ItemNavigato
     @Inject
     public IRepository repository;
 
+
+
     public SekaniWordDto wordDto;
 
 
     @Inject
     public Game1ItemViewModel() {
 
-        backgroundTop.postValue(R.drawable.border_game_header);
+        backgroundTop.postValue(R.drawable.border_game1_header);
         isSelected.postValue(false);
 
     }
-
-    public void init(int sekaniWordId) {
-        RunnableMethod<Object, RunnableModel<Token>> runnableMethod = (param, onProgressUpdate) -> {
-            RunnableModel<Token> runnableModel = new RunnableModel<>();
+    public  void setScores(){
+        score.postValue("" + appPref.getScore());
+        life.postValue(commonUtils.getLifeResId( appPref.getLife()));
+    }
+    public void init(int index, int sekaniWordId) {
+        this.index = index;
+        RunnableMethod<Object, Object> runnableMethod = (param, onProgressUpdate) -> {
+            RunnableModel<Object> runnableModel = new RunnableModel<>();
             try {
-                score.postValue(""+appPref.getScore());
-                life.postValue(pentagon[5-appPref.getLife()]);
+
+                setScores();
                 wordDto = sekaniWordDtoDao.getWord(sekaniWordId);
                 List<SekaniRootImagesEntity> sekaniRootImagesEntities = sekaniRootImagesDao.getRandom(wordDto.sekaniWordsEntity.sekaniRootId);
                 word.postValue(wordDto.sekaniWordsEntity.word);
@@ -100,7 +110,30 @@ public class Game1ItemViewModel extends FragmentBaseViewModel<IGame1ItemNavigato
             return runnableModel;
         };
 
-        runAsyncTask(runnableMethod, null);
+        RunnableIn<RunnableModel<Object>> post = (param) -> {
+            if (param.hasError()) {
+                getNavigator().handleError(param.getException());
+            }
+            getNavigator().dismissLoadingDialog();
+
+        };
+
+        if (appPref.getLife() == 0) {
+            getNavigator().showPromptDialog(R.string.no_life,
+                    R.string.please_come_back_tomorrow, () -> {
+                        getNavigator().gotoMain();
+                    }
+            );
+        }else  if (commonUtils.isInternetOn()) {
+            runAsyncTaskWithOutException(runnableMethod, post);
+        } else {
+            getNavigator().showYesNoDialog(R.string.internet_disconnects,
+                    R.string.check_internet_try_again,
+                    R.string.try_again,
+                    R.string.cancel,
+                    () -> init(index, sekaniWordId), () -> getNavigator().gotoMain());
+
+        }
 
     }
 
@@ -109,13 +142,13 @@ public class Game1ItemViewModel extends FragmentBaseViewModel<IGame1ItemNavigato
             List<Integer> lstRes = new LinkedList<>();
             for (int i = 0; i < images.getValue().size(); i++) {
                 if (selectedIndex == i)
-                    lstRes.add(R.drawable.border_game_image_selected);
+                    lstRes.add(R.drawable.border_game_image1_selected);
                 else
-                    lstRes.add(R.drawable.border_game_image);
+                    lstRes.add(R.drawable.border_game1_image);
             }
             drawableRes.postValue(lstRes);
             if (isSelected.getValue() != null && !isSelected.getValue()) {
-                backgroundTop.postValue(R.drawable.border_game_header_filled);
+                backgroundTop.postValue(R.drawable.border_game1_header_filled);
                 isSelected.postValue(true);
             }
         }
@@ -133,7 +166,7 @@ public class Game1ItemViewModel extends FragmentBaseViewModel<IGame1ItemNavigato
     }
 
     public void check() {
-        if(answerIndex==-1){
+        if (answerIndex == -1) {
             getNavigator().toast("Please Select");
             return;
         }
@@ -146,8 +179,40 @@ public class Game1ItemViewModel extends FragmentBaseViewModel<IGame1ItemNavigato
             userLearnedWord.id = userLearnedWordDao.getMaxId() + 1;
             userLearnedWordDao.insert(userLearnedWord);
 
-            SekaniWordAudioDto sekaniWordAudioDto= sekaniWordAudioDtoDao.getWordRootId(images.getValue().get(answerIndex).sekaniRootId);
-            getNavigator().correctDialog(sekaniWordAudioDto.sekaniWord,sekaniWordAudioDto.englishWord,sekaniWordAudioDto.audio);
+            SekaniWordAudioDto sekaniWordAudioDto = sekaniWordAudioDtoDao.getWordRootId(images.getValue().get(answerIndex).sekaniRootId);
+            getNavigator().correctDialog(sekaniWordAudioDto.sekaniWord, sekaniWordAudioDto.englishWord, sekaniWordAudioDto.audio);
+
+            if (commonUtils.isInternetOn()) {
+                RunnableIn<RunnableModel<Object>> post = (param) -> {
+                    if (param.hasError()) {
+                        getNavigator().handleError(param.getException());
+                    }
+                    getNavigator().dismissLoadingDialog();
+
+                };
+                runDialogAsyncTask((param, onProgressUpdate) -> {
+                    RunnableModel<Object> runnableModel = new RunnableModel<>();
+                    try {
+                        int tempScore=appPref.getScore()+scoreCorrect;
+                        appPref.setScore(tempScore);
+                        repository.putScore(appPref.getToken(),  tempScore);
+                        repository.setLearntWords(appPref.getToken(),""+wordDto.sekaniWordsEntity.id);
+                    } catch (Exception e) {
+                        runnableModel.setException(e);
+                    }
+                    return runnableModel;
+
+
+                }, post);
+            } else {
+                getNavigator().showYesNoDialog(R.string.internet_disconnects,
+                        R.string.check_internet_try_again,
+                        R.string.try_again,
+                        R.string.cancel,
+                        this::check, () -> getNavigator().gotoMain());
+            }
+
+
         } else {
             UserFailedWord userFailedWord = new UserFailedWord();
             userFailedWord.sekaniWordId = wordDto.sekaniWordsEntity.id;
@@ -156,8 +221,39 @@ public class Game1ItemViewModel extends FragmentBaseViewModel<IGame1ItemNavigato
             userFailedWord.id = userLearnedWordDao.getMaxId() + 1;
             userFailedWordDao.insert(userFailedWord);
 
-            SekaniWordAudioDto sekaniWordAudioDto= sekaniWordAudioDtoDao.getWordRootId(images.getValue().get(answerIndex).sekaniRootId);
-            getNavigator().incorrectDialog(sekaniWordAudioDto.sekaniWord,sekaniWordAudioDto.englishWord,sekaniWordAudioDto.audio);
+            SekaniWordAudioDto sekaniWordAudioDto = sekaniWordAudioDtoDao.getWordRootId(images.getValue().get(answerIndex).sekaniRootId);
+            getNavigator().incorrectDialog(sekaniWordAudioDto.sekaniWord, sekaniWordAudioDto.englishWord, sekaniWordAudioDto.audio);
+            if (commonUtils.isInternetOn()) {
+                RunnableIn<RunnableModel<Object>> post = (param) -> {
+                    if (param.hasError()) {
+                        getNavigator().handleError(param.getException());
+                    }
+                    getNavigator().dismissLoadingDialog();
+
+                };
+                runDialogAsyncTask((param, onProgressUpdate) -> {
+                    RunnableModel<Object> runnableModel = new RunnableModel<>();
+                    try {
+                        int tempLife=appPref.getLife() - 1;
+                        appPref.setLife(tempLife);
+                        UserInfo userInfo= repository.putLife(appPref.getToken(),  tempLife);
+                        repository.setFailedWords(appPref.getToken(),""+wordDto.sekaniWordsEntity.id);
+                    } catch (Exception e) {
+                        runnableModel.setException(e);
+                    }
+                    return runnableModel;
+
+                }, post);
+            } else {
+                getNavigator().showYesNoDialog(R.string.internet_disconnects,
+                        R.string.check_internet_try_again,
+                        R.string.try_again,
+                        R.string.cancel,
+                        this::check, () -> getNavigator().gotoMain());
+
+            }
+
+
         }
     }
 

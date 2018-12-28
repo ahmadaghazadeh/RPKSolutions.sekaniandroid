@@ -12,7 +12,8 @@ import android.view.ViewGroup;
 import com.example.sekini.BR;
 import com.example.sekini.R;
 import com.example.sekini.app.BundleNames;
-import com.example.sekini.databinding.ActivityGenericBinding;
+import com.example.sekini.databinding.FragmentGenericBinding;
+import com.example.sekini.ui.dialog.image.ImageDialog;
 import com.example.sekini.ui.dictionary.dic.EmptyDicViewModel;
 import com.example.sekini.utils.base.fragment.BaseFragment;
 import com.example.sekini.utils.recycler.BaseRecyclerView;
@@ -22,7 +23,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class GenericFragment extends BaseFragment<ActivityGenericBinding, GenericViewModel>
+public class GenericFragment extends BaseFragment<FragmentGenericBinding, GenericViewModel>
         implements IGenericNavigator {
 
     @Inject
@@ -53,7 +54,7 @@ public class GenericFragment extends BaseFragment<ActivityGenericBinding, Generi
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_generic;
+        return R.layout.fragment_generic;
     }
 
     @Override
@@ -84,7 +85,10 @@ public class GenericFragment extends BaseFragment<ActivityGenericBinding, Generi
         adapter.init(items);
     }
 
-
+    @Override
+    public void showImageDialog(byte[] param) {
+        ImageDialog.show(getChildFragmentManager(),param,"",null);
+    }
 
 
 }

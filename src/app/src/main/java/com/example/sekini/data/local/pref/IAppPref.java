@@ -24,5 +24,16 @@ public interface IAppPref {
     int getLife();
 
     void setTokenExpireTime(long l);
+
     long getTokenExpireTime();
+
+    void setUserName(String value);
+
+    String getUserName();
+
+    boolean isLogin();
+
+    void setPassword(String value);
+
+    String getPassword();
 }

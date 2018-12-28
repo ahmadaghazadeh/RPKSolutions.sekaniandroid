@@ -222,5 +222,14 @@ public abstract class BaseDialog<T extends ViewDataBinding, V extends DialogBase
         yesNoNeutralDialog.setNoRunnable(neutralRun);
         yesNoNeutralDialog.show(baseActivity.getSupportFragmentManager(), YES_NEUTRAL_NO_DIALOG);
     }
+    public void showYesNoDialog(@StringRes int title, @StringRes int  message,
+                                @StringRes int okCaption,@StringRes int cancelCaption
+            , Runnable okRun, Runnable cancelRun) {
+        YesNoDialog yesNoDialog = YesNoDialog.newInstance(getString(title), getString(message),
+                getString(okCaption),getString(cancelCaption));
+        yesNoDialog.setOkRunnable(okRun);
 
+        yesNoDialog.setCancelRunnable(cancelRun);
+        yesNoDialog.show(baseActivity.getSupportFragmentManager(), YES_NO_DIALOG);
+    }
 }

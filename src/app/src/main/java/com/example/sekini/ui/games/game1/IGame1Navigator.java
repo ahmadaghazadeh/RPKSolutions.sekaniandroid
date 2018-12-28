@@ -11,4 +11,6 @@ public interface IGame1Navigator extends IFragmentNavigator {
     void initPager(List<Integer> ids);
 
     void gotoMain();
+
+
 }

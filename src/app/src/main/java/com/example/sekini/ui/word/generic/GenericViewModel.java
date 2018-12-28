@@ -1,5 +1,6 @@
 package com.example.sekini.ui.word.generic;
 
+import com.example.sekini.R;
 import com.example.sekini.data.local.db.embedded.IDicDao;
 import com.example.sekini.data.local.db.embedded.ISekaniRootDtoDao;
 import com.example.sekini.data.local.db.embedded.ISekaniWordDtoDao;
@@ -49,12 +50,14 @@ public class GenericViewModel extends FragmentBaseViewModel<IGenericNavigator> {
 
     public void init(int rootId) {
 
-        getNavigator().showProgress(true);
+        getNavigator().showLoadingDialog(R.drawable.ic_dict,commonUtils.getString(R.string.dictionary));
         RunnableMethod<Object, RunnableModel<List<BaseRecyclerView>>> runnableMethod = (param, onProgressUpdate) -> {
             RunnableModel<List<BaseRecyclerView>> runnableModel = new RunnableModel<>();
             try {
+
                 SekaniRootDto sekaniRootDto = sekaniRootDtoDao.getWord(rootId);
-                RootImage rootImage = new RootImage(sekaniRootDto);
+                RunnableIn<byte[]> runnableIn= param1 -> getNavigator().showImageDialog(param1);
+                RootImage rootImage = new RootImage(sekaniRootDto,runnableIn);
 
                 List<BaseRecyclerView> baseRecyclerViews = new LinkedList<>(rootImage.render());
                 for (SekaniWordsEntity entity: sekaniRootDto.getSekaniWords) {
@@ -77,7 +80,8 @@ public class GenericViewModel extends FragmentBaseViewModel<IGenericNavigator> {
             } else {
                 getNavigator().init(param.getModel());
             }
-            getNavigator().hideProgress();
+             getNavigator().dismissLoadingDialog();
+
 
         };
         runAsyncTask(runnableMethod, post);

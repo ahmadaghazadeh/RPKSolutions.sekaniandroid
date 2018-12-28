@@ -16,13 +16,18 @@ import android.view.View;
 import com.example.sekini.R;
 
 import dagger.android.support.DaggerAppCompatDialogFragment;
+import okhttp3.internal.tls.OkHostnameVerifier;
 
 public class YesNoDialog extends DaggerAppCompatDialogFragment {
 
     private static final String MESSAGE = "MESSAGE";
     private static final String TITLE = "TITLE";
+    private static final String OK_CAPTION = "OK_CAPTION";
+    private static final String CANCEL_CAPTION = "CANCEL_CAPTION";
     String title;
     String message;
+    String cancelCaption;
+    String okCaption;
     private Context context;
     private Runnable okRunnable;
     private Runnable cancelRunnable;
@@ -41,12 +46,25 @@ public class YesNoDialog extends DaggerAppCompatDialogFragment {
         return dialog;
     }
 
+    public static YesNoDialog newInstance(String title, String message,String okCaption,String cancelCaption) {
+        YesNoDialog dialog = new YesNoDialog();
+        Bundle bundle = new Bundle();
+        bundle.putString(TITLE, title);
+        bundle.putString(MESSAGE, message);
+        bundle.putString(OK_CAPTION, okCaption);
+        bundle.putString(CANCEL_CAPTION, cancelCaption);
+        dialog.setArguments(bundle);
+        return dialog;
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             title = getArguments().getString(TITLE);
             message = getArguments().getString(MESSAGE);
+            okCaption = getArguments().getString(CANCEL_CAPTION,getString(R.string.ok));
+            cancelCaption = getArguments().getString(OK_CAPTION,getString(R.string.cancel));
         }
     }
 
@@ -55,13 +73,13 @@ public class YesNoDialog extends DaggerAppCompatDialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         AlertDialog alertDialog = new AlertDialog.Builder(context)
-                .setNegativeButton(R.string.cancel, (dialog, which) -> {
+                .setNegativeButton(cancelCaption, (dialog, which) -> {
                     if (cancelRunnable != null)
                         cancelRunnable.run();
                     dialog.dismiss();
                 })
                 .setMessage(message)
-                .setPositiveButton(R.string.ok, (dialog, which) -> {
+                .setPositiveButton(okCaption, (dialog, which) -> {
                     if (okRunnable != null)
                         okRunnable.run();
                     dialog.dismiss();

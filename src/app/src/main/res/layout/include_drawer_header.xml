@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <data>
 
@@ -27,35 +28,60 @@
             <!--android:layout_height="64dp"-->
             <!--android:layout_margin="@dimen/spacing_large"-->
             <!--android:src="@drawable/small_logo"-->
-            <!--android:tint="@color/white"-->
+            <!--android:tint="@questionColor/white"-->
             <!--app:civ_border_width="2dp"-->
             <!--app:civ_shadow="true"-->
             <!--app:civ_shadow_radius="0" />-->
 
-        <LinearLayout
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_margin="@dimen/spacing_large"
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            tools:layout_editor_absoluteX="15dp"
+            tools:layout_editor_absoluteY="130dp">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:onClick="@{()->viewModel.onClickLogin()}"
+                android:id="@+id/textView8"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/spacing_medium"
-                android:text="John Miller"
+                android:layout_marginStart="@dimen/space.small"
+                android:layout_marginLeft="@dimen/space.small"
+                android:layout_marginEnd="@dimen/space.small"
+                android:layout_marginRight="@dimen/space.small"
+                android:layout_marginBottom="@dimen/space.small"
+                android:text='@{viewModel.isLogin  ? "Hi " + viewModel.userName : "Log in"}'
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/imageView13"
+                app:layout_constraintStart_toStartOf="parent" />
 
-            <TextView
-                android:id="@+id/email"
-                android:layout_width="wrap_content"
+            <ImageView
+                android:onClick="@{()->viewModel.onClickLogin()}"
+                android:id="@+id/imageView13"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="johnmiller@mail.com"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textColor="@color/white" />
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:contentDescription="@string/login_logout"
+                android:tint="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView8"
+                android:src="@{viewModel.loginRes}"/>
 
-        </LinearLayout>
+            <!--<TextView-->
+            <!--android:id="@+id/email"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="johnmiller@mail.com"-->
+            <!--android:textAppearance="@style/TextAppearance.AppCompat.Body1"-->
+            <!--android:textColor="@color/white" />-->
+
+        </android.support.constraint.ConstraintLayout>
 
 
     </RelativeLayout>

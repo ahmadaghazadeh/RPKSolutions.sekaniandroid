@@ -1,5 +1,8 @@
 package com.example.sekini.ui.dictionary;
 
+import android.widget.RadioGroup;
+
+import com.example.sekini.R;
 import com.example.sekini.data.local.db.embedded.IDicDao;
 import com.example.sekini.data.sync.ISyncData;
 import com.example.sekini.ui.dictionary.dic.EnglishDicItem;
@@ -48,13 +51,15 @@ public class DictionaryViewModel extends FragmentBaseViewModel<IDictionaryNaviga
         findWord(lastWord);
     }
 
-    public BaseToggleSwitch.OnToggleSwitchChangeListener onToggleSwitchChangeListener = new BaseToggleSwitch.OnToggleSwitchChangeListener() {
+    public RadioGroup.OnCheckedChangeListener onCheckedChangeListener=new RadioGroup.OnCheckedChangeListener() {
         @Override
-        public void onToggleSwitchChangeListener(int position, boolean isChecked) {
-            isEnglish = position == 0;
+        public void onCheckedChanged(RadioGroup group, int checkedId) {
+            isEnglish = checkedId == R.id.english;
             findWord(lastWord);
+            getNavigator().setDrawerMenuDictionary(isEnglish);
         }
     };
+
 
     public void onTextChanged(CharSequence s, int start, int before, int count) {
         findWord(s);
@@ -64,6 +69,7 @@ public class DictionaryViewModel extends FragmentBaseViewModel<IDictionaryNaviga
     private void findWord(CharSequence s) {
 
         RunnableMethod<Object, RunnableModel<List<BaseRecyclerView>>> runnableMethod = (param, onProgressUpdate) -> {
+            getNavigator().showLoadingDialog(R.drawable.ic_dict,commonUtils.getString(R.string.dictionary));
             RunnableModel<List<BaseRecyclerView>> runnableModel = new RunnableModel<>();
             if (isEnglish) {
                 runnableModel.setModel(Converter.toDicEnglishWord(
@@ -77,7 +83,10 @@ public class DictionaryViewModel extends FragmentBaseViewModel<IDictionaryNaviga
             return runnableModel;
         };
 
-        RunnableIn<RunnableModel<List<BaseRecyclerView>>> post = (param) -> getNavigator().init(param.getModel());
+        RunnableIn<RunnableModel<List<BaseRecyclerView>>> post = (param) -> {
+            getNavigator().init(param.getModel());
+            getNavigator().dismissLoadingDialog();
+        };
         runAsyncTask(runnableMethod, post);
 
     }

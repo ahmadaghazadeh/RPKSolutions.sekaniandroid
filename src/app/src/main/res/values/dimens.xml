@@ -35,4 +35,14 @@
     <dimen name="game1_header">100dp</dimen>
     <dimen name="image_game1_size_percent">0.45</dimen>
 
+    <dimen name="standardRadius">4dp</dimen>
+    <dimen name="standardBoarderWidth">2dp</dimen>
+    <dimen name="bigBoarderWidth">4dp</dimen>
+    <dimen name="narrow_margin">1dp</dimen>
+    <dimen name="font_size_large">17sp</dimen>
+
+    <dimen name="text_view_height">40dp</dimen>
+    <dimen name="high_margin">30dp</dimen>
+    <dimen name="huge_margin">50dp</dimen>
+
 </resources>

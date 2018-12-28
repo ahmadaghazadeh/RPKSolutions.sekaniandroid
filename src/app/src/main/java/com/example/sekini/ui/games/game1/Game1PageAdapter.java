@@ -19,7 +19,7 @@ public class Game1PageAdapter extends FragmentStatePagerAdapter {
     }
 
     public Fragment getItem(int position) {
-        return Game1ItemFragment.newInstance(sekaniRootIds.get(position));
+        return Game1ItemFragment.newInstance(position,sekaniRootIds.get(position));
     }
 
     // Returns the page title for the top indicator

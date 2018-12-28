@@ -2,6 +2,7 @@ package com.example.sekini.data;
 
 import android.content.Context;
 
+import com.example.sekini.data.local.pref.IAppPref;
 import com.example.sekini.data.model.EnglishWordsEntity;
 import com.example.sekini.data.model.SekaniCategoriesEntity;
 import com.example.sekini.data.model.SekaniFormsEntity;
@@ -36,11 +37,13 @@ public class Repository implements IRepository {
     private IApi api;
     private Context context;
     private IAuth auth;
+    private IAppPref appPref;
 
-    public Repository(IApi api, IAuth auth, Context context) {
+    public Repository(IApi api, IAuth auth, IAppPref appPref, Context context) {
         this.api = api;
         this.auth = auth;
         this.context = context;
+        this.appPref = appPref;
     }
 
 
@@ -56,10 +59,10 @@ public class Repository implements IRepository {
         Response<Token> response;
         try {
             response = auth.connect(userName, password).execute();
-        }catch (Exception ex){
+        } catch (Exception ex) {
             throw new Exception("Can't log in to Sekani");
         }
-        if (response!=null && response.isSuccessful()) return response.body();
+        if (response != null && response.isSuccessful()) return response.body();
         throw new ApiException(context, response);
     }
 
@@ -71,23 +74,102 @@ public class Repository implements IRepository {
     }
 
     @Override
-    public UserInfo getLife(String token) throws IOException, ApiException {
-        Response<List<UserInfo>> response = api.getLife(token).execute();
-        if (response.isSuccessful() && response.body()!=null) return response.body().get(0);
+    public UserInfo getLife(String accessToken) throws Exception {
+        long time = System.currentTimeMillis();
+        if (time < appPref.getTokenExpireTime()) {
+            Token token = connect(appPref.getUserName(), appPref.getPassword());
+            appPref.setToken(token.access_token);
+            time = System.currentTimeMillis();
+            appPref.setTokenExpireTime(time + token.expires_in * 1000);
+        }
+        Response<List<UserInfo>> response = api.getLife(accessToken).execute();
+        if (response.isSuccessful() && response.body() != null) return response.body().get(0);
         throw new ApiException(context, response);
     }
 
     @Override
-    public UserInfo getScore(String token) throws IOException, ApiException {
-        Response<List<UserInfo>> response = api.getScore(token).execute();
-        if (response.isSuccessful() && response.body()!=null) return response.body().get(0);
+    public UserInfo getScore(String accessToken) throws Exception {
+        long time = System.currentTimeMillis();
+        if (time < appPref.getTokenExpireTime()) {
+            Token token = connect(appPref.getUserName(), appPref.getPassword());
+            appPref.setToken(token.access_token);
+            time = System.currentTimeMillis();
+            appPref.setTokenExpireTime(time + token.expires_in * 1000);
+        }
+        Response<List<UserInfo>> response = api.getScore(accessToken).execute();
+        if (response.isSuccessful() && response.body() != null) return response.body().get(0);
         throw new ApiException(context, response);
     }
 
     @Override
-    public UserInfo getLevel(String token) throws IOException, ApiException {
-        Response<List<UserInfo>> response = api.getLevel(token).execute();
-        if (response.isSuccessful() && response.body()!=null) return response.body().get(0);
+    public UserInfo getLevel(String accessToken) throws Exception {
+        long time = System.currentTimeMillis();
+        if (time < appPref.getTokenExpireTime()) {
+            Token token = connect(appPref.getUserName(), appPref.getPassword());
+            appPref.setToken(token.access_token);
+            time = System.currentTimeMillis();
+            appPref.setTokenExpireTime(time + token.expires_in * 1000);
+        }
+        Response<List<UserInfo>> response = api.getLevel(accessToken).execute();
+        if (response.isSuccessful() && response.body() != null) return response.body().get(0);
+        throw new ApiException(context, response);
+    }
+
+    @Override
+    public UserInfo putLife(String accessToken, int life) throws Exception {
+        long time = System.currentTimeMillis();
+        if (time < appPref.getTokenExpireTime()) {
+            Token token = connect(appPref.getUserName(), appPref.getPassword());
+            appPref.setToken(token.access_token);
+            time = System.currentTimeMillis();
+            appPref.setTokenExpireTime(time + token.expires_in * 1000);
+        }
+        if (life <= 0)
+            life = 0;
+        Response<UserInfo> response = api.putLife(accessToken, "" + life).execute();
+        if (response.isSuccessful() && response.body() != null) return response.body();
+        throw new ApiException(context, response);
+    }
+
+    @Override
+    public UserInfo putScore(String accessToken, int score) throws Exception {
+        long time = System.currentTimeMillis();
+        if (time < appPref.getTokenExpireTime()) {
+            Token token = connect(appPref.getUserName(), appPref.getPassword());
+            appPref.setToken(token.access_token);
+            time = System.currentTimeMillis();
+            appPref.setTokenExpireTime(time + token.expires_in * 1000);
+        }
+        Response<UserInfo> response = api.putScore(accessToken, "" + score).execute();
+        if (response.isSuccessful() && response.body() != null) return response.body();
+        throw new ApiException(context, response);
+    }
+
+    @Override
+    public String setLearntWords(String accessToken, String sekaniId) throws Exception {
+        long time = System.currentTimeMillis();
+        if (time < appPref.getTokenExpireTime()) {
+            Token token = connect(appPref.getUserName(), appPref.getPassword());
+            appPref.setToken(token.access_token);
+            time = System.currentTimeMillis();
+            appPref.setTokenExpireTime(time + token.expires_in * 1000);
+        }
+        Response<String> response = api.setLearntWords(accessToken, sekaniId).execute();
+        if (response.isSuccessful() && response.body() != null) return response.body();
+        throw new ApiException(context, response);
+    }
+
+    @Override
+    public String setFailedWords(String accessToken, String sekaniId) throws Exception {
+        long time = System.currentTimeMillis();
+        if (time < appPref.getTokenExpireTime()) {
+            Token token = connect(appPref.getUserName(), appPref.getPassword());
+            appPref.setToken(token.access_token);
+            time = System.currentTimeMillis();
+            appPref.setTokenExpireTime(time + token.expires_in * 1000);
+        }
+        Response<String> response = api.setFailedWords(accessToken, sekaniId).execute();
+        if (response.isSuccessful() && response.body() != null) return response.body();
         throw new ApiException(context, response);
     }
 
