@@ -178,9 +178,8 @@ public class Game1ItemViewModel extends FragmentBaseViewModel<IGame1ItemNavigato
             userLearnedWord.updateTime = CommonUtils.getDateTime();
             userLearnedWord.id = userLearnedWordDao.getMaxId() + 1;
             userLearnedWordDao.insert(userLearnedWord);
-
             SekaniWordAudioDto sekaniWordAudioDto = sekaniWordAudioDtoDao.getWordRootId(images.getValue().get(answerIndex).sekaniRootId);
-            getNavigator().correctDialog(sekaniWordAudioDto.sekaniWord, sekaniWordAudioDto.englishWord, sekaniWordAudioDto.audio);
+            getNavigator().correctDialog(wordDto.sekaniWordsEntity.word,sekaniWordAudioDto.englishWord,    wordDto.audio);
 
             if (commonUtils.isInternetOn()) {
                 RunnableIn<RunnableModel<Object>> post = (param) -> {
@@ -222,7 +221,7 @@ public class Game1ItemViewModel extends FragmentBaseViewModel<IGame1ItemNavigato
             userFailedWordDao.insert(userFailedWord);
 
             SekaniWordAudioDto sekaniWordAudioDto = sekaniWordAudioDtoDao.getWordRootId(images.getValue().get(answerIndex).sekaniRootId);
-            getNavigator().incorrectDialog(sekaniWordAudioDto.sekaniWord, sekaniWordAudioDto.englishWord, sekaniWordAudioDto.audio);
+            getNavigator().incorrectDialog(wordDto.sekaniWordsEntity.word,sekaniWordAudioDto.englishWord,    wordDto.audio);
             if (commonUtils.isInternetOn()) {
                 RunnableIn<RunnableModel<Object>> post = (param) -> {
                     if (param.hasError()) {
@@ -236,7 +235,7 @@ public class Game1ItemViewModel extends FragmentBaseViewModel<IGame1ItemNavigato
                     try {
                         int tempLife=appPref.getLife() - 1;
                         appPref.setLife(tempLife);
-                        UserInfo userInfo= repository.putLife(appPref.getToken(),  tempLife);
+                       repository.putLife(appPref.getToken(),  tempLife);
                         repository.setFailedWords(appPref.getToken(),""+wordDto.sekaniWordsEntity.id);
                     } catch (Exception e) {
                         runnableModel.setException(e);

@@ -38,7 +38,6 @@ public interface ISekaniWordsDao {
     List<SekaniWordsEntity> like(String word);
 
 
-
     @Query( "SELECT sw.id  FROM SekaniWords sw\n" +
             "INNER JOIN SekaniRootImages sri ON sw.sekaniRootId=sri.sekaniRootId\n" +
             "LEFT JOIN UserLearnedWord ul on sw.id=ul.sekaniWordId\n" +

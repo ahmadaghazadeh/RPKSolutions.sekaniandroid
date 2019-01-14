@@ -1,4 +1,4 @@
-package com.example.sekini.ui.main;
+package com.example.sekini.ui.mainbottom;
 
 import android.arch.lifecycle.MutableLiveData;
 
@@ -17,7 +17,7 @@ import com.example.sekini.utils.common.RunnableModel;
 import javax.inject.Inject;
 
 
-public class MainViewModel extends BaseViewModel<IMainNavigator> {
+public class MainBottomViewModel extends BaseViewModel<IMainBottomNavigator> {
 
 
     @Inject
@@ -37,7 +37,7 @@ public class MainViewModel extends BaseViewModel<IMainNavigator> {
     public MutableLiveData<Boolean> isLogin = new MutableLiveData<>();
 
     @Inject
-    public MainViewModel() {
+    public MainBottomViewModel() {
     }
 
 

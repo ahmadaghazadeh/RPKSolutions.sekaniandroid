@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
@@ -23,6 +24,7 @@ import com.example.sekini.ui.games.game2.Game2Fragment;
 import com.example.sekini.ui.login.LoginFragment;
 import com.example.sekini.ui.setting.SettingsActivity;
 import com.example.sekini.utils.base.activity.BaseActivity;
+import com.example.sekini.utils.common.CommonUtils;
 import com.example.sekini.utils.common.RunnableIn;
 import com.example.sekini.utils.common.RunnableModel;
 
@@ -30,7 +32,6 @@ import javax.inject.Inject;
 
 public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel>
         implements IMainNavigator, NavigationView.OnNavigationItemSelectedListener {
-
 
 
     @Inject
@@ -67,7 +68,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         toggle.syncState();
         mViewDataBinding.navView.setNavigationItemSelectedListener(this);
         mViewDataBinding.navView.setItemIconTintList(null);
-        // CommonUtils.exportDatabase(this, "Sekini.db");
+        //CommonUtils.exportDatabase(this, "Sekini.db");
 
         SharedMainViewModel sharedMainViewModel = ViewModelProviders.of(this).get(SharedMainViewModel.class);
         sharedMainViewModel.getModel().observe(this, sharedMainModel -> {
@@ -89,12 +90,15 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
                 setUpDrawer();
             }
         });
+        setUpDrawer();
+        mViewModel.init();
     }
 
     @Override
     protected void onResume() {
+        Fragment f = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        configToolbar(f);
         super.onResume();
-        setUpDrawer();
     }
 
     private void setUpDrawer() {
@@ -111,7 +115,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         }
         MenuItem navGames = menuNav.findItem(R.id.nav_games);
         navGames.setTitle(!flag ? R.string.loginGame : R.string.normalGame);
-        mViewModel.init();
+
     }
 
 
@@ -145,14 +149,22 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             addFragment(DictionaryFragment.newInstance(true));
         } else if (id == R.id.nav_game1) {
             if (appPref.isLogin()) {
-                addFragment(R.id.fragment_container, Game1Fragment.newInstance());
-            }else {
+                if (appPref.getLife() == 0) {
+                    snackBar(R.string.please_come_back_tomorrow);
+                } else {
+                    addFragment(R.id.fragment_container, Game1Fragment.newInstance());
+                }
+            } else {
                 login();
             }
         } else if (id == R.id.nav_game2) {
             if (appPref.isLogin()) {
-                replaceFragment(R.id.fragment_container, Game2Fragment.newInstance());
-            }else {
+                if (appPref.getLife() == 0) {
+                    snackBar(R.string.please_come_back_tomorrow);
+                } else {
+                    replaceFragment(R.id.fragment_container, Game2Fragment.newInstance());
+                }
+            } else {
                 login();
             }
         } else if (id == R.id.nav_settings) {
@@ -160,7 +172,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         } else if (id == R.id.nav_about) {
 
         } else if (id == R.id.nav_reset_life) {
-          mViewModel.resetLife();
+            mViewModel.resetLife();
         }
         mViewDataBinding.drawerLayout.closeDrawer(GravityCompat.START);
         return true;

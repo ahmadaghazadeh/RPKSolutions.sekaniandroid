@@ -30,10 +30,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.word.generic.GenericFragment" />
-        <activity android:name=".ui.word.possessednoun.PossessedNounFragment" />
-        <activity android:name=".ui.word.regularverb.RegularVerbFragment" />
-        <activity android:name=".ui.dictionary.DictionaryFragment" />
+
     </application>
 
 </manifest>

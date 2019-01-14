@@ -156,5 +156,7 @@
     <string name="no_life">No Life</string>
     <string name="please_come_back_tomorrow">Please come back tomorrow</string>
     <string name="reset_life"> Set Life 5</string>
+    <string name="sync_error">Error while sync</string>
+    <string name="please_login_again">Please Login Again</string>
 
 </resources>

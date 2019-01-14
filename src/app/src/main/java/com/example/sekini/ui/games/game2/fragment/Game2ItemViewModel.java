@@ -93,7 +93,7 @@ public class Game2ItemViewModel extends FragmentBaseViewModel<IGame2ItemNavigato
         point.setValue(commonUtils.getString(R.string.match_the_words));
         canNext.setValue(false);
         textColor.setValue(commonUtils.getContext().getResources().getColor(R.color.text_game2_grey));
-        List<Integer> tempLamp = Arrays.asList(R.drawable.lamp4, R.drawable.lamp4, R.drawable.lamp4);
+        List<Integer> tempLamp = Arrays.asList(R.drawable.lamp1, R.drawable.lamp1, R.drawable.lamp1);
         lamps.postValue(tempLamp);
         RunnableMethod<Object, RunnableModel<Token>> runnableMethod = (param, onProgressUpdate) -> {
             RunnableModel<Token> runnableModel = new RunnableModel<>();
@@ -158,7 +158,7 @@ public class Game2ItemViewModel extends FragmentBaseViewModel<IGame2ItemNavigato
                     for (int j = 0; j < answer.getValue().size(); j++) {
                         if (question.getValue().get(i).englishWordsEntity.id == answer.getValue().get(j).englishWordsEntity.id) {
                             boolean flag = question.getValue().get(i).questionColor == answer.getValue().get(j).answeredColor;
-                            int resLamp = flag ? R.drawable.lamp4 : R.drawable.lamp1;
+                            int resLamp = flag ? R.drawable.lamp4 : (attempt==1 ? R.drawable.lamp3:R.drawable.lamp2);
                             lostCount += !flag ? 1 : 0;
                             lstLamps.add(resLamp);
                         }
@@ -292,13 +292,13 @@ public class Game2ItemViewModel extends FragmentBaseViewModel<IGame2ItemNavigato
     private void tryAgain() {
         title.setValue(commonUtils.getString(R.string.try_again));
         point.setValue(commonUtils.getString(R.string.attempt_one));
-        if (answer.getValue() != null) {
-            List<Game2Dto> temp = answer.getValue();
-            for (Game2Dto game2Dto : temp) {
-                game2Dto.answeredColor = 3;
-            }
-            answer.setValue(temp);
-        }
+//        if (answer.getValue() != null) {
+//            List<Game2Dto> temp = answer.getValue();
+//            for (Game2Dto game2Dto : temp) {
+//                game2Dto.answeredColor = 3;
+//            }
+//            answer.setValue(temp);
+//        }
     }
 
     private List<Game2Dto> getWords() {

@@ -27,6 +27,9 @@ import com.example.sekini.ui.main.MainModule;
 import com.example.sekini.ui.main.fragment.MainFragment;
 import com.example.sekini.ui.main.fragment.MainFragmentModule;
 import com.example.sekini.ui.main.fragment.MainViewModel;
+import com.example.sekini.ui.mainbottom.MainBottomActivity;
+import com.example.sekini.ui.mainbottom.MainBottomModule;
+import com.example.sekini.ui.mainbottom.MainBottomViewModel;
 import com.example.sekini.ui.word.generic.GenericFragment;
 import com.example.sekini.ui.word.generic.GenericModule;
 import com.example.sekini.ui.word.possessednoun.PossessedNounFragment;
@@ -111,4 +114,6 @@ public abstract class ActivityBuilderModule {
     @ContributesAndroidInjector(modules = TenseModule.class)
     abstract TenseFragment bindTenseFragment();
 
+    @ContributesAndroidInjector(modules = MainBottomModule.class)
+    abstract MainBottomActivity bindMainBottomActivity();
 }

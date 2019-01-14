@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.sekini.ui.mainbottom.MainBottomViewModel" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:background="@color/grey_5"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/space" />
+
+        <com.luseen.spacenavigation.SpaceNavigationView
+            android:id="@+id/space"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            app:active_item_color="@color/colorAccent"
+            app:centre_button_color="@color/colorPrimary"
+            app:centre_button_icon="@drawable/ic_menu_dictionary"
+            app:inactive_item_color="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:space_background_color="@color/white"
+            app:space_item_icon_only_size="@dimen/space_item_icon_only_size"
+            app:space_item_icon_size="@dimen/space_item_icon_default_size"
+            app:space_item_text_size="@dimen/space_item_text_default_size" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

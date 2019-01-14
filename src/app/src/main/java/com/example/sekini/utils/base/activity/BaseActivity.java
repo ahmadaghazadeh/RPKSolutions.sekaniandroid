@@ -117,13 +117,7 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
 
     }
 
-    @Override
-    protected void onResume() {
-        Fragment f = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-        configToolbar(f);
-        super.onResume();
 
-    }
 
     private void performDataBinding() {
         mViewDataBinding = DataBindingUtil.setContentView(this, getLayoutId());
@@ -277,7 +271,7 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
     }
 
 
-    private void configToolbar(Fragment f) {
+    protected void configToolbar(Fragment f) {
         if (f instanceof DictionaryFragment) {
             getToolbar().setVisibility(View.GONE);
         } else {

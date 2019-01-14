@@ -11,6 +11,7 @@ import com.example.sekini.utils.common.CommonUtils;
 import com.example.sekini.utils.common.RunnableIn;
 import com.example.sekini.utils.common.RunnableMethod;
 import com.example.sekini.utils.common.RunnableModel;
+import com.example.sekini.utils.exception.BaseException;
 
 import java.util.List;
 
@@ -59,8 +60,12 @@ public class Game1ViewModel extends FragmentBaseViewModel<IGame1Navigator> {
         RunnableIn<RunnableModel<List<Integer>>> post = (param) -> {
             getNavigator().dismissLoadingDialog();
             if (param.hasError()) {
+                if(param.getException()!=null && ((BaseException)param.getException()).getSystemMessage().equals("Unauthorized")){
+                    getNavigator().snackBar(R.string.please_login_again);
+                }else{
+                    getNavigator().snackBar(R.string.no_internet_connection);
+                }
                 getNavigator().snackBar(R.string.no_internet_connection);
-                getNavigator().gotoMain();
                 return;
             }
             if (param.getModel().size() >= 1) {

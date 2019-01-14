@@ -63,7 +63,7 @@ public class SyncService extends DaggerIntentService {
             RunnableIn<RunnableModel> post = (param) -> {
                 if (param.hasError()) {
                     commonUtils.notification(commonUtils.getString(R.string.attention),
-                            param.getException().getMessage(), 0, 0, 1);
+                            commonUtils.getString(R.string.sync_error), 0, 0, 1);
                 } else {
                     appPref.setInitApp();
                     commonUtils.notification(commonUtils.getString(R.string.attention),
